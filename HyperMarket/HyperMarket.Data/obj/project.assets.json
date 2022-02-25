@@ -8,24 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\karis\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\AJ\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\Interns - Team 4\\HyperMarket\\HyperMarket.Data\\HyperMarket.Data.csproj",
+      "projectUniqueName": "C:\\Users\\AJ\\Desktop\\INTERNSHIP\\project\\HyperMarket\\HyperMarket.Data\\HyperMarket.Data.csproj",
       "projectName": "HyperMarket.Data",
-      "projectPath": "C:\\Projects\\Interns - Team 4\\HyperMarket\\HyperMarket.Data\\HyperMarket.Data.csproj",
-      "packagesPath": "C:\\Users\\karis\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\Interns - Team 4\\HyperMarket\\HyperMarket.Data\\obj\\",
+      "projectPath": "C:\\Users\\AJ\\Desktop\\INTERNSHIP\\project\\HyperMarket\\HyperMarket.Data\\HyperMarket.Data.csproj",
+      "packagesPath": "C:\\Users\\AJ\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AJ\\Desktop\\INTERNSHIP\\project\\HyperMarket\\HyperMarket.Data\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\karis\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\AJ\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -33,7 +28,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
