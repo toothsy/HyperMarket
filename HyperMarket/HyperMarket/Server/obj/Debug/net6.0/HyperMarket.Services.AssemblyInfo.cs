@@ -11,7 +11,6 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("HyperMarket.Server-9C6551D0-2C06-4FC8-8CCA-AC00520F2090")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("HyperMarket.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
