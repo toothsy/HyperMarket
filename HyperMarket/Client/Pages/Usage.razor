@@ -1,0 +1,33 @@
+﻿@page "/usage"
+@using HyperMarket.UIControls.GenericTable
+<div class = "content-container">
+    <div class="page-title-section mb-3">
+        <div class="page-title-name">
+            <div class="page-title">
+                <h2>Activity Log</h2>
+            </div>
+        </div>
+        <div class = "page-filters">
+            <div class="search-box">
+                <EditForm Model="@searchModel">
+                    <InputText @bind-Value = '@searchModel.SearchTerm'/>
+                </EditForm>
+            </div>
+            <div class="search-button-div">
+                <input type="button" value="Search" />
+            </div>
+        </div>
+    </div>
+    <div class="content-table">
+        <GenericTable></GenericTable>
+    </div>
+</div>
+@code {
+    private class SearchModel
+    {
+        public string? SearchTerm { get; set; }
+    }
+
+    private SearchModel searchModel = new SearchModel();
+    
+}

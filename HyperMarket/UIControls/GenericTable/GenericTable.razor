@@ -1,0 +1,41 @@
+﻿<div class="table">
+    <div class="table-header">
+        @for(var i = 0; i < TableHeaderTitles.Count; i++)
+        {
+            
+            <div class="table-header-title flex-@columnWidths[i]">
+                <strong>@TableHeaderTitles[i]</strong>
+            </div>
+        }
+    </div>
+    <div class="table-rows">
+        @*Should iterate over each row in the data table*@
+        @*This is just a sample code*@
+        @for(var j = 0; j < SampleDataOne.Count; j++)
+        {
+            <div class="table-row-data flex-@columnWidths[j]">
+                <strong>@SampleDataOne[j]</strong>
+            </div>
+        }
+        <div class="search-button-div">
+                <input type="button" value="Details" />
+        </div>
+    </div>
+</div>
+
+@code{
+    public List<string> TableHeaderTitles = new List<string>()
+    {
+        "Id", "Employee Id", "Activity Type", "Activity Description", "Activity Timestamp", ""
+    };
+    public List<string> SampleDataOne = new List<string>()
+    {
+        "679172", "679172", "Logging", "User Login", "26thFeb, 2022"
+    };
+    
+    public List<int> columnWidths = new List<int>()
+    {
+        1, 2, 3, 3, 2, 1
+    };
+    
+}
