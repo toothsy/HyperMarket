@@ -1,4 +1,4 @@
-namespace HyperMarket.ViewModels
+namespace HyperMarket.Shared
 {
     public class WeatherForecast
     {

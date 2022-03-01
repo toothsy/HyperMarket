@@ -1,4 +1,4 @@
-using HyperMarket.ViewModels;
+using HyperMarket.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HyperMarket.Server.Controllers

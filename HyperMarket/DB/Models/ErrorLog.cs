@@ -12,13 +12,13 @@ namespace HyperMarket.DB.Models
     public class ErrorLog
     {
         [Key]
-        public int ErrorId { get; set; }
+        public Int32 ErrorId { get; set; }
         public string Description { get; set; }
         public string UrlOrModule { get; set; }
         public DateTime ErrorTimeStamp { get; set; }
 
         [ForeignKey("tblUser")]
-        public int UserId { get; set; }
+        public Int32 UserId { get; set; }
 
         public User User { get; set; }
     }
