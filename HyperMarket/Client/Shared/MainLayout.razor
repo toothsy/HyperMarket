@@ -10,9 +10,32 @@
         <MudSelectItem Value="@("Hyderabad")" />
     </MudSelect>
     <MudSpacer />
-    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />
-</MudAppBar>
+    <MudBreadcrumbs Items="_items" Separator="|"></MudBreadcrumbs>
+    
+    @*<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />*@
+    </MudAppBar>
+
+    
     <MudMainContent>
         @Body
     </MudMainContent>
+    <MudAppBar Color="Color.Dark" Fixed="false" Dense="true" Bottom=true>
+        <MudLink Href="/About" Style="color: white;" Underline="Underline.Always">About</MudLink>
+
+        <MudLink Href="/Blog" Style="color: white;" Underline="Underline.Always" Class="">Blog</MudLink>
+        <MudLink Href="/SocialMedia" Style="color: white;" Underline="Underline.Always">Social Media</MudLink>
+        <MudLink Href="/FAQ" Style="color: white;" Underline="Underline.Always">FAQ's</MudLink>
+        <MudLink Href="/ContactUs" Style="color: white;" Underline="Underline.Always">Contact Us</MudLink>
+    </MudAppBar>
 </MudLayout>
+    
+     
+
+@code {
+    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
+    {
+        new BreadcrumbItem("List Your Business", href: "/listBusiness"),
+        new BreadcrumbItem("SignUp", href: "/Signup"),
+        new BreadcrumbItem("Login", href: "/Login")
+    };
+}
