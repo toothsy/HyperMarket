@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HyperMarket.DB.Models
 {
@@ -12,11 +7,15 @@ namespace HyperMarket.DB.Models
     public class User
     {
         [Key]
-        public Int32 UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string EmailAddress { get; set; }
-        public Int64 MobileNumber { get; set; }
-        public string Address { get; set; }
+        public int UserId { get; set; }
+        public string EmailId { get; set; }
+        public string Password { get; set; }
+        public string ReferredBy { get; set; }
+        public long UserName { get; set; }
+        public int CreatedBy { get; set; }
+        public int UpdatedBy { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public int RoleId { get; set; }
     }
 }

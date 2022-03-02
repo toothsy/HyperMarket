@@ -14,8 +14,25 @@ namespace HyperMarket.Data
 
         #region Public properties
         public DbSet<User> Users { get; set; }
-        public DbSet<ActivityLog> ActivityLog { get; set; }
-        public DbSet<ErrorLog> ErrorLog { get; set; }
+        public DbSet<ActivityLog> ActivityLogs { get; set; }
+        public DbSet<ActivityType> ActivityTypes { get; set; }
+        public DbSet<BusinessDetail> BusinessDetails { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CustomerDetail> CustomerDetails { get; set; }
+        public DbSet<ErrorLog> ErrorLogs { get; set; }
+        public DbSet<ErrorType> ErrorTypes { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Config> Config { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Faq> Faq { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Payment> payments { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
         #endregion
 
     //    #region Overidden methods
