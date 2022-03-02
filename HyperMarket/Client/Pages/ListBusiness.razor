@@ -1,0 +1,88 @@
+﻿@page "/ListBusiness"
+@using HyperMarket.Shared
+
+@using System.ComponentModel.DataAnnotations
+<center>
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+<DataAnnotationsValidator/>
+<h2 align-items: "center;">Business Sign Up</h2>
+<MudGrid Class="d-flex justify-center align-center"> 
+    <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
+        <MudCard style = "height: 810px;">
+            <MudCardContent>
+                <MudTextField Label="Username" HelperText="Max. 30 characters"
+                              @bind-Value="model.Username" For="@(() => model.Username)"/>
+                <MudTextField Label="Enter Mail-id" Class="mt-3"
+                              @bind-Value="model.Email" For="@(() => model.Email)"/>
+                <MudTextField Label="Enter Password" HelperText="Choose a strong password" Class="mt-3"
+                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
+                <MudTextField Label="Re-Enter Password" HelperText="Repeat the password" Class="mt-3"
+                              @bind-Value="model.Password2" For="@(() => model.Password2)" InputType="InputType.Password"/>
+                <MudTextField Label="Business Name" HelperText="Enter Business Name" Class="mt-3"
+                              @bind-Value="model.BusinessName" For="@(() => model.BusinessName)"/>
+                <MudTextField Label="Business Type" HelperText="Enter Business Type" Class="mt-3"
+                              @bind-Value="model.BusinessType" For="@(() => model.BusinessType)" />
+                <MudTextField Label="Location" HelperText="Enter Location" Class="mt-3"
+                              @bind-Value="model.Location" For="@(() => model.Location)" />
+                <MudButton style = "margin-left: 350px; width: 112px; color: white; height: 30px; background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center"> Send OTP</MudButton>
+                <MudTextField Label="OTP" HelperText="Enter 5 digit OTP" Class="mt-3"
+                              @bind-Value="model.OTP" For="@(() => model.OTP)" />
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Register</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+</EditForm>
+</center>
+
+@code {
+    RegisterAccountForm model = new RegisterAccountForm();
+    bool success;
+
+    public class RegisterAccountForm
+    {
+        [Required]
+        [StringLength(30, ErrorMessage = "Enter Username")]
+        public string Username { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
+        public string Password { get; set; }
+
+        [Required]
+        [Compare(nameof(Password))]
+        public string Password2 { get; set; }
+
+        [Required]
+        [StringLength(30,ErrorMessage = "Enter Name of Business")]
+        public string BusinessName {get;set;}
+
+        [Required]
+        [StringLength(30,ErrorMessage = "Enter Type of Business")]
+        public string BusinessType {get;set;}
+
+        [Required]
+        [StringLength(20,ErrorMessage = "Enter Location")]
+        public string Location {get;set;}  
+
+        
+        [Required]
+        [StringLength(5,ErrorMessage = "Enter 5 digit OTP")]
+        public string OTP {get;set;}  
+
+    }
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+
+}
+
