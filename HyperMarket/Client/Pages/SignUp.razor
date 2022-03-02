@@ -1,0 +1,68 @@
+﻿@page "/SignUp"
+
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+<MudGrid Class="ml-60 align-center">
+    <MudItem xs="12" sm="7">
+        <MudPaper Class="mx-auto pa-6"> 
+            <MudForm @ref="form" @bind-IsValid="@success">
+                    <MudTextField T="string" Label="Username" HelperText="Username must be between 8-16 characters long" Required="true" RequiredError="User name is required!"
+                                  Validation=@(new Func<string, IEnumerable<string>>(UsernameCheck))></MudTextField>
+                    <MudTextField T="string" Label="Email" Required="true" RequiredError="Email is required!"
+                                  Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})"/>
+                    <MudTextField T="string" Label="Password" HelperText="The password must be atleast 8 characters long and must have at least one number." @ref="pwField1"
+                                  InputType="InputType.Password"
+                                  Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
+                                  RequiredError="Password is required!"/>
+                    <MudTextField T="string"
+                                  Label="Re-enter Password" HelperText="Repeat the password" InputType="InputType.Password"
+                                  Validation="@(new Func<string, string>(PasswordMatch))"/>
+                    <MudTextField T="string" Label="Referal Link" HelperText="You can leave it empty if you do not have one" Required="false"></MudTextField>                    
+                    <div class="d-flex align-center justify-space-between mt-6">
+                        <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Remember Me!"/>
+                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" Disabled="@(!success)" Class="ml-auto">Register</MudButton>
+                    </div>
+            </MudForm>   
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+@code {
+    bool success;
+    MudTextField<string> pwField1;
+    MudTextField<string> pwusername;
+    MudForm form;
+
+    private IEnumerable<string> PasswordStrength(string pw)
+    {
+        if (string.IsNullOrWhiteSpace(pw))
+        {
+            yield return "Password is required!";
+            yield break;
+        }
+        if (pw.Length < 8)
+            yield return "Password must be at least of length 8";
+        if (!Regex.IsMatch(pw, @"[A-Z]"))
+            yield return "Password must contain at least one capital letter";
+        if (!Regex.IsMatch(pw, @"[a-z]"))
+            yield return "Password must contain at least one lowercase letter";
+        if (!Regex.IsMatch(pw, @"[0-9]"))
+            yield return "Password must contain at least one digit";
+    }
+
+    private IEnumerable<string> UsernameCheck(string uname)
+    {
+        if (uname.Length < 8)
+            yield return "Username must be at least of length 8";
+        if (!Regex.IsMatch(uname, @"[A-Z]"))
+            yield return "Username must contain at least one uppercase letter";
+        if (!Regex.IsMatch(uname, @"[0-9]"))
+            yield return "Username must contain at least one digit";
+    }
+    private string PasswordMatch(string arg)
+    {
+        if (pwField1.Value != arg)
+            return "Passwords don't match";
+        return null;
+    }
+
+}
