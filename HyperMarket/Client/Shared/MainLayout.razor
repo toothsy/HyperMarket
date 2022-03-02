@@ -1,17 +1,18 @@
 ﻿@inherits LayoutComponentBase
-
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+<MudLayout>
+    <MudAppBar Color="Color.Error" Fixed="false" Dense="true">
+    <MudSelect Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
+        <MudSelectItem Value="@("Delhi")" />
+        <MudSelectItem Value="@("Mumbai")" />
+        <MudSelectItem Value="@("Hyderabad")" />
+    </MudSelect>
+    <MudSpacer />
+    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />
+</MudAppBar>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
