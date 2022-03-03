@@ -11,7 +11,7 @@ namespace HyperMarket.DB.Models
         public string EmailId { get; set; }
         public string Password { get; set; }
         public string ReferredBy { get; set; }
-        public long UserName { get; set; }
+        public string UserName { get; set; }
         public int CreatedBy { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
