@@ -1,0 +1,49 @@
+﻿@page "/MyProfile"
+
+@using HyperMarket.Shared
+@using System.ComponentModel.DataAnnotations
+
+<style>
+    .log {
+        color: #f35555;
+        margin-top: 60px;
+        font-style: italic;
+        text-align:center;
+        padding-top: 35px
+    }
+
+    .side {
+        margin-top: 15px;
+    }
+
+</style>
+
+
+<MudGrid Class="d-flex justify-center align-center"> 
+    <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
+        <MudCard style = "height: 550px;margin-top: -40px;">
+            <h2 class = "log">My Profile</h2>
+            <MudCardContent>
+                <h6 class = "side">Username</h6>  <MudTextField @bind-Value="TextValue" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                <h6 class = "side">Password</h6>  <MudTextField @bind-Value="TextValue" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                <h6 class = "side">Mail Id</h6>   <MudTextField @bind-Value="TextValue" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                <h6 class = "side">Referral Code</h6>  <MudTextField @bind-Value="TextValue" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+            </MudCardContent>
+            @*<MudCardActions>
+                <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Log In</MudButton>
+            </MudCardActions>*@
+        </MudCard>
+    </MudItem>
+</MudGrid>
+
+
+
+
+
+
+
+
+@code {
+    public string TextValue { get; set; }
+}
+

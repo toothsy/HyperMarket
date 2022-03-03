@@ -1,0 +1,62 @@
+﻿@page "/SignIn"
+
+@using HyperMarket.Shared
+@using System.ComponentModel.DataAnnotations
+
+<style>
+    .log {
+        color: #f35555;
+        margin-top: 55px;
+        font-style: italic;
+    }
+
+</style>
+
+<center>
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+<DataAnnotationsValidator/>
+<h2 class = "log" align-items: "center;">Log In</h2>
+<MudGrid Class="d-flex justify-center align-center"> 
+    <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
+        <MudCard style = "height: 330px;">
+            <MudCardContent>
+                <MudTextField Label="Username" HelperText="Max. 30 characters"
+                              @bind-Value="model.Username" For="@(() => model.Username)"/>
+               
+                <MudTextField Label="Enter Password" HelperText="Enter your password" Class="mt-3"
+                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
+            
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Log In</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+</EditForm>
+</center>
+
+@code {
+    LogInAccountForm model = new LogInAccountForm();
+    bool success;
+
+    public class LogInAccountForm
+    {
+        [Required]
+        [StringLength(30, ErrorMessage = "Enter Username")]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
+        public string Password { get; set; }
+
+    }
+
+    private void OnValidSubmit(EditContext context)
+    {
+        success = true;
+        StateHasChanged();
+    }
+
+}
+

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperMarket.Server", "Server\HyperMarket.Server.csproj", "{E239FD4B-050C-408E-8F31-28D9110CC6C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperMarket.Server", "Server\HyperMarket.Server.csproj", "{E239FD4B-050C-408E-8F31-28D9110CC6C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperMarket.Client", "Client\HyperMarket.Client.csproj", "{41C7D2F1-6E38-404E-AC50-D44BEA23AD1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperMarket.Client", "Client\HyperMarket.Client.csproj", "{41C7D2F1-6E38-404E-AC50-D44BEA23AD1D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperMarket.ViewModels", "Shared\HyperMarket.ViewModels.csproj", "{A37BF8AA-B392-4E31-8734-42AE39DA3088}"
 EndProject

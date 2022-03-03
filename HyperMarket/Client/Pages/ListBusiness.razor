@@ -2,10 +2,19 @@
 @using HyperMarket.Shared
 
 @using System.ComponentModel.DataAnnotations
+
+<style>
+    .registerform {
+        color: #f35555;
+        margin-top: 55px;
+        font-style: italic;
+    }
+
+</style>
 <center>
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
 <DataAnnotationsValidator/>
-<h2 align-items: "center;">Business Sign Up</h2>
+<h2 class = "registerform" align-items: "center;">Business Sign Up</h2>
 <MudGrid Class="d-flex justify-center align-center"> 
     <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
         <MudCard style = "height: 830px;">
