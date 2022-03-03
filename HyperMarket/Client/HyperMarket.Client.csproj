@@ -18,6 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Data\HyperMarket.Data.csproj" />
 		<ProjectReference Include="..\Shared\HyperMarket.ViewModels.csproj" />
 		<ProjectReference Include="..\UIControls\HyperMarket.UIControls.csproj" />
 	</ItemGroup>

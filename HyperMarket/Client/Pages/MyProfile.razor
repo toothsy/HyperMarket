@@ -1,7 +1,8 @@
 ﻿@page "/MyProfile"
-
+@using HyperMarket.DB.Models
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
+@inject HyperMarket.DB.Interfaces.IUserService userService
 
 <style>
     .log {
@@ -17,33 +18,62 @@
     }
 
 </style>
-
+@*
+<PageTitle>My Profile</PageTitle>
+@if (users.Count>0)
+{
+    <p>@users[0].UserName</p>
+}*@
 
 <MudGrid Class="d-flex justify-center align-center"> 
     <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
         <MudCard style = "height: 550px;margin-top: -40px;">
             <h2 class = "log">My Profile</h2>
             <MudCardContent>
-                <h6 class = "side">Username</h6>  <MudTextField @bind-Value="TextValue" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                <h6 class = "side">Password</h6>  <MudTextField @bind-Value="TextValue" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                <h6 class = "side">Mail Id</h6>   <MudTextField @bind-Value="TextValue" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                <h6 class = "side">Referral Code</h6>  <MudTextField @bind-Value="TextValue" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                <h6 class = "side">Username</h6>  <MudTextField @bind-Value="users1.UserName" Label="" Variant="Variant.Filled" Margin="Margin.Dense">@users1.UserName</MudTextField>
+                <h6 class = "side">Password</h6>  <MudTextField @bind-Value="users1.Password" Label="user.Password" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                <h6 class = "side">Mail Id</h6>   <MudTextField @bind-Value="users1.EmailId" Label="user.EmailId" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                <h6 class = "side">Referral Code</h6>  <MudTextField @bind-Value="users1.ReferredBy" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
             </MudCardContent>
-            @*<MudCardActions>
+            <MudCardActions>
                 <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Log In</MudButton>
-            </MudCardActions>*@
+            </MudCardActions>
         </MudCard>
     </MudItem>
 </MudGrid>
 
 
+@code{
+    //public string searchString = "";
+    public List<User> users = new List<User>();
+    public User users1= new User();
 
+    protected override async Task OnInitializedAsync()
+    {
+        //users=await userService.GetUsers();
+        users1 = await userService.GetUserById(2);
+    }
 
+    //public async Task GetUsersById(int id)
+    //{
+    //    users1 =await userService.GetUserById(id);
+    //}
 
+    //public void Save()
+    //{
+    //    userService.SaveUser(user);
+    //    user = new User();
+    //    GetUsers();
+    //}
 
+    //public void Edit(int id)
+    //{
+    //    user = users.FirstOrDefault(c => c.UserId == id);
+    //}
 
-
-@code {
-    public string TextValue { get; set; }
-}
-
+    //public void Delete(int id)
+    //{
+    //    userService.DeleteUser(id);
+    //    GetUsers();
+    //}
+    }
