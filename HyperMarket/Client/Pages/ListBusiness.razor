@@ -8,7 +8,7 @@
 <h2 align-items: "center;">Business Sign Up</h2>
 <MudGrid Class="d-flex justify-center align-center"> 
     <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
-        <MudCard style = "height: 810px;">
+        <MudCard style = "height: 830px;">
             <MudCardContent>
                 <MudTextField Label="Username" HelperText="Max. 30 characters"
                               @bind-Value="model.Username" For="@(() => model.Username)"/>
@@ -24,12 +24,13 @@
                               @bind-Value="model.BusinessType" For="@(() => model.BusinessType)" />
                 <MudTextField Label="Location" HelperText="Enter Location" Class="mt-3"
                               @bind-Value="model.Location" For="@(() => model.Location)" />
-                <MudButton style = "margin-left: 350px; width: 112px; color: white; height: 30px; background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center"> Send OTP</MudButton>
                 <MudTextField Label="OTP" HelperText="Enter 5 digit OTP" Class="mt-3"
                               @bind-Value="model.OTP" For="@(() => model.OTP)" />
+                <MudButton style = "margin-left: 350px; width: 112px; color: white; height: 30px; background-color: #f35555;margin-top: 30px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center"> Send OTP</MudButton>
+
             </MudCardContent>
             <MudCardActions>
-                <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Register</MudButton>
+                <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Register</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>
