@@ -6,20 +6,26 @@
 <style>
     .log {
         color: #f35555;
-        margin-top: 55px;
+        margin-top: 40px;
         font-style: italic;
+        font-size: 24px;
     }
+    .bg {
+        background-color: #cbf0f561;
+    }
+
 
 </style>
 
+<div class = "bg">
 <center>
 <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
 <DataAnnotationsValidator/>
-<h2 class = "log" align-items: "center;">Log In</h2>
-<MudGrid Class="d-flex justify-center align-center"> 
-    <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
-        <MudCard style = "height: 330px;">
+<MudGrid style = "margin-top: -50px;" Class="d-flex justify-center align-center"> 
+    <MudItem xs="12" sm="7" style = "margin-top: -45px; padding: 155px;">
+        <MudCard style = "height: 400px;">
             <MudCardContent>
+                <h2 class = "log" align-items: "center;">Log In</h2>
                 <MudTextField Label="Username" HelperText="Max. 30 characters"
                               @bind-Value="model.Username" For="@(() => model.Username)"/>
                
@@ -28,13 +34,14 @@
             
             </MudCardContent>
             <MudCardActions>
-                <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Log In</MudButton>
+                <MudButton style = "margin-left: 325px;margin-right: 8px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Log In</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>
 </MudGrid>
 </EditForm>
 </center>
+</div>
 
 @code {
     LogInAccountForm model = new LogInAccountForm();

@@ -2,15 +2,17 @@
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
+
+
 <MudLayout>
-    <MudAppBar Color="Color.Error" Fixed="false" Dense="true">
-    <MudSelect style = "width: 200px;" Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
-        <MudSelectItem Value="@("Delhi")" />
-        <MudSelectItem Value="@("Mumbai")" />
-        <MudSelectItem Value="@("Hyderabad")" />
+    <MudAppBar style = "background-color : #f35555;" Fixed="false" Dense="true">
+    <MudSelect style = "margin-right: 750px;"Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
+    <MudSelectItem Value="@("Delhi")" />
+    <MudSelectItem Value="@("Mumbai")" />
+    <MudSelectItem Value="@("Hyderabad")" />
     </MudSelect>
     <MudSpacer />
-    <MudBreadcrumbs Items="_items" Separator="|"></MudBreadcrumbs>
+    <MudBreadcrumbs style = "color : white" Items="_items" Separator="|"></MudBreadcrumbs>
     
     @*<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />*@
     </MudAppBar>
@@ -20,14 +22,15 @@
         @Body
     </MudMainContent>
     <MudAppBar Color="Color.Dark" Fixed="false" Dense="true" Bottom=true>
-        <MudItem>
-             
-            <MudLink Href="/About" Underline="Underline.Always"><a href="/about" style="color: White" class="p-4">About</a></MudLink>
+        
+        <MudItem>    
+        <MudLink Href="/About" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;padding-left: 170px;"href="/about">About</a></MudLink>
         </MudItem>
-        <MudLink Href="/Blog" Underline="Underline.Always"><a href="/about" style="color: White" class="p-4">Blog</a></MudLink>
-        <MudLink Href="/SocialMedia" Style="color: white;" Underline="Underline.Always"><a href="/SocialMedia" style="color: White" class="p-4">Social Media</a></MudLink>
-        <MudLink Href="/FAQ" Style="color: white;" Underline="Underline.Always"><a href="/FAQ" style="color: White" class="p-4">FAQ's</a></MudLink>
-        <MudLink Href="/ContactUs" Style="color: white;" Underline="Underline.Always"><a href="/ContactUs" style="color: White" class="p-4">Contact Us</a></MudLink>
+        <MudLink Href="/Blog" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;" href="/blog">Blog</a></MudLink>
+        <MudLink Href="/SocialMedia" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;" href="/SocialMedia" >Social Media</a></MudLink>
+        <MudLink Href="/FAQ" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;" href="/FAQ" >FAQ's</a></MudLink>
+        <MudLink Href="/ContactUs" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;"  href="/ContactUs">Contact Us</a></MudLink>
+       
     </MudAppBar>
 </MudLayout>
     
@@ -38,6 +41,6 @@
     {
         new BreadcrumbItem("List Your Business", href: "/listBusiness"),
         new BreadcrumbItem("SignUp", href: "/Signup"),
-        new BreadcrumbItem("Login", href: "/Login")
+        new BreadcrumbItem("Login", href: "/SignIn")
     };
 }
