@@ -19,23 +19,23 @@ namespace HyperMarket.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            return Ok(await _context.Users.ToListAsync());
+            return Ok(await _context.Products.ToListAsync());
         }
 
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
-            if (user == null)
+            var prod = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
+            if (prod == null)
             {
-                return NotFound("User not found!");
+                return NotFound("Product not found!");
             }
-            return Ok(user);
+            return Ok(prod);
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> SaveProduct(Product prod)
+        public async Task<ActionResult<Product>> SaveProduct(Product prod)
         {
             _context.Products.Add(prod);
             await _context.SaveChangesAsync();

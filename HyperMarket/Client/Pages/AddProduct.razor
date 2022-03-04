@@ -1,7 +1,6 @@
 ﻿@page "/AddProduct"
 @using System.ComponentModel.DataAnnotations
 @using HyperMarket.DB.Models
-@using HyperMarket.Shared
 @inject HyperMarket.Data.Interfaces.IProductService productService
 <style>
     .registerform {
@@ -23,9 +22,9 @@
                               @bind-Value="prod.ProductName"/>
                 <MudTextField Label="Product Description" Class="mt-3"
                               @bind-Value="prod.ProductDescription"/>
-                @*<MudTextField Label="Enter Password" HelperText="Choose a strong password" Class="mt-3"
-                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
-                <MudTextField Label="Re-Enter Password" HelperText="Repeat the password" Class="mt-3"
+                <MudTextField Label="Price" HelperText="List your price" Class="mt-3"
+                              @bind-Value="prod.Price" InputType="InputType.Number"/>
+                @*<MudTextField Label="Re-Enter Password" HelperText="Repeat the password" Class="mt-3"
                               @bind-Value="model.Password2" For="@(() => model.Password2)" InputType="InputType.Password"/>
                 <MudTextField Label="Business Name" HelperText="Enter Business Name" Class="mt-3"
                               @bind-Value="model.BusinessName" For="@(() => model.BusinessName)"/>
@@ -39,7 +38,8 @@
 *@
             </MudCardContent>
             <MudCardActions>
-                <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center" OnClick="SaveChanges">Register</MudButton>
+
+                <MudButton style = "margin-left: 180px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center" OnClick="@SaveChanges">Register</MudButton>
             </MudCardActions>
         </MudCard>
     </MudItem>
