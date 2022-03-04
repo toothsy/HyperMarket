@@ -1,26 +1,55 @@
 ﻿@page "/SignUp"
-
+@using HyperMarket.DB.Models;
 @using System.Text.RegularExpressions
+@inject HyperMarket.DB.Interfaces.IUserService userService
+
 @using System.ComponentModel.DataAnnotations
 <MudGrid Class="ml-60 align-center">
     <MudItem xs="12" sm="7">
         <MudPaper Class="mx-auto pa-6"> 
             <MudForm @ref="form" @bind-IsValid="@success">
-                    <MudTextField T="string" Label="Username" HelperText="Username must be between 8-16 characters long" Required="true" RequiredError="User name is required!"
+                    <MudTextField T="string" 
+                                    Label="Username" 
+                                    HelperText="Username must be between 8-16 characters long" 
+                                    Required="true" 
+                                    
+                                    RequiredError="User name is required!"
+                                    @bind-Value="u.UserName"
                                   Validation=@(new Func<string, IEnumerable<string>>(UsernameCheck))></MudTextField>
-                    <MudTextField T="string" Label="Email" Required="true" RequiredError="Email is required!"
+                    <MudTextField T="string" Label="Email" 
+                                    @bind-Value="u.EmailId"
+
+                                    Required="true" RequiredError="Email is required!"
                                   Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})"/>
-                    <MudTextField T="string" Label="Password" HelperText="The password must be atleast 8 characters long and must have at least one number." @ref="pwField1"
+                    <MudTextField T="string" Label="Password" 
+
+                                    HelperText="The password must be atleast 8 characters long and must have at least one number." @ref="pwField1"
                                   InputType="InputType.Password"
                                   Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
                                   RequiredError="Password is required!"/>
                     <MudTextField T="string"
+                                    @bind-Value="u.Password"
+                                    
                                   Label="Re-enter Password" HelperText="Repeat the password" InputType="InputType.Password"
                                   Validation="@(new Func<string, string>(PasswordMatch))"/>
                     <MudTextField T="string" Label="Referal Link" HelperText="You can leave it empty if you do not have one" Required="false"></MudTextField>                    
+                    <MudTextField T="string" 
+                                    Label="RefferedBy" 
+                                    HelperText="Username must be between 8-16 characters long" 
+                                    Required="true" 
+                                    
+                                    RequiredError="User name is required!"
+                                    @bind-Value="u.ReferredBy"
+                                  Validation=@(new Func<string, IEnumerable<string>>(UsernameCheck))></MudTextField>
+                    
                     <div class="d-flex align-center justify-space-between mt-6">
                         <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Remember Me!"/>
-                        <MudButton Variant="Variant.Filled" Color="Color.Secondary" Disabled="@(!success)" Class="ml-auto">Register</MudButton>
+                        <MudButton Variant="Variant.Filled" 
+                                    Color="Color.Secondary" 
+                                    Disabled="@(!success)" 
+                                    Class="ml-auto"
+                                    OnClick="@postData"
+                        >Register</MudButton>
                     </div>
             </MudForm>   
         </MudPaper>
@@ -31,6 +60,12 @@
     MudTextField<string> pwField1;
     MudTextField<string> pwusername;
     MudForm form;
+    User u = new User();
+
+    public void postData()
+    {
+        userService.SaveUser(u);
+    }
 
     private IEnumerable<string> PasswordStrength(string pw)
     {

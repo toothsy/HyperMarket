@@ -3,6 +3,7 @@ using HyperMarket.DB.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using HyperMarket.DB.Models;
 
 namespace HyperMarket.Server.Controllers
 {
@@ -32,6 +33,14 @@ namespace HyperMarket.Server.Controllers
                 return NotFound("User not found!");
             }
             return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<User>> SaveUser (User user){
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return Ok(user.UserId);
+
         }
     }
 }

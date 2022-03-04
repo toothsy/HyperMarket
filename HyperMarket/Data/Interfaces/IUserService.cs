@@ -6,7 +6,7 @@ namespace HyperMarket.DB.Interfaces
     {
         Task<List<User>> GetUsers();
         Task<User> GetUserById(int id);
-        //void SaveUser(User user);
+        void SaveUser(User user);
         //void DeleteUser(int id);
     }
 }

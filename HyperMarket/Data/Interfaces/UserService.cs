@@ -13,10 +13,6 @@ namespace HyperMarket.DB.Interfaces
             _httpClient = httpClient;
         }
 
-        //public List<User> GetUsers()
-        //{
-        //    //return _dbContext.Users.ToList();
-        //}
 
         public async Task<User> GetUserById(int id)
         {
@@ -29,12 +25,12 @@ namespace HyperMarket.DB.Interfaces
             return await _httpClient.GetFromJsonAsync<List<User>>($"api/user");
         }
 
-        //public void SaveUser(User user)
-        //{
-        //    if (user.UserId == 0) _dbContext.Users.Add(user);
-        //    else _dbContext.Users.Update(user);
-        //    _dbContext.SaveChanges();
-        //}
+        public async void SaveUser(User user)
+        {
+            var test = await _httpClient.PostAsJsonAsync ($"api/user/",user);
+
+            Console.WriteLine(test);
+        }
 
         //public void DeleteUser(int id)
         //{
