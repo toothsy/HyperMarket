@@ -12,12 +12,10 @@ namespace HyperMarket.Data.Interfaces
     public class ProductService: IProductService
     {
         private readonly HttpClient _httpClient;
-        private readonly ApplicationDbContext _context;
 
-        public ProductService(HttpClient httpClient,ApplicationDbContext context)
+        public ProductService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _context= context;
         }
 
         //public List<User> GetUsers()
@@ -36,10 +34,9 @@ namespace HyperMarket.Data.Interfaces
             return await _httpClient.GetFromJsonAsync<List<Product>>($"api/product");
         }
 
-        public void SaveProduct(Product prod)
+        public async void SaveProduct(Product prod)
         {
-            //_context.Products.Add(prod);
-            //_context.SaveChanges();
+            var test = await _httpClient.PostAsJsonAsync($"api/product/",prod);
         }
         //public void SaveUser(User user)
         //{

@@ -17,14 +17,14 @@ namespace HyperMarket.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetProducts()
         {
             return Ok(await _context.Users.ToListAsync());
         }
 
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUserById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
             if (user == null)
@@ -35,10 +35,11 @@ namespace HyperMarket.Server.Controllers
         }
 
         [HttpPost]
-        public void SaveProduct(Product prod)
+        public async Task<ActionResult<User>> SaveProduct(Product prod)
         {
             _context.Products.Add(prod);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return Ok(prod.ProductId);
         }
     }
 }
