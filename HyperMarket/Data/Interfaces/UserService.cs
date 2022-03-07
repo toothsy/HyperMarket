@@ -20,11 +20,16 @@ namespace HyperMarket.DB.Interfaces
             return user;
         }
 
+
         public async Task<List<User>> GetUsers()
         {
             return await _httpClient.GetFromJsonAsync<List<User>>($"api/user");
         }
 
+        //public async Task<CustomerDetail> GetCustomerDetailById(int id)
+        //{
+        //    return await _httpClient.GetFromJsonAsync<CustomerDetail>($"api/user/{id}");
+        //}
         public async void SaveUser(User user)
         {
             var test = new HttpResponseMessage();
@@ -37,7 +42,7 @@ namespace HyperMarket.DB.Interfaces
             {
 
                 Console.WriteLine(e.StackTrace);
-                
+
             }
             finally
             {
@@ -45,8 +50,15 @@ namespace HyperMarket.DB.Interfaces
             }
 
         }
-        // (url,obj)
 
+        public async Task<User> UpdateUser(User user)
+        {
+            var response = await _httpClient.PutAsJsonAsync<User>($"/api/user/{user.UserId}", user);
+
+            return await response.Content.ReadFromJsonAsync<User>();
+        }
+
+    
         //public void DeleteUser(int id)
         //{
         //    var customer = _dbContext.Users.FirstOrDefault(x => x.UserId == id);

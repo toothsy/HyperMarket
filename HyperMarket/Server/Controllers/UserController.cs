@@ -7,8 +7,8 @@ using HyperMarket.DB.Models;
 
 namespace HyperMarket.Server.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -24,10 +24,12 @@ namespace HyperMarket.Server.Controllers
         }
 
 
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id);
+                             
             if (user == null)
             {
                 return NotFound("User not found!");
@@ -35,17 +37,33 @@ namespace HyperMarket.Server.Controllers
             return Ok(user);
         }
 
+
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetCustomerDetailById(int id)
+        //{
+        //    var user = await _context.CustomerDetails.FirstOrDefaultAsync(x => x.UserId == id)
+        //                     ;
+        //    if (user == null)
+        //    {
+        //        return NotFound("User not found!");
+        //    }
+        //    return Ok(user);
+        //}
+
         [HttpPost]
         public async Task<ActionResult<User>> SaveUser (User user){
-
-            Console.WriteLine("\n\n\nuser is here "+user+"\n\n\n\n\n");
-
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-
             return Ok(user.UserId);
 
+        }
 
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<User>> UpdateUser(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return Ok(user);
         }
     }
 }
