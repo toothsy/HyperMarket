@@ -1,0 +1,9 @@
+﻿using HyperMarket.DB.Models;
+
+namespace HyperMarket.Data.Interfaces
+{
+    public interface IBusinessDetailService
+    {
+        void SaveBusiness(BusinessDetail businessDetail);
+    }
+}

@@ -13,6 +13,7 @@ builder.Services.AddMudServices();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerDetailService, CustomerDetailService>();
+builder.Services.AddScoped<IBusinessDetailService, BusinessDetailService>();
 
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
