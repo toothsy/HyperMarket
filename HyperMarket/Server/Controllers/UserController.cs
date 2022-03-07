@@ -7,8 +7,8 @@ using HyperMarket.DB.Models;
 
 namespace HyperMarket.Server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -37,9 +37,14 @@ namespace HyperMarket.Server.Controllers
 
         [HttpPost]
         public async Task<ActionResult<User>> SaveUser (User user){
+
+            Console.WriteLine("\n\n\nuser is here "+user+"\n\n\n\n\n");
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
+
             return Ok(user.UserId);
+
 
         }
     }

@@ -19,7 +19,7 @@
 <MudGrid style = "padding: 205px; margin-left: 200px; margin-top: -150px;"Class="ml-60 align-center">
     <MudItem xs="12" sm="7">
         <MudPaper Class="mx-auto pa-6"> 
-            <MudForm @ref="form" @bind-IsValid="@success">
+            <MudForm @ref="form" @bind-IsValid="@success" @onsubmit ="postData">
                     <h4 class = "position">Sign Up</h4>
                     <MudTextField T="string" @bind-Value="user.UserName" Label="Username" HelperText="Username must be between 8-16 characters long" Required="true" RequiredError="User name is required!"
                                   Validation=@(new Func<string, IEnumerable<string>>(UsernameCheck))></MudTextField>
@@ -35,11 +35,20 @@
                                   Label="Re-enter Password" HelperText="Repeat the password" InputType="InputType.Password"
                                   Validation="@(new Func<string, string>(PasswordMatch))"/>
                     <MudTextField T="string" Label="Referal Link" HelperText="You can leave it empty if you do not have one" Required="false"></MudTextField>  
+                    <MudTextField T="string"  @bind-Value="user.ReferredBy"
+                                  Label="Who reffered you?" HelperText="reffered By ?" InputType="InputType.Text"
+                                  Required= "true"/>
                      @*<MudTextField T="string" Label="Enter OTP" HelperText="Enter Correct OTP" Required="true"></MudTextField>*@
                      @*<MudButton style = "margin-left: 390px;width: 102px; color: white; height: 33px; background-color: #f35555;margin-top: 0px"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Send OTP</MudButton>*@
                     <div style = "padding-top: 20px;"class="d-flex align-center justify-space-between mt-6">
                         @*<MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Remember Me!"/>*@
-                        <MudButton style = "margin-left: 330px;width: 163px;color: white;height: 40px;background-color: #f35555;margin-top: 15px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center" OnClick="@postData">Sign Up</MudButton>
+                        <MudButton style = "margin-left: 330px;width: 163px;color: white;height: 40px;background-color: #f35555;margin-top: 15px;" 
+                        ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" 
+                        Align = "align.Center" 
+                        
+                        
+
+                        >Sign Up</MudButton>
                     </div>
             </MudForm>   
         </MudPaper>
@@ -53,9 +62,10 @@
     MudTextField<string> pwusername;
     MudForm form;
     User user = new User();
-
+        
     public void postData()
     {
+        
         userService.SaveUser(user);
     }
 

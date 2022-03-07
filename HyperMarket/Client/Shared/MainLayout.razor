@@ -5,7 +5,10 @@
 
 
 <MudLayout>
-    <MudAppBar style = "background-color : #f35555;" Fixed="false" Dense="true">
+    <MudAppBar style = "background-color : #f35555;" Fixed="false" Dense="true" >
+    <a href="/">
+    <MudImage Src = "images/LOGO.png" Width="48" Height="48" />
+    </a>
     <MudSelect style = "margin-right: 750px;"Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
     <MudSelectItem Value="@("Delhi")" />
     <MudSelectItem Value="@("Mumbai")" />
@@ -21,7 +24,8 @@
     <MudMainContent>
         @Body
     </MudMainContent>
-    <MudAppBar Color="Color.Dark" Fixed="false" Dense="true" Bottom=true>
+    <MudAppBar 
+        Color="Color.Dark" Fixed="false" Dense="true" Bottom=false>
         
         <MudItem>    
         <MudLink Href="/About" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;padding-left: 170px;"href="/about">About</a></MudLink>

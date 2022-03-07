@@ -27,10 +27,25 @@ namespace HyperMarket.DB.Interfaces
 
         public async void SaveUser(User user)
         {
-            var test = await _httpClient.PostAsJsonAsync ($"api/user/",user);
+            var test = new HttpResponseMessage();
+            try
+            {
 
-            Console.WriteLine(test);
+                test = await _httpClient.PostAsJsonAsync($"api/user/", user);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.StackTrace);
+                
+            }
+            finally
+            {
+                Console.WriteLine(test);
+            }
+
         }
+        // (url,obj)
 
         //public void DeleteUser(int id)
         //{

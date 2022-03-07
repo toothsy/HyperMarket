@@ -13,6 +13,12 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.2" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.2">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.2" />
 		<PackageReference Include="MudBlazor" Version="6.0.7" />
 		<PackageReference Include="MudBlazor.ThemeManager" Version="1.0.6" />
 	</ItemGroup>
@@ -21,6 +27,10 @@
 		<ProjectReference Include="..\Data\HyperMarket.Data.csproj" />
 		<ProjectReference Include="..\Shared\HyperMarket.ViewModels.csproj" />
 		<ProjectReference Include="..\UIControls\HyperMarket.UIControls.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\images\" />
 	</ItemGroup>
 
 </Project>
