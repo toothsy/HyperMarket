@@ -13,44 +13,13 @@ namespace HyperMarket.Data.Interfaces
         }
 
 
-        public async Task<User> GetBusinessById(int id)
-        {
-            var user = await _httpClient.GetFromJsonAsync<User>($"/api/user/{id}");
-            return user;
-        }
-
-        public async Task<List<User>> GetBusiness()
-        {
-            return await _httpClient.GetFromJsonAsync<List<User>>($"api/user");
-        }
-
-        public async void SaveBusiness(User user)
-        {
-            var test = new HttpResponseMessage();
-            try
-            {
-
-                test = await _httpClient.PostAsJsonAsync($"api/user/", user);
-            }
-            catch (Exception e)
-            {
-
-                Console.WriteLine(e.StackTrace);
-
-            }
-            finally
-            {
-                Console.WriteLine(test);
-            }
-
-        }
         public async void SaveBusiness(BusinessDetail business)
         {
             var test = new HttpResponseMessage();
             try
             {
 
-                test = await _httpClient.PostAsJsonAsync($"api/user/", business);
+                test = await _httpClient.PostAsJsonAsync($"api/businessdetail/", business);
             }
             catch (Exception e)
             {
