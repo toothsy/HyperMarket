@@ -1,0 +1,94 @@
+﻿@page "/MyBusiness"
+@using HyperMarket.DB.Models
+@using HyperMarket.Shared
+@using System.ComponentModel.DataAnnotations
+@inject HyperMarket.DB.Interfaces.IUserService userService
+
+<style>
+    .log {
+        color: #f35555;
+        margin-top: 60px;
+        font-style: italic;
+        text-align:center;
+        padding-top: 35px;
+        font-size: 24px;
+    }
+
+
+    .side {
+        margin-top: 15px;
+    }
+    .bg {
+         background-color: #cbf0f561;
+    }
+
+</style>
+@*
+<PageTitle>My Profile</PageTitle>
+@if (users.Count>0)
+{
+    <p>@users[0].UserName</p>
+}*@
+<div class = "bg">
+    <MudGrid style = "margin-top: -60px;"Class="d-flex justify-center align-center"> 
+    <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
+        <MudCard style = "height: 790px;margin-top: 0px;">
+            <h2 class = "log">By Business</h2>
+            <MudCardContent>
+                <h6 class = "side">Username</h6>  <MudTextField @bind-Value="users1.UserName" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense">@users1.UserName</MudTextField>
+                <h6 class = "side">Business Name</h6>  <MudTextField @bind-Value="Business1.BusinessName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                <h6 class = "side">Business Description</h6>  <MudTextField @bind-Value="Business1.BusinessDescription" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                <h6 class = "side">Mail Id</h6>   <MudTextField @bind-Value="users1.EmailId" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+
+                <h6 class = "side">Location</h6>  <MudTextField @bind-Value="Business1.LocationId" Label="" ReadOnly="true" Variant="Variant.Filled" />
+                
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton style = "margin-left: 365px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Update</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+</div>
+
+@code{
+    //public string searchString = "";
+    public List<User> users = new List<User>();
+    //public CustomerDetail customer1 = new CustomerDetail();
+    public User users1= new User();
+
+    protected override async Task OnInitializedAsync()
+    {
+        //users=await userService.GetUsers();
+        users1 = await userService.GetUserById(2);
+    }
+
+    public List<BusinessDetail> Businesses = new List<BusinessDetail>();
+
+
+    public BusinessDetail Business1 = new BusinessDetail();
+
+
+    //public async Task GetUsersById(int id)
+    //{
+    //    users1 =await userService.GetUserById(id);
+    //}
+
+    //public void Save()
+    //{
+    //    userService.SaveUser(user);
+    //    user = new User();
+    //    GetUsers();
+    //}
+
+    //public void Edit(int id)
+    //{
+    //    user = users.FirstOrDefault(c => c.UserId == id);
+    //}
+
+    //public void Delete(int id)
+    //{
+    //    userService.DeleteUser(id);
+    //    GetUsers();
+    //}
+    }

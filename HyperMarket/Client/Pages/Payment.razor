@@ -1,0 +1,45 @@
+﻿@page "/Payment"
+
+<style>
+    .log {
+        color: #f35555;
+        margin-top: 40px;
+        font-style: italic;
+        font-size: 24px;
+    }
+    .bg {
+        background-color: #cbf0f561;
+    }
+
+
+</style>
+<div class = "bg">
+<center>
+
+<MudGrid style = "margin-top: -50px;" Class="d-flex justify-center align-center">
+    <MudItem xs="12" sm="7" style = "margin-top: -45px; padding: 155px;">
+        <MudCard style = "height: 400px;">
+            <MudCardContent>
+                <h2 class = "log" align-items: "center;">Payment</h2>
+                <MudRadioGroup @bind-SelectedOption="@Placement">
+                <MudRadio Color="Color.Primary" Option="@(Placement.Top)">Credit Cart</MudRadio> <br/>
+                <MudRadio Color="Color.Primary" Option="@(Placement.Bottom)">Debit Card</MudRadio><br/>
+                <MudRadio Color="Color.Primary" Option="@(Placement.Left)">Paytm</MudRadio><br/>
+                <MudRadio Color="Color.Primary" Option="@(Placement.Right)">Net Banking</MudRadio><br/>
+                </MudRadioGroup>
+           </MudCardContent>
+           <MudCardActions>
+                <MudButton style = "margin-left: 325px;margin-right: 8px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Pay Now</MudButton>
+            </MudCardActions>
+       </MudCard>
+    </MudItem>
+   
+
+    
+</MudGrid>
+</center>
+</div>
+
+@code {
+    public Placement Placement { get; set; } = Placement.Right;
+}
