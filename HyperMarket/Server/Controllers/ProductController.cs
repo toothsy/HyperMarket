@@ -1,8 +1,9 @@
 ﻿using HyperMarket.Data;
-using HyperMarket.DB.Models;
+using HyperMarket.DB.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using HyperMarket.DB.Models;
 
 namespace HyperMarket.Server.Controllers
 {
@@ -19,7 +20,8 @@ namespace HyperMarket.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            return Ok(await _context.Products.ToListAsync());
+            var result = await _context.Products.ToListAsync();
+            return Ok(result);
         }
 
 
