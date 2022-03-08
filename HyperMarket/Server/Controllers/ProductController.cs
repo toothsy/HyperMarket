@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HyperMarket.DB.Models;
 
+
 namespace HyperMarket.Server.Controllers
 {
     [Route("api/[controller]")]
