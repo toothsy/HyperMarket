@@ -1,5 +1,8 @@
 ﻿using HyperMarket.Data;
+using HyperMarket.DB.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using HyperMarket.DB.Models;
 
 namespace HyperMarket.Server.Controllers
@@ -13,6 +16,15 @@ namespace HyperMarket.Server.Controllers
         {
             _context = context;
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetBusinesses()
+        {
+            var result = await _context.BusinessDetails.ToListAsync();
+            return Ok(result);
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<BusinessDetail>> SaveBusiness(BusinessDetail business)

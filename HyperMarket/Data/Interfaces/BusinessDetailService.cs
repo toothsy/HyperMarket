@@ -12,6 +12,11 @@ namespace HyperMarket.Data.Interfaces
             _httpClient = httpClient;
         }
 
+        public async Task<List<BusinessDetail>> GetBusinesses()
+        {
+            return await _httpClient.GetFromJsonAsync<List<BusinessDetail>>($"api/BusinessDetail");
+        }
+
 
         public async void SaveBusiness(BusinessDetail business)
         {
