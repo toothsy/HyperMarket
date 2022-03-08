@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 
 namespace HyperMarket.Data.Interfaces
 {
-    internal class BlogService : IBlogsService
+    public class BlogService : IBlogService
     {
         private readonly HttpClient _httpClient;
 
@@ -14,13 +14,14 @@ namespace HyperMarket.Data.Interfaces
 
         public async Task<Blog> GetBlogById(int id)
         {
-            var blog = await _httpClient.GetFromJsonAsync<Blog>($"/api/blog/{id}");
-            return blog;
+            var blog1 = await _httpClient.GetFromJsonAsync<Blog>($"/api/blog/{id}");
+
+            return blog1;
         }
 
-        public Task<List<Blog>> GetBlogMeta()
+        public async Task<List<Blog>> GetBlog()
         {
-            throw new NotImplementedException();
+            return await _httpClient.GetFromJsonAsync<List<Blog>>($"api/blog");
         }
 
         public void SaveBlog(Blog bl)
