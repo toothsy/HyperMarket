@@ -12,6 +12,22 @@
     <link href="HyperMarket.Client.styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $('.card').hover(
+            function () {
+                $(this).animation({
+                    marginTop: "-=1%",
+                    marginBottom: "+=1%"
+
+                }, 200)
+            },
+            function () {
+                $(this).animate({
+                    marginTop: "+=1%",
+                    marginBottom: "-=1%"
+                })
+            })
+    </script>
 </head>
 
 <body>
