@@ -8,18 +8,21 @@ namespace HyperMarket.DB.Models
     {
         [Key]
         [ForeignKey("tblUser")]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public string BusinessName { get; set; }
 
-        [ForeignKey("tblCategory")]
-        public string CategoryId { get; set; }
+        //[ForeignKey("tblCategory")]
+        //public string CategoryId { get; set; }
 
         public string BusinessDescription { get; set; }
         public bool TopBrands { get; set; }
         public int ProductsSold { get; set; }
 
         [ForeignKey("tblLocation")]
-        public string LocationId { get; set; }
+        public int LocationId { get; set; }
+        public Location Location { get; set; }
+        public string Logo { get; set; }
         
     }
 }

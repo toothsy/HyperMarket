@@ -10,7 +10,8 @@ namespace HyperMarket.DB.Models
         public int ImageId { get; set; }
         public string ImageLink { get; set; }
 
-        [ForeignKey("tblProducts")]
-        public int Product_Id { get; set; }
+        [ForeignKey("tblProduct")]
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
     }
 }

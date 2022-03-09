@@ -13,6 +13,7 @@ namespace HyperMarket.DB.Models
 
         [ForeignKey("tblUser")]
         public int UserId { get; set; }
+        public User User { get; set; }
         public int CreatedById { get; set; }
         public int UpdatedById { get; set; }
         public DateTime CreatedDateTime { get; set; }

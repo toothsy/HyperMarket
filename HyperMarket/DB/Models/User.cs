@@ -7,6 +7,7 @@ namespace HyperMarket.DB.Models
     public class User
     {
         [Key]
+        [ForeignKey("tblUser")]
         public int UserId { get; set; }
         public string EmailId { get; set; }
         public string Password { get; set; }
@@ -16,6 +17,5 @@ namespace HyperMarket.DB.Models
         public int UpdatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int RoleId { get; set; }
     }
 }

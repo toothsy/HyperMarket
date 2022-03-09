@@ -98,13 +98,16 @@ namespace HyperMarket.Data.Migrations
 
                     b.HasKey("BlogId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("tblBlog");
                 });
 
             modelBuilder.Entity("HyperMarket.DB.Models.BusinessDetail", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("BusinessDescription")
                         .IsRequired()
@@ -114,11 +117,10 @@ namespace HyperMarket.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("LocationId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("LocationId")
+                    b.Property<string>("Logo")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -128,7 +130,14 @@ namespace HyperMarket.Data.Migrations
                     b.Property<bool>("TopBrands")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("UserId1")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("tblBusinessDetail");
                 });
@@ -174,6 +183,26 @@ namespace HyperMarket.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("EmailId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FaceBookHandle")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InstaHandle")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TelephoneId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TwitterHandle")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("UpdatedById")
                         .HasColumnType("INTEGER");
 
@@ -183,14 +212,20 @@ namespace HyperMarket.Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("YouTubeHandle")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ConfigId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("tblConfig");
                 });
 
             modelBuilder.Entity("HyperMarket.DB.Models.CustomerDetail", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -205,11 +240,16 @@ namespace HyperMarket.Data.Migrations
                     b.Property<int>("MyCredits")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("ReferalCode")
+                    b.Property<string>("ReferralCode")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CustomerId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("tblCutomerDetail");
                 });
@@ -241,6 +281,8 @@ namespace HyperMarket.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ErrorId");
+
+                    b.HasIndex("ErrorTypeId");
 
                     b.HasIndex("UserId");
 
@@ -297,6 +339,8 @@ namespace HyperMarket.Data.Migrations
 
                     b.HasKey("FaqId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("tblFaq");
                 });
 
@@ -310,10 +354,12 @@ namespace HyperMarket.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Product_Id")
+                    b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ImageId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("tblImage");
                 });
@@ -342,6 +388,9 @@ namespace HyperMarket.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("BusinessDetailUserId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("BusinessName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -350,19 +399,24 @@ namespace HyperMarket.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PaymentId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("UderId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("OrderId");
+
+                    b.HasIndex("BusinessDetailUserId");
+
+                    b.HasIndex("PaymentId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("tblOrder");
                 });
@@ -406,9 +460,8 @@ namespace HyperMarket.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -439,8 +492,10 @@ namespace HyperMarket.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SubCategoryId")
-                        .IsRequired()
+                    b.Property<int>("SubCategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SubCategoryId1")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -454,6 +509,12 @@ namespace HyperMarket.Data.Migrations
 
                     b.HasKey("ProductId");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("SubCategoryId1");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("tblProduct");
                 });
 
@@ -463,13 +524,17 @@ namespace HyperMarket.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ProductsId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("RequestId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("tblRequest");
                 });
@@ -494,15 +559,16 @@ namespace HyperMarket.Data.Migrations
                     b.Property<string>("SubCategoryId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CategoryId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SubCategoryName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("SubCategoryId");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("tblSubCategory");
                 });
@@ -531,17 +597,15 @@ namespace HyperMarket.Data.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UpdatedBy")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("UserName")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
 
@@ -562,6 +626,10 @@ namespace HyperMarket.Data.Migrations
 
                     b.HasKey("UserRoleId");
 
+                    b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("tblUserRole");
                 });
 
@@ -576,13 +644,204 @@ namespace HyperMarket.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HyperMarket.DB.Models.ErrorLog", b =>
+            modelBuilder.Entity("HyperMarket.DB.Models.Blog", b =>
                 {
                     b.HasOne("HyperMarket.DB.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.BusinessDetail", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.Config", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.CustomerDetail", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.ErrorLog", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.ErrorType", "ErrorType")
+                        .WithMany()
+                        .HasForeignKey("ErrorTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ErrorType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.Faq", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.Image", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.Order", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.BusinessDetail", "BusinessDetail")
+                        .WithMany()
+                        .HasForeignKey("BusinessDetailUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HyperMarket.DB.Models.Payment", "Payment")
+                        .WithMany()
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HyperMarket.DB.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusinessDetail");
+
+                    b.Navigation("Payment");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.Product", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HyperMarket.DB.Models.SubCategory", "SubCategory")
+                        .WithMany()
+                        .HasForeignKey("SubCategoryId1");
+
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("SubCategory");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.Request", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.SubCategory", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("HyperMarket.DB.Models.UserRole", b =>
+                {
+                    b.HasOne("HyperMarket.DB.Models.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HyperMarket.DB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });

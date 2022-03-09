@@ -18,7 +18,7 @@ namespace HyperMarket.DB.Models
 
         [ForeignKey("tblErrorType")]
         public int ErrorTypeId { get; set; }
-
+        public ErrorType ErrorType { get; set; }
         public bool IsResolved { get; set; }
 
     }

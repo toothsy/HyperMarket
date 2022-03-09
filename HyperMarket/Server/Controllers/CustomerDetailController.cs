@@ -44,17 +44,17 @@ namespace HyperMarket.Server.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCustomerDetailById(int id)
-        {
-            var customer = await _context.CustomerDetails.FirstOrDefaultAsync(x => x.UserId == id);
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetCustomerDetailById(User id)
+        //{
+        //    ////var customer = await _context.CustomerDetails.FirstOrDefaultAsync(x =>(x.UserId) == id);
 
-            if (customer == null)
-            {
-                return NotFound("Customer not found!");
-            }
-            return Ok(customer);
-        }
+        //    //if (customer == null)
+        //    //{
+        //    //    return NotFound("Customer not found!");
+        //    //}
+        //    //return Ok(customer);
+        //}
 
         //[HttpPost]
         //public async Task<ActionResult<User>> SaveUser(User user)

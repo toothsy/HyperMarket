@@ -14,9 +14,17 @@ namespace HyperMarket.DB.Models
 
         [ForeignKey("tblUser")]
         public int UserId { get; set; }
+        public User User { get; set; }
         public int CreatedById { get; set; }
         public int UpdatedById { get; set; }
         public DateTime CreatedDateTime { get; set; }
         public DateTime UpdatedDateTime { get; set; }
+
+        public string InstaHandle { get; set; }
+        public string FaceBookHandle { get; set; }
+        public string TwitterHandle { get; set; }
+        public string YouTubeHandle { get; set; }
+        public string TelephoneId{ get; set; }
+        public string EmailId{ get; set; }
     }
 }

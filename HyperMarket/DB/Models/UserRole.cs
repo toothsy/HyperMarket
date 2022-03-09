@@ -11,9 +11,11 @@ namespace HyperMarket.DB.Models
 
         [ForeignKey("tblUser")]
         public int UserId { get; set; }
+        public User User { get; set; }
 
-        [ForeignKey("tblRoles")]
+        [ForeignKey("tblRole")]
         public int RoleId { get; set; }
+        public Role Role { get; set; }
 
     }
 }

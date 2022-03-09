@@ -9,10 +9,12 @@ namespace HyperMarket.DB.Models
         [Key]
         public int RequestId { get; set; }
 
-        [ForeignKey("tblProducts")]
-        public int ProductsId { get; set; }
+        [ForeignKey("tblProduct")]
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
         [ForeignKey("tblUser")]
         public int UserId { get; set; }
+        public User User { get; set; }
     }
 }
