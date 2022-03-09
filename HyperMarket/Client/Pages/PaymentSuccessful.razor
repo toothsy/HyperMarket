@@ -1,0 +1,39 @@
+﻿@page "/PaymentSuccessful"
+@using HyperMarket.DB.Models
+@using HyperMarket.Shared
+@using System.ComponentModel.DataAnnotations
+
+<style>
+    .img {
+        height: 450px;
+        margin-left: 70px;
+        padding-bottom: 50px;
+        padding-top: 35px
+    }
+
+    .paymentbtn {
+        margin-top: -185px;
+        margin-left: 400px;
+        width: 120px;
+        background-color: #f35555;
+    }
+</style>
+
+<div class="">
+    <MudGrid style="margin-top: -90px;background-color : #cbf0f5;" Class="d-flex justify-center align-center;">
+        <MudItem xs="12" sm="7" style="margin-top: -70px; padding: 125px;">
+            <MudCard style="height: 500px;margin-top: 80px;">
+                <MudCardContent>
+                    <img class="img" src="images\PaymentMessage.png">
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton class="paymentbtn" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Align="align.Center"><a style="color : white;" href="/">ok</a></MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</div>
+
+@code {
+
+}

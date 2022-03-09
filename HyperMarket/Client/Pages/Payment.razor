@@ -1,4 +1,8 @@
 ﻿@page "/Payment"
+@using HyperMarket.DB.Models
+@using HyperMarket.Shared
+@using System.ComponentModel.DataAnnotations
+@inject HyperMarket.Data.Interfaces.IProductService productService
 
 <style>
     .log {
@@ -13,12 +17,14 @@
     }
 
     .radiotype {
-       margin-right: 240px;
-       margin-top: 35px;
-       text-align: center;
+        margin-right: 240px;
+        margin-top: 35px;
+        text-align: center;
     }
+
     .check {
-         margin-right: -70px;
+        margin-right: 20px;
+        margin-top: 20px;
     }
 
     .amount {
@@ -26,51 +32,56 @@
         margin-left: 185px;
         margin-top: -45px;
     }
+
     .text1 {
-        width: 180px;
-        margin-left: 185px;
-        margin-top: -40px;
-        height: 44px;
+        margin-left: 175px;
+        margin-top: -45px;
+        margin-right: -130px;
     }
 
 </style>
 <div class="bg">
     <center>
 
-        <MudGrid style="margin-top: -50px;" Class="d-flex justify-center align-center">
-            <MudItem xs="12" sm="7" style="margin-top: -45px; padding: 155px;">
-                <MudCard style="height: 600px;">
-                    <MudCardContent>
-                        <h2 class="log" align-items: "center;">Payment</h2>
-                        <div class = "radiotype">
-                        <MudRadioGroup @bind-SelectedOption="@Placement">
-                            <MudRadio Color="Color.Primary" Option="@(Placement.Top)">Credit Cart</MudRadio> <br />
-                            <MudRadio Color="Color.Primary" Option="@(Placement.Bottom)">Debit Card</MudRadio><br />
-                            <MudRadio style = "margin-left: -30px;" Color="Color.Primary" Option="@(Placement.Left)">Paytm</MudRadio><br />
-                            <MudRadio style = "margin-left: 15px;" Color="Color.Primary" Option="@(Placement.Right)">Net Banking</MudRadio><br />
-                        </MudRadioGroup>
+    <MudGrid style="margin-top: -50px;" Class="d-flex justify-center align-center">
+        <MudItem xs="12" sm="7" style="margin-top: -45px; padding: 155px;">
+            <MudCard style="height: 600px;">
+                <MudCardContent>
+                   <h2 class="log" align-items: "center;">Payment</h2>
+                     <div class="radiotype">
+                     <MudRadioGroup Required="true" @bind-SelectedOption="@Placement">
+                         <MudRadio Color="Color.Primary" Option="@(Placement.Top)">Credit Card</MudRadio> <br />
+                         <MudRadio Color="Color.Primary" Option="@(Placement.Bottom)">Debit Card</MudRadio><br />
+                         <MudRadio style="margin-left: -30px;" Color="Color.Primary" Option="@(Placement.Left)">Paytm</MudRadio><br />
+                          <MudRadio style="margin-left: 15px;" Color="Color.Primary" Option="@(Placement.Right)">Net Banking</MudRadio><br />
+                          <MudRadio style="margin-left: -20px;" Color="Color.Primary" Option="@(Placement.Right)">Credits</MudRadio><br /><br /><br />
+                      </MudRadioGroup>
 
-                        <MudCheckBox class =  "check" @bind-Checked="@Basic_CheckBox2" Color="Color.Primary">Want to Use Credits</MudCheckBox><br /><br /><br/>
-
-                      <h6>Total Amount :</h6><MudTextField class = "text1" @bind-Value="TextValue" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-
-                        </div>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton style="margin-left: 325px;margin-right: 8px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align="align.Center">Pay Now</MudButton>
-                    </MudCardActions>
-                </MudCard>
-            </MudItem>
-
-        </MudGrid>
+                     <h6>Total Amount :</h6><div class="text1"><MudTextField @bind-Value="product1.Price" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField></div>
+                     </div>
+                </MudCardContent>
+                <MudCardActions>
+                     <MudButton style="margin-left: 325px;margin-right: 8px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align="align.Center"><a href="/PaymentSuccessful">Pay Now</a></MudButton>
+                 </MudCardActions>
+             </MudCard>
+         </MudItem>
+     </MudGrid>
     </center>
 </div>
 
-
 @code {
     public Placement Placement { get; set; } = Placement.Right;
-    public bool Basic_CheckBox2 { get; set; } = false;
-   
+
     public string TextValue { get; set; }
+
+    Product product1 = new Product();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        product1 = await productService.GetProductById(301);
+
+    }
+
 
 }

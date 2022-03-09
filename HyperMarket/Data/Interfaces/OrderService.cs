@@ -6,31 +6,31 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-//namespace HyperMarket.Data.Interfaces
-//{
-//    public class OrderService
-//    {
-//        public class OrderService : IOrderService
-//        {
-//            private readonly HttpClient _httpClient;
+namespace HyperMarket.Data.Interfaces
+{
+     public class OrderService : IOrderService
+        {
+            private readonly HttpClient _httpClient;
 
-//            public OrderService(HttpClient httpClient)
-//            {
-//                _httpClient = httpClient;
-//            }
+            public OrderService(HttpClient httpClient)
+            {
+                _httpClient = httpClient;
+            }
 
 
-//            public async Task<Order> GetOrderById(int id)
-//            {
-//                var user = await _httpClient.GetFromJsonAsync<Order>($"/api/order/{id}");
-//                return user;
-//            }
+            public async Task<Order> GetOrderById(int id)
+            {
+                var order1 = await _httpClient.GetFromJsonAsync<Order>($"/api/order/{id}");
+                return order1;
+            }
 
 
-//            public async Task<List<Order>> GetOrders()
-//            {
-//                await _httpClient.GetFromJsonAsync<List<User>>($"api/order");
-//            }
-//        }
-//    }
-//}
+            public async Task<List<Order>> GetOrders()
+            {
+                var order1 =  await _httpClient.GetFromJsonAsync<List<Order>>($"api/order");
+                return order1;   
+                
+            }
+        }
+    
+}

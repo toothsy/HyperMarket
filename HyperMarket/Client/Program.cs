@@ -15,6 +15,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerDetailService, CustomerDetailService>();
 builder.Services.AddScoped<IBusinessDetailService, BusinessDetailService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
