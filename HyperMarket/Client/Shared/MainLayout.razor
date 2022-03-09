@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
@@ -10,9 +11,9 @@
     <MudImage Src = "images/LOGO.png" Width="48" Height="48" />
     </a>
     <MudSelect style = "margin-right: 750px;"Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
-    <MudSelectItem Value="@("Delhi")" />
-    <MudSelectItem Value="@("Mumbai")" />
-    <MudSelectItem Value="@("Hyderabad")" />
+    <MudSelectItem Value="c1.LocationName"/>
+    <MudSelectItem Value="c2.LocationName" />
+    <MudSelectItem Value="c3.LocationName" />
     </MudSelect>
     <MudSpacer />
     <MudBreadcrumbs style = "color : white;margin-left:-50px;" Items="_items" Separator="|"></MudBreadcrumbs>
@@ -47,4 +48,17 @@
         new BreadcrumbItem("SignUp", href: "/Signup"),
         new BreadcrumbItem("Login", href: "/SignIn")
     };
+    public Location c1 = new Location();
+    public Location c2 = new Location();
+    public Location c3 = new Location();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        c1 = await locationService.GetLocationById(10);
+        c2 = await locationService.GetLocationById(11);
+        c3 = await locationService.GetLocationById(12);
+
+    }
+
 }

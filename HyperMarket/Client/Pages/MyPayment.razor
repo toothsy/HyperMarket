@@ -1,0 +1,151 @@
+﻿@page "/Payment"
+
+@using HyperMarket.Shared
+@using HyperMarket.DB.Models
+@inject HyperMarket.Data.Interfaces.IPaymentService paymentService
+@inject HyperMarket.Data.Interfaces.ICustomerDetailService customerdetailService
+@*
+@inject HyperMarket.Data.Interfaces.IOrderService orderService*@
+
+
+<style>
+    .log {
+        color: #f35555;
+        margin-top: 40px;
+        font-style: italic;
+        font-size: 24px;
+    }
+
+    .bg {
+        background-color: #cbf0f561;
+    }
+
+    .radiotype {
+       margin-right: 240px;
+       margin-top: 35px;
+       text-align: center;
+    }
+    .check {
+         margin-right: -70px;
+    }
+
+    .amount {
+        width: 121px;
+        margin-left: 185px;
+        margin-top: -45px;
+    }
+    .text1 {
+        width: 180px;
+        margin-left: 185px;
+        margin-top: -40px;
+        height: 44px;
+    }
+
+</style>
+<div class="bg">
+    <center>
+
+        <MudGrid style="margin-top: -50px;" Class="d-flex justify-center align-center">
+            <MudItem xs="12" sm="7" style="margin-top: -45px; padding: 155px;">
+                <MudCard style="height: 600px;">
+                    <MudCardContent>
+                        <h2 class="log" align-items: "center;">Payment</h2>
+                        <div class = "radiotype">
+                        <MudRadioGroup @bind-SelectedOption="@Placement">
+                            <MudRadio Color="Color.Primary" Option="@(Placement.Top)">Credit Cart</MudRadio> <br />
+                            <MudRadio Color="Color.Primary" Option="@(Placement.Bottom)">Debit Card</MudRadio><br />
+                            <MudRadio style = "margin-left: -30px;" Color="Color.Primary" Option="@(Placement.Left)">Paytm</MudRadio><br />
+                            <MudRadio style = "margin-left: 15px;" Color="Color.Primary" Option="@(Placement.Right)">Net Banking</MudRadio><br />
+                            <MudRadio style="margin-left: -20px;" Color="Color.Primary" Option="@(Placement.Right)">Credits</MudRadio><br /><br /><br />
+                     
+
+                        </MudRadioGroup>
+                       
+                        
+@*
+    if (@bind-SelectedOption="@Placement.Top")
+    {
+        int s = pay.Price;
+        cus.MyCredits = cus.MyCredits + s;
+
+    }
+*@
+                       
+                      <h6>Total Amount :</h6><MudTextField class = "text1" @bind-Value="payment1.Price" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+@*<h6>Total credits:</h6><MudTextField class = "text1" @bind-Value="cus.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+*@
+                        </div>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton style="margin-left: 325px;margin-right: 8px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align="align.Center" @onsubmit ="postData" > <a href="/PaymentSuccessful"> Pay Now </a></MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+
+        </MudGrid>
+    </center>
+</div>
+
+
+@code {
+    public Placement Placement { get; set; } = Placement.Right;
+    public bool Basic_CheckBox2  { get; set; }   = false;
+
+    public string TextValue { get; set; }
+
+    public Payment payment1 =new Payment();
+
+    public CustomerDetail customer1 = new CustomerDetail();
+    public CustomerDetail customer2 = new CustomerDetail();
+
+    //public Order ord = new Order();
+
+    protected override async Task OnInitializedAsync()
+    {
+        payment1 = await paymentService.GetPaymentById(1);
+        customer1 = await customerdetailService.GetCustomerDetailById(2);
+       
+
+
+        //ord = await orderService.GetOrderById(1); 
+
+
+        //     private async Task OnValidSubmit(EditContext context)
+        //{
+        //    await customerdetailServices.UpdateUser(users1);
+        //}
+    }
+    void postData()
+    {
+        int s = payment1.Price;
+        customer1.MyCredits = customer1.MyCredits + s;
+    }
+    private async Task OnValidSubmit(EditContext context)
+    {
+       
+        await customerdetailService.UpdateUser(customer1);
+    }
+    //if (@bind-SelectedOption="@Placement.Top")
+    //{
+    //    int s = pay.Price;
+    //    cus.MyCredits = cus.MyCredits + s;
+
+    //}
+
+
+    //public void  Placement (object sender, EventArgs e)
+    //{
+    //    if (Placement.Left.Checked)
+    //    {
+    //        Response.Redirect("~/Account/Register.aspx");
+    //    }
+    //    else if (RadioButton1.Checked)
+    //    {
+            
+    //        Response.Redirect("~/Job/Emp_register.aspx");
+    //    }
+    //}
+
+
+
+}
