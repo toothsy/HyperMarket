@@ -3,7 +3,7 @@
 @using HyperMarket.Shared
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IPaymentService paymentService
-@inject HyperMarket.Data.Interfaces.ICustomerDetailService customerdetailServices
+@inject HyperMarket.Data.Interfaces.ICustomerDetailService customerdetailService
 @*
 @inject HyperMarket.Data.Interfaces.IOrderService orderService*@
 
@@ -56,6 +56,9 @@
                             <MudRadio Color="Color.Primary" Option="@(Placement.Bottom)">Debit Card</MudRadio><br />
                             <MudRadio style = "margin-left: -30px;" Color="Color.Primary" Option="@(Placement.Left)">Paytm</MudRadio><br />
                             <MudRadio style = "margin-left: 15px;" Color="Color.Primary" Option="@(Placement.Right)">Net Banking</MudRadio><br />
+                            <MudRadio style="margin-left: -20px;" Color="Color.Primary" Option="@(Placement.Right)">Credits</MudRadio><br /><br /><br />
+                     
+
                         </MudRadioGroup>
                        
                         
@@ -67,15 +70,14 @@
 
     }
 *@
-                        <MudCheckBox class =  "check" @bind-Checked="@Basic_CheckBox2" Color="Color.Primary">Want to Use Credits</MudCheckBox><br /><br /><br/>
-
-                      <h6>Total Amount :</h6><MudTextField class = "text1" @bind-Value="pay.Price" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                       
+                      <h6>Total Amount :</h6><MudTextField class = "text1" @bind-Value="payment1.Price" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
 @*<h6>Total credits:</h6><MudTextField class = "text1" @bind-Value="cus.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
 *@
                         </div>
                     </MudCardContent>
                     <MudCardActions>
-                        <MudButton style="margin-left: 325px;margin-right: 8px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align="align.Center" @onsubmit ="postData">Pay Now</MudButton>
+                        <MudButton style="margin-left: 325px;margin-right: 8px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align="align.Center" @onsubmit ="postData" > <a href="/PaymentSuccessful"> Pay Now </a></MudButton>
                     </MudCardActions>
                 </MudCard>
             </MudItem>
@@ -87,7 +89,7 @@
 
 @code {
     public Placement Placement { get; set; } = Placement.Right;
-    public bool  { get; set; } = false;
+    public bool Basic_CheckBox2  { get; set; }   = false;
 
     public string TextValue { get; set; }
 
@@ -101,8 +103,8 @@
     protected override async Task OnInitializedAsync()
     {
         payment1 = await paymentService.GetPaymentById(1);
-        customer1 = await customerdetailServices.GetCustomerDetailById(2);
-        customer2 = await customerdetailServices.UpdateUser();
+        customer1 = await customerdetailService.GetCustomerDetailById(2);
+       
 
 
         //ord = await orderService.GetOrderById(1); 
@@ -115,10 +117,14 @@
     }
     void postData()
     {
-        int s = pay.Price;
-        cus.MyCredits = cus.MyCredits + s;
+        int s = payment1.Price;
+        customer1.MyCredits = customer1.MyCredits + s;
     }
-
+    private async Task OnValidSubmit(EditContext context)
+    {
+       
+        await customerdetailService.UpdateUser(customer1);
+    }
     //if (@bind-SelectedOption="@Placement.Top")
     //{
     //    int s = pay.Price;
