@@ -18,7 +18,7 @@ namespace HyperMarket.DB.Models
         [ForeignKey("tblSubCategory")]
         public int SubCategoryId { get; set; }
         public SubCategory SubCategory { get; set; }
-        public bool Image { get; set; }
+        public bool ImageCheck { get; set; }
         public int Discount { get; set; }
         public int Price { get; set; }
         public string AddressLine1 { get; set; }

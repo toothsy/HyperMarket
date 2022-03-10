@@ -105,7 +105,7 @@ namespace HyperMarket.Data.Migrations
 
             modelBuilder.Entity("HyperMarket.DB.Models.BusinessDetail", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("BusinessId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -130,14 +130,14 @@ namespace HyperMarket.Data.Migrations
                     b.Property<bool>("TopBrands")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("UserId1")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("UserId");
+                    b.HasKey("BusinessId");
 
                     b.HasIndex("LocationId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("tblBusinessDetail");
                 });
@@ -388,16 +388,15 @@ namespace HyperMarket.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BusinessDetailUserId")
+                    b.Property<int>("BusinessDetailBusinessId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("BusinessName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MyOrderCredits")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("MyOrderCredits")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("PaymentId")
                         .HasColumnType("INTEGER");
@@ -410,7 +409,7 @@ namespace HyperMarket.Data.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("BusinessDetailUserId");
+                    b.HasIndex("BusinessDetailBusinessId");
 
                     b.HasIndex("PaymentId");
 
@@ -472,7 +471,7 @@ namespace HyperMarket.Data.Migrations
                     b.Property<int>("Discount")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Image")
+                    b.Property<bool>("ImageCheck")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsActive")
@@ -495,9 +494,6 @@ namespace HyperMarket.Data.Migrations
                     b.Property<int>("SubCategoryId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("SubCategoryId1")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT");
 
@@ -511,7 +507,7 @@ namespace HyperMarket.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("SubCategoryId1");
+                    b.HasIndex("SubCategoryId");
 
                     b.HasIndex("UserId");
 
@@ -556,8 +552,9 @@ namespace HyperMarket.Data.Migrations
 
             modelBuilder.Entity("HyperMarket.DB.Models.SubCategory", b =>
                 {
-                    b.Property<string>("SubCategoryId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("SubCategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("INTEGER");
@@ -665,7 +662,7 @@ namespace HyperMarket.Data.Migrations
 
                     b.HasOne("HyperMarket.DB.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -741,7 +738,7 @@ namespace HyperMarket.Data.Migrations
                 {
                     b.HasOne("HyperMarket.DB.Models.BusinessDetail", "BusinessDetail")
                         .WithMany()
-                        .HasForeignKey("BusinessDetailUserId")
+                        .HasForeignKey("BusinessDetailBusinessId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -782,7 +779,9 @@ namespace HyperMarket.Data.Migrations
 
                     b.HasOne("HyperMarket.DB.Models.SubCategory", "SubCategory")
                         .WithMany()
-                        .HasForeignKey("SubCategoryId1");
+                        .HasForeignKey("SubCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HyperMarket.DB.Models.User", "User")
                         .WithMany()

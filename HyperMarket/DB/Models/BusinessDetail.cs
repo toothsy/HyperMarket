@@ -7,6 +7,7 @@ namespace HyperMarket.DB.Models
     public class BusinessDetail
     {
         [Key]
+        public int BusinessId { get; set; }
         [ForeignKey("tblUser")]
         public int UserId { get; set; }
         public User User { get; set; }

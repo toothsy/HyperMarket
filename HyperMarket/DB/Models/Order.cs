@@ -18,7 +18,7 @@ namespace HyperMarket.DB.Models
         [ForeignKey("tblProduct")]
         public int ProductId { get; set; }
         public Product Product { get; set; }
-        public string MyOrderCredits { get; set; }
+        public int MyOrderCredits { get; set; }
 
         [ForeignKey("tblPayment")]
         public int PaymentId { get; set; }

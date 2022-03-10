@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HyperMarket.Data.Migrations
 {
-    public partial class Modifiedtables : Migration
+    public partial class ModifiedDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -117,7 +117,8 @@ namespace HyperMarket.Data.Migrations
                 name: "tblSubCategory",
                 columns: table => new
                 {
-                    SubCategoryId = table.Column<string>(type: "TEXT", nullable: false),
+                    SubCategoryId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     SubCategoryName = table.Column<string>(type: "TEXT", nullable: false),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
@@ -184,9 +185,9 @@ namespace HyperMarket.Data.Migrations
                 name: "tblBusinessDetail",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                    BusinessId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserId1 = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     BusinessName = table.Column<string>(type: "TEXT", nullable: false),
                     BusinessDescription = table.Column<string>(type: "TEXT", nullable: false),
                     TopBrands = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -196,7 +197,7 @@ namespace HyperMarket.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tblBusinessDetail", x => x.UserId);
+                    table.PrimaryKey("PK_tblBusinessDetail", x => x.BusinessId);
                     table.ForeignKey(
                         name: "FK_tblBusinessDetail_tblLocation_LocationId",
                         column: x => x.LocationId,
@@ -204,8 +205,8 @@ namespace HyperMarket.Data.Migrations
                         principalColumn: "LocationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tblBusinessDetail_tblUser_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_tblBusinessDetail_tblUser_UserId",
+                        column: x => x.UserId,
                         principalTable: "tblUser",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
@@ -357,8 +358,7 @@ namespace HyperMarket.Data.Migrations
                     ProductDescription = table.Column<string>(type: "TEXT", nullable: false),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
                     SubCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SubCategoryId1 = table.Column<string>(type: "TEXT", nullable: true),
-                    Image = table.Column<bool>(type: "INTEGER", nullable: false),
+                    ImageCheck = table.Column<bool>(type: "INTEGER", nullable: false),
                     Discount = table.Column<int>(type: "INTEGER", nullable: false),
                     Price = table.Column<int>(type: "INTEGER", nullable: false),
                     AddressLine1 = table.Column<string>(type: "TEXT", nullable: false),
@@ -382,10 +382,11 @@ namespace HyperMarket.Data.Migrations
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tblProduct_tblSubCategory_SubCategoryId1",
-                        column: x => x.SubCategoryId1,
+                        name: "FK_tblProduct_tblSubCategory_SubCategoryId",
+                        column: x => x.SubCategoryId,
                         principalTable: "tblSubCategory",
-                        principalColumn: "SubCategoryId");
+                        principalColumn: "SubCategoryId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tblProduct_tblUser_UserId",
                         column: x => x.UserId,
@@ -422,19 +423,19 @@ namespace HyperMarket.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     BusinessName = table.Column<string>(type: "TEXT", nullable: false),
-                    BusinessDetailUserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BusinessDetailBusinessId = table.Column<int>(type: "INTEGER", nullable: false),
                     ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    MyOrderCredits = table.Column<string>(type: "TEXT", nullable: false),
+                    MyOrderCredits = table.Column<int>(type: "INTEGER", nullable: false),
                     PaymentId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tblOrder", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_tblOrder_tblBusinessDetail_BusinessDetailUserId",
-                        column: x => x.BusinessDetailUserId,
+                        name: "FK_tblOrder_tblBusinessDetail_BusinessDetailBusinessId",
+                        column: x => x.BusinessDetailBusinessId,
                         principalTable: "tblBusinessDetail",
-                        principalColumn: "UserId",
+                        principalColumn: "BusinessId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tblOrder_tblPayment_PaymentId",
@@ -498,9 +499,9 @@ namespace HyperMarket.Data.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblBusinessDetail_UserId1",
+                name: "IX_tblBusinessDetail_UserId",
                 table: "tblBusinessDetail",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblConfig_UserId",
@@ -533,9 +534,9 @@ namespace HyperMarket.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblOrder_BusinessDetailUserId",
+                name: "IX_tblOrder_BusinessDetailBusinessId",
                 table: "tblOrder",
-                column: "BusinessDetailUserId");
+                column: "BusinessDetailBusinessId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblOrder_PaymentId",
@@ -558,9 +559,9 @@ namespace HyperMarket.Data.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tblProduct_SubCategoryId1",
+                name: "IX_tblProduct_SubCategoryId",
                 table: "tblProduct",
-                column: "SubCategoryId1");
+                column: "SubCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tblProduct_UserId",
