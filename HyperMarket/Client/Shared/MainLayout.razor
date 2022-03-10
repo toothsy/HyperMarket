@@ -48,6 +48,7 @@
         new BreadcrumbItem("SignUp", href: "/Signup"),
         new BreadcrumbItem("Login", href: "/SignIn")
     };
+
     public Location c1 = new Location();
     public Location c2 = new Location();
     public Location c3 = new Location();
@@ -55,9 +56,9 @@
     protected override async Task OnInitializedAsync()
     {
 
-        c1 = await locationService.GetLocationById(10);
-        c2 = await locationService.GetLocationById(11);
-        c3 = await locationService.GetLocationById(12);
+        c1 = await locationService.GetLocationById(1);
+        c2 = await locationService.GetLocationById(2);
+        c3 = await locationService.GetLocationById(3);
 
     }
 
