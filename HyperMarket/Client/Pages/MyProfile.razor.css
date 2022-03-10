@@ -1,0 +1,51 @@
+﻿.log {
+    color: #f35555;
+    margin-top: 60px;
+    text-align: center;
+    padding-top: 35px;
+    font-size: 24px;
+}
+
+.side {
+    margin-top: 15px;
+}
+
+.bg {
+    background-color: #cbf0f561;
+    height: 170vh;
+    width: 100%;
+}
+
+.first {
+    margin-top: -90px;
+    background-color: #cbf0f5;
+}
+
+.second {
+    margin-top: -70px;
+    padding: 125px;
+}
+
+.third {
+    position: relative;
+    height: 800px;
+    left: 30px;
+    width: 560px;
+}
+
+.inside {
+    height: 790px;
+}
+
+.btn {
+    margin-left: 365px;
+    width: 163px;
+    color: white;
+    height: 45px;
+    background-color: #f35555;
+    margin-top: 45px;
+}
+
+.btncolor {
+    color: white;
+}

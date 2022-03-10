@@ -5,64 +5,41 @@
 @inject HyperMarket.Data.Interfaces.IBlogService blogService
 
 <html>
-<style>
-     .bg {
-         background-color:#cbf0f561;
-         /*margin-top: -70px;*/
-     }
-     .card:hover {
-         box-shadow : -1px 9px 40px -12px #808080;
-     }
-     .title {
-          color: #f35555;
-     }
-     .btn{
-         background-color: #f35555;
-         border: none;
-         height: 32px;
-         margin-left: 119px;
-         color:white;
-     }
-     .row {
-         padding-bottom: 220px;
-     }
-     
-</style>
-<body class = "bg">
-<div class = "row">
-    @foreach(var item in blogs) {
-    <div class = "card" style = "width: 20em;margin-top: 50px;margin-left: 100px;margin-bottom: 50px;height: 250px;">
-        <img src = " " class = "card-img-top"/>
-        <div class = "card-body">
-            <div class = "card-title">
-                <h3 class = "title1">@item.BlogTitle</h3> 
+<body class="bg">
+    <div class="row">
+        @foreach (var item in blogs)
+        {
+            <div class="card">
+                <img src=" " class="card-img-top" />
+                <div class="card-body">
+                    <div class="card-title">
+                        <h3 class="title1">@item.BlogTitle</h3>
+                    </div>
+                    <div class="card-text">
+                        <p>@item.BlogContent</p>
+                    </div>
+                    <a href="#" class="btn">Read More</a>
+                </div>
             </div>
-            <div class = "card-text">
-                <p>@item.BlogContent</p>
-            </div>
-            <a href = "#" class = "btn" >Read More</a> 
-        </div>
+        }
 
     </div>
-   }
-
-</div>
- <div class = "bottom"></div>
+    <div class="bottom"></div>
 </body>
 </html>
 
 @*<MudTable Items="@queries.Take(2)" Hover="true">
     <HeaderContent>
-        <MudTh>UserId</MudTh>
-        <MudTh>Query</MudTh>
-        <MudTh>Date/Time</MudTh>
+    <MudTh>UserId</MudTh>
+    <MudTh>Query</MudTh>
+    <MudTh>Date/Time</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="UserId">@context.UserId</MudTd>
-        <MudTd DataLabel="Query">@context.QueryDescription</MudTd>
-        <MudTd DataLabel="Date/Time">@context.QueryTimestamp</MudTd>
+    <MudTd DataLabel="UserId">@context.UserId</MudTd>
+    <MudTd DataLabel="Query">@context.QueryDescription</MudTd>
+    <MudTd DataLabel="Date/Time">@context.QueryTimestamp</MudTd>
     </RowTemplate>
-</MudTable>*@
+    </MudTable>*@
 
 @code {
 
@@ -70,9 +47,9 @@
 
     public Blog b1 = new Blog();
 
-      protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
 
-        blogs = await blogService.GetBlog(); 
+        blogs = await blogService.GetBlog();
     }
 }

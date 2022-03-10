@@ -5,73 +5,58 @@
 @inject HyperMarket.DB.Interfaces.IUserService userService
 @inject HyperMarket.Data.Interfaces.ICustomerDetailService customerDetailService
 
-<style>
-    .log {
-        color: #f35555;
-        margin-top: 60px;
-        font-style: italic;
-        text-align:center;
-        padding-top: 35px;
-        font-size: 24px;
-    }
-    .side {
-        margin-top: 15px;
-    }
-    .bg {
-         background-color: #cbf0f561;
-    }
-
-</style>
 <PageTitle>My Profile</PageTitle>
-@*
 
-@if (users.Count>0)
-{
-    <p>@users[0].UserName</p>
-}*@
-
-<div class = "bg">
+<div class="bg">
     <EditForm class="pt-8" Model="@users1" OnValidSubmit="OnValidSubmit">
-    <MudGrid style = "margin-top: -90px;background-color : #cbf0f5;"Class="d-flex justify-center align-center;"> 
-    <MudItem xs="12" sm="7" style = "margin-top: -70px; padding: 125px;">
-        <MudCard style = "height: 790px;margin-top: 0px;">
-            <h2 class = "log">My Profile</h2>
-            <MudCardContent>
-                <h6 class = "side">Username</h6>  <MudTextField @bind-Value="users1.UserName" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense">@users1.UserName</MudTextField>
-                <h6 class = "side">First Name</h6>  <MudTextField @bind-Value="c1.FirstName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                <h6 class = "side">Last Name</h6>  <MudTextField @bind-Value="c1.LastName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                <h6 class = "side">Mail Id</h6>   <MudTextField @bind-Value="users1.EmailId" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                <h6 class = "side">Referral Code</h6>  <MudTextField @bind-Value="c1.ReferralCode" Label="" ReadOnly="true" Variant="Variant.Filled" />
-                <h6 class = "side">Credits</h6>  <MudTextField @bind-Value="c1.MyCredits" Label="" ReadOnly="true"Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                @* referral code taken from customer details*@
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton style = "margin-left: 365px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 30px;"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Update</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
-</MudGrid>
-</EditForm>
+        <div class="first">
+            <MudGrid Class="d-flex justify-center align-center;">
+                <div class="second">
+                    <MudItem xs="12" sm="7">
+                        <div class="third">
+                            <MudCard style="padding-bottom: 40px;">
+                                <h2 class="log">My Profile</h2>
+                                <MudCardContent>
+                                    <h6 class="side">Username</h6>  <MudTextField @bind-Value="users1.UserName" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense">@users1.UserName</MudTextField>
+                                    <h6 class="side">First Name</h6>  <MudTextField @bind-Value="c1.FirstName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                                    <h6 class="side">Last Name</h6>  <MudTextField @bind-Value="c1.LastName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                                    <h6 class="side">Mail Id</h6>   <MudTextField @bind-Value="users1.EmailId" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                                    <h6 class="side">Referral Code</h6>  <MudTextField @bind-Value="c1.ReferralCode" Label="" ReadOnly="true" Variant="Variant.Filled" />
+                                    <h6 class="side">Credits</h6>  <MudTextField @bind-Value="c1.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                                    @* referral code taken from customer details*@
+                                </MudCardContent>
+                                <MudCardActions>
+                                    <div class="btn">
+                                        <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><div class="btncolor">Update</div></MudButton>
+                                    </div>
+                                </MudCardActions>
+                            </MudCard>
+                        </div>
+                    </MudItem>
+                </div>
+            </MudGrid>
+        </div>
+    </EditForm>
 </div>
 
-@code{
+@code {
     //public string searchString = "";
     public List<User> users = new List<User>();
     //public CustomerDetail customer1 = new CustomerDetail();
 
-    public User users1= new User();
+    public User users1 = new User();
     public CustomerDetail c1 = new CustomerDetail();
 
     protected override async Task OnInitializedAsync()
     {
 
         users1 = await userService.GetUserById(1001);
-        c1 = await customerDetailService.GetCustomerDetailById(1001); 
+        c1 = await customerDetailService.GetCustomerDetailById(1001);
     }
 
     //public async Task GetCustomerDetailById(int id)
     //{
-        
+
     //}
 
     //public async Task GetUsersById(int id)

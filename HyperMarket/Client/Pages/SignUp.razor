@@ -4,56 +4,42 @@
 @using System.ComponentModel.DataAnnotations
 @inject HyperMarket.DB.Interfaces.IUserService userService
 
-<style>
-    .position {
-        color: #f35555;
-        font-style: italic;
-        text-align:center;
-    }
-    .bg {
-        background-color: #cbf0f561;
-    }
 
-</style>
-<div class = "bg">
-<MudGrid style = "padding: 205px; margin-left: 200px; margin-top: -150px;"Class="ml-60 align-center">
-    <MudItem xs="12" sm="7">
-        <MudPaper Class="mx-auto pa-6"> 
-            <MudForm @ref="form" @bind-IsValid="@success" @onsubmit ="postData">
-                    <h4 class = "position">Sign Up</h4>
-                    <MudTextField T="string" @bind-Value="user.UserName" Label="Username" HelperText="Username must be between 8-16 characters long" Required="true" RequiredError="User name is required!"
-                                  Validation=@(new Func<string, IEnumerable<string>>(UsernameCheck))></MudTextField>
-                    <MudTextField T="string" Label="First Name" HelperText="Enter your First Name" Required="true"></MudTextField>
-                    <MudTextField T="string" Label="Last Name" HelperText="Enter your Last Name" Required="true"></MudTextField>
-                    <MudTextField T="string" @bind-Value="user.EmailId" Label="Email" Required="true" RequiredError="Email is required!"
-                                  Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})"/>
-                    <MudTextField T="string" Label="Password" HelperText="The password must be atleast 8 characters long and must have at least one number." @ref="pwField1"
-                                  InputType="InputType.Password"
-                                  Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
-                                  RequiredError="Password is required!"/>
-                    <MudTextField T="string"  @bind-Value="user.Password"
-                                  Label="Re-enter Password" HelperText="Repeat the password" InputType="InputType.Password"
-                                  Validation="@(new Func<string, string>(PasswordMatch))"/>
-                    <MudTextField T="string" Label="Referal Link" HelperText="You can leave it empty if you do not have one" Required="false"></MudTextField>  
-                    <MudTextField T="string"  @bind-Value="user.ReferredBy"
-                                  Label="Who reffered you?" HelperText="reffered By ?" InputType="InputType.Text"
-                                  Required= "true"/>
-                     @*<MudTextField T="string" Label="Enter OTP" HelperText="Enter Correct OTP" Required="true"></MudTextField>*@
-                     @*<MudButton style = "margin-left: 390px;width: 102px; color: white; height: 33px; background-color: #f35555;margin-top: 0px"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Send OTP</MudButton>*@
-                    <div style = "padding-top: 20px;"class="d-flex align-center justify-space-between mt-6">
-                        @*<MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Remember Me!"/>*@
-                        <MudButton style = "margin-left: 330px;width: 163px;color: white;height: 40px;background-color: #f35555;margin-top: 15px;" 
-                        ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" 
-                        Align = "align.Center" 
-                        
-                        
-
-                        >Sign Up</MudButton>
-                    </div>
-            </MudForm>   
-        </MudPaper>
-    </MudItem>
-</MudGrid>
+<div class="bg">
+    <MudGrid Class="ml-60 align-center">
+        <div class="first">
+            <MudItem class="second">
+                <MudPaper Class="mx-auto pa-6">
+                    <MudForm @ref="form" @bind-IsValid="@success" @onsubmit="postData">
+                        <h4 class="position">Sign Up</h4>
+                        <MudTextField T="string" @bind-Value="user.UserName" Label="Username" HelperText="Username must be between 8-16 characters long" Required="true" RequiredError="User name is required!"
+                                      Validation=@(new Func<string, IEnumerable<string>>(UsernameCheck))></MudTextField>
+                        <MudTextField T="string" Label="First Name" HelperText="Enter your First Name" Required="true"></MudTextField>
+                        <MudTextField T="string" Label="Last Name" HelperText="Enter your Last Name" Required="true"></MudTextField>
+                        <MudTextField T="string" @bind-Value="user.EmailId" Label="Email" Required="true" RequiredError="Email is required!"
+                                      Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})" />
+                        <MudTextField T="string" Label="Password" HelperText="The password must be atleast 8 characters long and must have at least one number." @ref="pwField1"
+                                      InputType="InputType.Password"
+                                      Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
+                                      RequiredError="Password is required!" />
+                        <MudTextField T="string" @bind-Value="user.Password"
+                                      Label="Re-enter Password" HelperText="Repeat the password" InputType="InputType.Password"
+                                      Validation="@(new Func<string, string>(PasswordMatch))" />
+                        <MudTextField T="string" Label="Referal Link" HelperText="You can leave it empty if you do not have one" Required="false"></MudTextField>
+                        <MudTextField T="string" @bind-Value="user.ReferredBy"
+                                      Label="Who reffered you?" HelperText="reffered By ?" InputType="InputType.Text"
+                                      Required="true" />
+                        @*<MudTextField T="string" Label="Enter OTP" HelperText="Enter Correct OTP" Required="true"></MudTextField>*@
+                        @*<MudButton style = "margin-left: 390px;width: 102px; color: white; height: 33px; background-color: #f35555;margin-top: 0px"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Send OTP</MudButton>*@
+                        <div class="btn">
+                            @*<MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Remember Me!"/>*@
+                            <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><div class="btncolor">Sign Up</div></MudButton>
+                        </div>
+                    </MudForm>
+                </MudPaper>
+            </MudItem>
+        </div>
+    </MudGrid>
 </div>
 
 @code {
@@ -62,10 +48,10 @@
     MudTextField<string> pwusername;
     MudForm form;
     User user = new User();
-        
+
     public void postData()
     {
-        
+
         userService.SaveUser(user);
     }
 
