@@ -13,9 +13,6 @@ namespace HyperMarket.DB.Models
         public User User { get; set; }
         public string BusinessName { get; set; }
 
-        //[ForeignKey("tblCategory")]
-        //public string CategoryId { get; set; }
-
         public string BusinessDescription { get; set; }
         public bool TopBrands { get; set; }
         public int ProductsSold { get; set; }

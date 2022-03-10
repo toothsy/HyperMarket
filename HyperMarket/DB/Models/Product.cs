@@ -25,6 +25,7 @@ namespace HyperMarket.DB.Models
         public string AddressLine2 { get; set; }
         public string AddressLine3 { get; set; }
         public int Pin { get; set; }
+
         [ForeignKey("tblUser")]
         public int UserId { get; set; }
         public User User { get; set; }

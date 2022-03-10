@@ -20,7 +20,8 @@ namespace HyperMarket.Data.Interfaces
 
         public async Task<CustomerDetail> GetCustomerDetailById(int id)
         {
-            return await _httpClient.GetFromJsonAsync<CustomerDetail>($"api/customerdetail/{id}");
+            var customer =  await _httpClient.GetFromJsonAsync<CustomerDetail>($"/api/customerdetail/{id}");
+            return customer;
         }
 
         public async Task<CustomerDetail> UpdateUser(CustomerDetail customerDetail)
