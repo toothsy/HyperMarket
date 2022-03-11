@@ -37,6 +37,9 @@ namespace HyperMarket.Server.Controllers
             return Ok(prod);
         }
 
+
+        
+
         [HttpPost]
         public async Task<ActionResult<Product>> SaveProduct(Product prod)
         {
@@ -44,5 +47,6 @@ namespace HyperMarket.Server.Controllers
             await _context.SaveChangesAsync();
             return Ok(prod.ProductId);
         }
+
     }
 }
