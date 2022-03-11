@@ -7,17 +7,23 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.2" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.2" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.16.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Client\HyperMarket.Client.csproj" />
 		<ProjectReference Include="..\Data\HyperMarket.Data.csproj" />
+		<ProjectReference Include="..\HyperMarket.Helpers\HyperMarket.Helpers.csproj" />
+		<ProjectReference Include="..\MailClient\HyperMarket.MailClient.csproj" />
 		<ProjectReference Include="..\Shared\HyperMarket.ViewModels.csproj" />
 	</ItemGroup>
 

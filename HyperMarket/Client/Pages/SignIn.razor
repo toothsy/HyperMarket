@@ -1,55 +1,92 @@
 ﻿@page "/SignIn"
+@inject NavigationManager NavigationManager
+@inject IAuthService AuthService
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
-@using HyperMarket.Shared
-@using System.ComponentModel.DataAnnotations
+<div class="bg">
+    <center>
 
-<div class = "bg">
-<center>
-<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
-<DataAnnotationsValidator/>
-<MudGrid Class="d-flex justify-center align-center"> 
-    <MudItem Class = "second" xs="12" sm="7">
-        <MudCard Class = "third" >
-            <MudCardContent>
-                <h2 class = "log">Log In</h2>
-                <MudTextField Label="Username" HelperText="Max. 30 characters"
-                              @bind-Value="model.Username" For="@(() => model.Username)"/>
-               
-                <MudTextField Label="Enter Password" HelperText="Enter your password" Class="mt-3"
-                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
-            
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Class = "fourth"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Log In</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
-</MudGrid>
-</EditForm>
-</center>
+        <EditForm Model="userSignin" OnValidSubmit="HandleGetOTP" hidden="@(!hideForm)">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <MudGrid Class="d-flex justify-center align-center">
+                <MudItem xs="12" sm="7">
+                    <MudCard>
+                        <MudCardContent>
+                            <h3>Sign In</h3>
+
+                            Please Sign In below or <a href="signup">Sign Up</a> for a new account.
+
+                            <MudTextField Label="Email Id" @bind-Value="userSignin.Email" For="@(()=> userSignin.Email)" InputType="InputType.Email" />
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Get OTP</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+
+        <EditForm Model="userOTP" OnValidSubmit="HandleSignin" hidden="@(hideForm)">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <MudGrid Class="d-flex justify-center align-center">
+                <MudItem xs="12" sm="7">
+                    <MudCard>
+                        <MudCardContent>
+                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Sign In</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </center>
 </div>
 
+
 @code {
-    LogInAccountForm model = new LogInAccountForm();
-    bool success;
+    UserSignin userSignin = new UserSignin();
+    UserOTP userOTP = new UserOTP();
+    private bool hideForm = true;
 
-    public class LogInAccountForm
+    async void HandleSignin()
     {
-        [Required]
-        [StringLength(30, ErrorMessage = "Enter Username")]
-        public string Username { get; set; }
+        var result = await AuthService.Signin(userSignin, userOTP);
+        if (result.Success)
+        {
+            await LocalStorage.SetItemAsync<string>("authToken", result.Data);
+            await AuthenticationStateProvider.GetAuthenticationStateAsync();
 
-        [Required]
-        [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
-        public string Password { get; set; }
-
+            if (NavigationManager.Uri.EndsWith("/signin"))
+            {
+                NavigationManager.NavigateTo("/");
+            }
+            else
+            {
+                NavigationManager.NavigateTo(NavigationManager.Uri);
+            }
+        }
+        else
+        {
+            Console.WriteLine(result.Message);
+        }
     }
 
-    private void OnValidSubmit(EditContext context)
+    async void HandleGetOTP()
     {
-        success = true;
-        StateHasChanged();
+        hideForm = !hideForm;
+        userSignin.OTPValidate = new OTPValidate() { UserOTP = string.Empty, EncryptedActualOTPTimestamp = string.Empty };
+        var result = await AuthService.GetOTP(userSignin);
+        if (result.Success)
+        {
+            Console.WriteLine(result.Message);
+            await LocalStorage.SetItemAsync<string>("OTP", result.Data);
+        }
+        else
+        {
+            Console.WriteLine(result.Message);
+        }
     }
-
 }
-

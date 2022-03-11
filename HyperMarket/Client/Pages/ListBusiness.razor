@@ -4,7 +4,20 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.RegularExpressions
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
+@attribute [Authorize(Roles="User")]
 
+
+<h3>List your business</h3>
+
+@*<AuthorizeView Roles="User">
+    <Authorized>
+        <h1>Hi user</h1>
+
+    </Authorized>
+    <NotAuthorized>
+        You do not have access to view this page
+    </NotAuthorized>
+</AuthorizeView>*@
 
 <div class = "bg">
     

@@ -1,91 +1,86 @@
 ﻿@page "/SignUp"
-@using HyperMarket.DB.Models;
-@using System.Text.RegularExpressions
-@using System.ComponentModel.DataAnnotations
-@inject HyperMarket.DB.Interfaces.IUserService userService
-
+@inject NavigationManager NavigationManager
+@inject IAuthService AuthService
+@inject ILocalStorageService LocalStorage
 
 <div class="bg">
-    <MudGrid Class="ml-60 align-center">
-        <div class="first">
-            <MudItem class="second">
-                <MudPaper Class="mx-auto pa-6">
-                    <MudForm @ref="form" @bind-IsValid="@success" @onsubmit="postData">
-                        <h4 class="position">Sign Up</h4>
-                        <MudTextField T="string" @bind-Value="user.UserName" Label="Username" HelperText="Username must be between 8-16 characters long" Required="true" RequiredError="User name is required!"
-                                      Validation=@(new Func<string, IEnumerable<string>>(UsernameCheck))></MudTextField>
-                        <MudTextField T="string" Label="First Name" HelperText="Enter your First Name" Required="true"></MudTextField>
-                        <MudTextField T="string" Label="Last Name" HelperText="Enter your Last Name" Required="true"></MudTextField>
-                        <MudTextField T="string" @bind-Value="user.EmailId" Label="Email" Required="true" RequiredError="Email is required!"
-                                      Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})" />
-                        <MudTextField T="string" Label="Password" HelperText="The password must be atleast 8 characters long and must have at least one number." @ref="pwField1"
-                                      InputType="InputType.Password"
-                                      Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
-                                      RequiredError="Password is required!" />
-                        <MudTextField T="string" @bind-Value="user.Password"
-                                      Label="Re-enter Password" HelperText="Repeat the password" InputType="InputType.Password"
-                                      Validation="@(new Func<string, string>(PasswordMatch))" />
-                        <MudTextField T="string" Label="Referal Link" HelperText="You can leave it empty if you do not have one" Required="false"></MudTextField>
-                        <MudTextField T="string" @bind-Value="user.ReferredBy"
-                                      Label="Who reffered you?" HelperText="reffered By ?" InputType="InputType.Text"
-                                      Required="true" />
-                        @*<MudTextField T="string" Label="Enter OTP" HelperText="Enter Correct OTP" Required="true"></MudTextField>*@
-                        @*<MudButton style = "margin-left: 390px;width: 102px; color: white; height: 33px; background-color: #f35555;margin-top: 0px"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Send OTP</MudButton>*@
-                        <div class="btn">
-                            @*<MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Remember Me!"/>*@
-                            <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><div class="btncolor">Sign Up</div></MudButton>
-                        </div>
-                    </MudForm>
-                </MudPaper>
-            </MudItem>
-        </div>
-    </MudGrid>
+    <center>
+
+        <EditForm Model="userSignup" OnValidSubmit="HandleGetOTP" hidden="@(!hideForm)">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <MudGrid Class="ml-60 align-center">
+                <MudItem xs="12" sm="7">
+                    <MudCard>
+                        <MudCardContent>
+                            <h3>Sign Up</h3>
+
+                            <MudTextField Label="Email Id" @bind-Value="userSignup.Email" For="@(()=> userSignup.Email)" InputType="InputType.Email" />
+                            <MudTextField Label="User Name" @bind-Value="userSignup.Username" For="@(()=> userSignup.Username)" />
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Get OTP</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+
+        <EditForm Model="userOTP" OnValidSubmit="HandleSignup" hidden="@(hideForm)">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <MudGrid Class="ml-60 align-center">
+                <MudItem xs="12" sm="7">
+                    <MudCard>
+                        <MudCardContent>
+                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Sign Up</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+    </center>
 </div>
 
 @code {
-    bool success;
-    MudTextField<string> pwField1;
-    MudTextField<string> pwusername;
-    MudForm form;
-    User user = new User();
+    UserSignup userSignup = new UserSignup();
+    UserOTP userOTP = new UserOTP();
+    private bool hideForm = true;
 
-    public void postData()
+    async void HandleSignup()
     {
-
-        userService.SaveUser(user);
-    }
-
-    private IEnumerable<string> PasswordStrength(string pw)
-    {
-        if (string.IsNullOrWhiteSpace(pw))
+        var result = await AuthService.Signup(userSignup, userOTP);
+        if (result.Success)
         {
-            yield return "Password is required!";
-            yield break;
+            NavigationManager.NavigateTo("signin");
         }
-        if (pw.Length < 8)
-            yield return "Password must be at least of length 8";
-        if (!Regex.IsMatch(pw, @"[A-Z]"))
-            yield return "Password must contain at least one capital letter";
-        if (!Regex.IsMatch(pw, @"[a-z]"))
-            yield return "Password must contain at least one lowercase letter";
-        if (!Regex.IsMatch(pw, @"[0-9]"))
-            yield return "Password must contain at least one digit";
+        else
+        {
+            Console.WriteLine(result.Message);
+        }
     }
 
-    private IEnumerable<string> UsernameCheck(string uname)
+    async void HandleGetOTP()
     {
-        if (uname.Length < 8)
-            yield return "Username must be at least of length 8";
-        if (!Regex.IsMatch(uname, @"[A-Z]"))
-            yield return "Username must contain at least one uppercase letter";
-        if (!Regex.IsMatch(uname, @"[0-9]"))
-            yield return "Username must contain at least one digit";
+        hideForm = !hideForm;
+        var result = await AuthService.GetOTP(new UserSignin
+            {
+                Email = userSignup.Email,
+                OTPValidate = new OTPValidate()
+                {
+                    UserOTP = string.Empty,
+                    EncryptedActualOTPTimestamp = string.Empty
+                }
+            });
+        if (result.Success)
+        {
+            Console.WriteLine(result.Message);
+            await LocalStorage.SetItemAsync<string>("OTP", result.Data);
+        }
+        else
+        {
+            Console.WriteLine(result.Message);
+        }
     }
-    private string PasswordMatch(string arg)
-    {
-        if (pwField1.Value != arg)
-            return "Passwords don't match";
-        return null;
     }
-
-}

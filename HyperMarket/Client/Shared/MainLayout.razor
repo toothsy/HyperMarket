@@ -1,4 +1,8 @@
 ﻿@inherits LayoutComponentBase
+@inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavigationManager
+
 
 <MudThemeProvider/>
 <MudDialogProvider/>
@@ -17,7 +21,19 @@
             
     </MudSelect>
     <MudSpacer />
-    <MudBreadcrumbs style = "color : white;margin-left:-50px;" Items="_items" Separator="|"></MudBreadcrumbs>
+    <AuthorizeView>
+            <Authorized>
+                <span>Hi, @context.User.Identity.Name </span>
+                <MudLink href="listBusiness">List Your Business</MudLink>
+                <MudLink @onclick="Signout">Sign Out</MudLink>
+            </Authorized>
+            <NotAuthorized>
+                <div>
+                    <MudLink href="signin">Sign In</MudLink>
+                    <MudLink href="signup">Sign Up</MudLink>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
     
     @*<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />*@
     </MudAppBar>
@@ -43,13 +59,6 @@
      
 
 @code {
-    private List<BreadcrumbItem> _items = new List<BreadcrumbItem>
-    {
-        new BreadcrumbItem("List Your Business", href: "/listBusiness"),
-        new BreadcrumbItem("SignUp", href: "/Signup"),
-        new BreadcrumbItem("Login", href: "/SignIn")
-    };
-
     public List<String> AllLocations = new List<String>();
 
     protected override async Task OnInitializedAsync()
@@ -58,5 +67,11 @@
         AllLocations = await locationService.GetAllLocation();
 
     }
-
+    
+    private async void Signout()
+    {
+        await LocalStorage.RemoveItemAsync("authToken");
+        await AuthStateProvider.GetAuthenticationStateAsync();
+        NavigationManager.NavigateTo("/");
+    }
 }
