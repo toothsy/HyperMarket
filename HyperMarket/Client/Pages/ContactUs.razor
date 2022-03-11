@@ -1,4 +1,8 @@
 ﻿@page "/ContactUs"
+@using HyperMarket.DB.Models;
+@using System.Text.RegularExpressions
+@using System.ComponentModel.DataAnnotations
+@inject HyperMarket.Data.Interfaces.IConfigService configService
 <div class = "bg">
 <MudGrid Class="ml-60 align-center">
     <div class="first">
@@ -7,9 +11,9 @@
                 <MudPaper Class="mx-auto pa-6">
                     <h3>Contact Us</h3>
                     <MudIconButton Icon="@Icons.Material.Filled.Phone" aria-label="phone"></MudIconButton>
-                    <p>1234567890</p>
+                    <p>@config.TelephoneId   </p>
                     <MudIconButton Icon="@Icons.Material.Filled.Email" aria-label="email"></MudIconButton>
-                    <p>support@gmail.com</p>
+                    <p>@config.EmailId   </p>
                 </MudPaper>
             </div>
         </MudItem>
@@ -19,5 +23,11 @@
 
 
 @code {
+    public Config config = new Config();
+
+    protected override async Task OnInitializedAsync()
+    {
+        config = await configService.GetConfigById(601);
+    }
 
 }

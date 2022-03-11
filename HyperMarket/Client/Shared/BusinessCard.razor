@@ -1,5 +1,6 @@
 ﻿@using HyperMarket.DB.Models
-
+@inject NavigationManager UriHelper
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 <div class = "card" style = "">
     <img class="imgLogo" src=@business.Logo />
 
@@ -13,7 +14,7 @@
             <p>@business.BusinessDescription</p>
         </div>
 
-        <a href = "/offers" class = "btn" >offers available</a> 
+        <button class = "btn" @onclick=@clickHandler >More Products</button> 
 
     </div>
 </div>
@@ -26,4 +27,12 @@
 
     [Parameter]
     public BusinessDetail business { get; set; }
+
+
+    public async void clickHandler(){
+        //Console.WriteLine("came inside this buttons and bussiness ID is "+ this.business.BusinessId);
+
+        await sessionStorage.SetItemAsync("business", this.business);
+        UriHelper.NavigateTo("/offers");
+    }
 }

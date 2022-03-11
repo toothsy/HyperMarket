@@ -1,6 +1,8 @@
 ﻿@page "/MyOrdercust"
+@inject HyperMarket.Data.Interfaces.IOrderService orderservice
+
 <h3>My Orders</h3>
-@*<center><MudTable Items="@Order.Take(4)">
+<center><MudTable Items=@order>
     <HeaderContent>
         <MudTh>Order No.</MudTh>
         <MudTh>Date</MudTh>
@@ -9,17 +11,24 @@
         <MudTh>Status</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Order No.">@context.OrderId</MudTd>
-        <MudTd DataLabel="Amount">@context.PaymentId</MudTd>
-        <MudTd DataLabel="Description">@context.BusinessName</MudTd>
-        <MudTd DataLabel="Status">@context.MyOrderCredits</MudTd>
+        @foreach(var bill in order)
+        {
+            @if (bill.OrderId == 1)
+            {
+                <MudTd >@bill.OrderId</MudTd>
+                <MudTd >@bill.PaymentId</MudTd>
+                <MudTd >@bill.BusinessName</MudTd>
+                <MudTd >@bill.MyOrderCredits</MudTd>
+            }
+        }
     </RowTemplate>
 </MudTable>
-</center>*@
+</center>
+
 @code {
-    //private IEnumerable<MyOrder> Order = new List<MyOrder>;
-    //protected override async Task OnInitialisedAsync()
-    //{
-    //    Order=await httpClient.GetFromJsonAsync<List<Element>>("webapi/periodictable");
-    //}
+    public List<Order> order = new List<Order>();
+    protected override async Task OnInitializedAsync()
+    {
+       order = await orderservice.GetOrders();
     }
+}

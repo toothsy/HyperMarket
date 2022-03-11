@@ -1,0 +1,28 @@
+﻿
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject HyperMarket.Data.Interfaces.IOffer off
+@using HyperMarket.Shared
+@page "/offers"
+
+<div>
+    @if (currBiz == null) {
+        <Spinner/>
+    }
+  
+    else{
+    <h1>Offers Realted to <br>@currBiz.BusinessName</h1>
+
+    }
+</div>
+
+@code {
+    public List<Product> ListOfProducts;
+    public BusinessDetail currBiz;
+    protected override async Task OnInitializedAsync(){
+
+        currBiz = await sessionStorage.GetItemAsync<BusinessDetail>("business");
+        
+        ListOfProducts = await off.GetProductsByBusinessID(currBiz.BusinessId);
+
+    }
+}

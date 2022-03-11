@@ -3,26 +3,30 @@
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
-
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 <PageTitle>HyperMarket</PageTitle>
 
 
 <div class = "row">
     
-    @foreach(var business in businesses) {
-            @if (business.TopBrands){
-                <BusinessCard business=business/>
-            }
+    @if(businesses == null){
+        <Spinner />
+    }
+    else{
+        @foreach(var business in businesses) {
+                @if (business.TopBrands){
+                    <BusinessCard business=business />
+                }
+        }
     }
 </div>
 
 
 @code {
 
-    public List<BusinessDetail> businesses = new List<BusinessDetail>();
+    public List<BusinessDetail> businesses ;
 
-    protected override async Task OnInitializedAsync()
-    {
+    protected override async Task OnInitializedAsync(){
         businesses = await businessService.GetBusinesses();
 
 
