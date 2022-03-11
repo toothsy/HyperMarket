@@ -54,32 +54,11 @@
         c1 = await customerDetailService.GetCustomerDetailById(1001);
     }
 
-    //public async Task GetCustomerDetailById(int id)
-    //{
-
-    //}
-
-    //public async Task GetUsersById(int id)
-    //{
-    //    users1 =await userService.GetUserById(id);
-    //}
-
-    //public void Save()
-    //{
-    //    userService.SaveUser(user);
-    //    user = new User();
-    //    GetUsers();
-    //}
-
+   
     private async Task OnValidSubmit(EditContext context)
     {
         await userService.UpdateUser(users1);
         await customerDetailService.UpdateUser(c1);
     }
 
-    //public void Delete(int id)
-    //{
-    //    userService.DeleteUser(id);
-    //    GetUsers();
-    //}
   }

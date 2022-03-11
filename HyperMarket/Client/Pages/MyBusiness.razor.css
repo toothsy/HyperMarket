@@ -1,10 +1,4 @@
-﻿.log {
-    color: #f35555;
-    margin-top: 60px;
-    text-align: center;
-    padding-top: 35px;
-    font-size: 24px;
-}
+﻿
 
 
 .side {
@@ -13,7 +7,6 @@
 
 .bg {
     background-color: #cbf0f561;
-    height: 140vh;
 }
 
 .second {
@@ -22,15 +15,8 @@
 }
 
 .btn {
-    margin-left: 355px;
-    width: 163px;
-    color: white;
-    height: 45px;
-    background-color: #f35555;
-    margin-top: 45px;
-    margin-bottom: 45px
+    padding-top: 20px;
 }
-
 
 .btncolor {
     color: white;

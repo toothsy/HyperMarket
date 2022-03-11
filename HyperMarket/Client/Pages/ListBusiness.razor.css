@@ -1,0 +1,22 @@
+﻿.registerform {
+    color: #f35555;
+    margin-top: 55px;
+    font-style: italic;
+    text-align: center;
+    font-size: 24px;
+    margin-left:10px;
+}
+
+.bg {
+    background-color: #cbf0f561;
+}
+
+.grid {
+    padding: 205px;
+    margin-left: 200px;
+    margin-top: -150px;
+}
+
+.btn {
+    padding-top: 20px;
+}
