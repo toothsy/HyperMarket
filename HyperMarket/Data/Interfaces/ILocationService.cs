@@ -11,6 +11,7 @@ namespace HyperMarket.Data.Interfaces
     public interface ILocationService
     {
         Task<Location> GetLocationById(int id);
+        Task<List<String>> GetAllLocation();
 
     }
 }

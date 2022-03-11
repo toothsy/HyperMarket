@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HyperMarket.DB.Models;
+using System.Linq;
+
 namespace HyperMarket.Server.Controllers
 {
 
@@ -18,12 +20,22 @@ namespace HyperMarket.Server.Controllers
             {
                 _context = context;
             }
+            [HttpGet("all")]
+        public async Task<IActionResult> GetAllLocation(){
+            List<String> locName = await (from l in _context.Locations orderby l.LocationName select l.LocationName).ToListAsync();
 
+                if (locName == null)
+                {
+                    return NotFound("Location not found!");
+                }
+                return Ok(locName);
+            }
 
-            [HttpGet("{id}")]
+        [HttpGet("{id}")]
             public async Task<IActionResult> GetLocationById(int id)
             {
                 var location1 = await _context.Locations.FirstOrDefaultAsync(x => x.LocationId == id);
+
 
                 if (location1 == null)
                 {

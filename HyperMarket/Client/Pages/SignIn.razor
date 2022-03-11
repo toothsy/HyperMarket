@@ -3,35 +3,30 @@
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
 
-
-<div class="bg">
-    <center>
-        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
-            <DataAnnotationsValidator />
-            <MudGrid Class="d-flex justify-center align-center">
-                <MudItem xs="12" sm="7">
-                    <div class="third">
-                        <MudCard>
-                            <MudCardContent>
-                                <h2 class="log">Log In</h2>
-                                <MudTextField Label="Username" HelperText="Max. 30 characters"
-                                              @bind-Value="model.Username" For="@(() => model.Username)" />
-
-                                <MudTextField Label="Enter Password" HelperText="Enter your password" Class="mt-3"
-                                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password" />
-
-                            </MudCardContent>
-                            <MudCardActions>
-                                <div class="fourth">
-                                    <MudButton ButtonType="ButtonType.Submit"><div class="logincolor"> Log In</div></MudButton>
-                                </div>
-                            </MudCardActions>
-                        </MudCard>
-                    </div>
-                </MudItem>
-            </MudGrid>
-        </EditForm>
-    </center>
+<div class = "bg">
+<center>
+<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+<DataAnnotationsValidator/>
+<MudGrid Class="d-flex justify-center align-center"> 
+    <MudItem Class = "second" xs="12" sm="7">
+        <MudCard Class = "third" >
+            <MudCardContent>
+                <h2 class = "log">Log In</h2>
+                <MudTextField Label="Username" HelperText="Max. 30 characters"
+                              @bind-Value="model.Username" For="@(() => model.Username)"/>
+               
+                <MudTextField Label="Enter Password" HelperText="Enter your password" Class="mt-3"
+                              @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password"/>
+            
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Class = "fourth"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Center">Log In</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudItem>
+</MudGrid>
+</EditForm>
+</center>
 </div>
 
 @code {

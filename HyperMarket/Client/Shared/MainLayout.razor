@@ -11,9 +11,10 @@
     <MudImage Src = "images/LOGO.png" Width="48" Height="48" />
     </a>
     <MudSelect style = "margin-right: 750px;"Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
-    <MudSelectItem Value="c1.LocationName"/>
-    <MudSelectItem Value="c2.LocationName" />
-    <MudSelectItem Value="c3.LocationName" />
+            @foreach (var item in AllLocations){
+                <MudSelectItem Value=@item/>
+            }
+            
     </MudSelect>
     <MudSpacer />
     <MudBreadcrumbs style = "color : white;margin-left:-50px;" Items="_items" Separator="|"></MudBreadcrumbs>
@@ -36,7 +37,6 @@
         <MudLink Href="/SocialMedia" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;" href="/SocialMedia" >Social Media</a></MudLink>
         <MudLink Href="/FAQ" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;" href="/FAQ" >FAQ's</a></MudLink>
         <MudLink Href="/ContactUs" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;"  href="/ContactUs">Contact Us</a></MudLink>
-       
     </MudAppBar>
 </MudLayout>
     
@@ -50,16 +50,12 @@
         new BreadcrumbItem("Login", href: "/SignIn")
     };
 
-    public Location c1 = new Location();
-    public Location c2 = new Location();
-    public Location c3 = new Location();
+    public List<String> AllLocations = new List<String>();
 
     protected override async Task OnInitializedAsync()
     {
 
-        c1 = await locationService.GetLocationById(1);
-        c2 = await locationService.GetLocationById(2);
-        c3 = await locationService.GetLocationById(3);
+        AllLocations = await locationService.GetAllLocation();
 
     }
 

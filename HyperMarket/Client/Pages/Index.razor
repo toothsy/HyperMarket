@@ -2,74 +2,30 @@
 @using HyperMarket.DB.Models
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
+@using HyperMarket.UIControls.BusinessCard
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
-
 
 <PageTitle>HyperMarket</PageTitle>
 
-<html>
-<style>
 
-     .bg {
-         background-color:#cbf0f561;
-         /margin-top: -70px;/
-     }
-     body {
-         background-color:#cbf0f561;
-         height:100vh;
-     }
-     .card:hover {
-         box-shadow : -1px 9px 40px -12px #808080;
-     }
-     .title {
-          color: #f35555;
-     }
-     .btn{
-         background-color: #f35555;
-         border: none;
-         height: 32px;
-         margin-left: 119px;
-         color:white;
-     }
-     .row {
-         padding-bottom: 220px;
-     }
-     
-</style>
-<body>
 <div class = "row">
     
-    @foreach(var business in businesses) 
-    {
-            @if (business.TopBrands == true)
-            {
-                <div class = "card" style = "width: 25em;margin-top: 50px;margin-left: 100px;margin-bottom: 50px;height: auto;">
-                @*<img src = " " class = "card-img-top"/>*@
-                <div class = "card-body">
-                    <div class = "card-title">
-                        <h3>@business.BusinessName</h3> 
-                    </div>
-                    <div class = "card-text">
-                        <p>@business.BusinessDescription</p>
-                    </div>
-                    <a href = "#" class = "btn" >Read More</a> 
-                </div>
-
-                </div>
+    @foreach(var business in businesses) {
+            @if (business.TopBrands){
+                <BusinessCard business=business/>
             }
     }
 </div>
-</body>
-</html>
+
 
 @code {
 
     public List<BusinessDetail> businesses = new List<BusinessDetail>();
 
-
     protected override async Task OnInitializedAsync()
     {
         businesses = await businessService.GetBusinesses();
+
 
     }
 }
