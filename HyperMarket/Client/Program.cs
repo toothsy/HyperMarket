@@ -18,6 +18,8 @@ builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IConfigService, ConfigService>();
+builder.Services.AddScoped<IFAQsService, FAQsService>();
 
 
 
