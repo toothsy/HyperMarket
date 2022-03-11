@@ -2,38 +2,35 @@
 @using System.ComponentModel.DataAnnotations
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IProductService productService
-<style>
-    .registerform {
-        color: #f35555;
-        margin-top: 55px;
-        
-    }
 
-</style>
 <center>
-<EditForm Model="@prod" OnValidSubmit="OnValidSubmit">
-<DataAnnotationsValidator/>
-<h2 class = "registerform" align-items: "center;">Add New Product</h2>
-<MudGrid Class="d-flex justify-center align-center"> 
-    <MudItem xs="12" sm="7" style = "margin-top: -93px; padding: 125px;">
-        <MudCard style = "height: auto;">
-            <MudCardContent>
-                <MudTextField Label="Product name" HelperText="Max. 30 characters"
-                              @bind-Value="prod.ProductName"/>
-                <MudTextField Label="Product Description" Class="mt-3"
-                              @bind-Value="prod.ProductDescription"/>
-                <MudTextField Label="Price" HelperText="List your price" Class="mt-3"
-                              @bind-Value="prod.Price" InputType="InputType.Number"/>
-               
-            </MudCardContent>
-            <MudCardActions>
+    <EditForm Model="@prod" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
 
-                <MudButton style = "margin-left: 320px;width: 163px;color: white;height: 45px;background-color: #f35555;margin-top: 15px; margin-bottom:15px"  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Align = "align.Right" OnClick="@SaveChanges">Register</MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
-</MudGrid>
-</EditForm>
+        <MudGrid Class="d-flex justify-center align-center">
+            <div class="first">
+                <MudItem class="third">
+                    <MudCard class="second">
+                        <h4>Add New Product</h4>
+                        <MudCardContent>
+                            <MudTextField Label="Product name" HelperText="Max. 30 characters"
+                                          @bind-Value="prod.ProductName" />
+                            <MudTextField Label="Product Description" Class="mt-3"
+                                          @bind-Value="prod.ProductDescription" />
+                            <MudTextField Label="Price" HelperText="List your price" Class="mt-3"
+                                          @bind-Value="prod.Price" InputType="InputType.Number" />
+                        </MudCardContent>
+                        <MudCardActions>
+                            <div class="btn">
+                                <MudButton ButtonType="ButtonType.Submit" Align="align.Right" OnClick="@SaveChanges"><div class="btncolor">Register</div></MudButton>
+                            </div>
+                        </MudCardActions>
+
+                    </MudCard>
+                </MudItem>
+            </div>
+        </MudGrid>
+    </EditForm>
 </center>
 
 @code {

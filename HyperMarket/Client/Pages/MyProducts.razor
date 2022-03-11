@@ -4,45 +4,38 @@
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IProductService productService
 
+    <MudGrid Class="ml-60 align-center">
+        <div class="first">
+        <MudItem xs="12" sm="7">
+            <MudPaper Class="mx-auto pa-6">
+                <h4>MyProducts</h4>
+                <table border="3">
+                    <thead>
+                    <th>ProductID</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Discount</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable='true'>@P1.ProductId</td>
+                            <td contenteditable='true'>@P1.CategoryId</td>
+                            <td contenteditable='true'>@P1.Price</td>
+                            <td contenteditable='true'>@P1.Discount</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="btn">
+                    <MudButton ButtonType="ButtonType.Submit" Align="align.Center">Delete</MudButton>
+                </div>
+                <div class="btn1">
+                    <MudButton ButtonType="ButtonType.Submit" Align="align.Center"> Add</MudButton>
+                </div>
+            </MudPaper>
+        </MudItem>
+        </div>
+    </MudGrid>
 
-<MudGrid style = "padding: 205px; margin-left: 200px; margin-top: -150px; color:Background:black"Class="ml-60 align-center">
-    <MudItem xs="12" sm="7">
-        <MudPaper Class="mx-auto pa-6"> 
-
-<style>
-table, th, td {
-  border:1px solid black;
-}
-</style>
-
-<h3>MyProducts</h3>
-
-<table border="3">
-<thead>
-<th>ProductID</th>
-<th>Category</th>
-<th>Price</th>
-<th>Discount</th>
-</thead>
-<tbody>
-<tr>
-<td contenteditable='true'>@P1.ProductId</td>
-<td contenteditable='true'>@P1.CategoryId</td>
-<td contenteditable='true'>@P1.Price</td>
-<td contenteditable='true'>@P1.Discount</td>
-</tr>
-</tbody>
-</table>
-<MudButton style = "margin-left: 330px;width: 163px;color: white;height: 40px;background-color: #f35555;margin-top: 15px;" 
-                        ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" 
-                        Align = "align.Center"  >Delete</MudButton>
-<MudButton style = "margin-left: 330px;width: 163px;color: white;height: 40px;background-color: #f35555;margin-top: 15px;" 
-                        ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" 
-                        Align = "align.Center"  > Add</MudButton>
-
-</MudPaper>
-</MudItem>
-</MudGrid>
 
 @code {
     public Product P1 = new Product();
@@ -51,5 +44,5 @@ table, th, td {
     {
         P1 = await productService.GetProductById(1);
     }
-    
+
 }

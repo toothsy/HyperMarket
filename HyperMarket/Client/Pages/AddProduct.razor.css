@@ -1,0 +1,44 @@
+﻿.registerform {
+    color: #f35555;
+    margin-top: 55px;
+    align-items: "center";
+}
+
+h4 {
+    padding-top: 50px;
+    color: #f35555;
+}
+
+.height1 {
+    height: auto;
+    width: 450px;
+}
+
+.btn {
+    margin-left: 320px;
+    width: 163px;
+    color: white;
+    height: 45px;
+    background-color: #f35555;
+    margin-top: 15px;
+    margin-bottom: 15px
+}
+
+.third {
+    margin-left: 390px;
+    margin-right: 335px;
+}
+
+.btncolor {
+    color: white;
+}
+
+.first {
+    margin-top: -93px;
+    padding: 125px;
+}
+
+.second {
+    margin-left: -135px;
+    margin-right: -5px
+}

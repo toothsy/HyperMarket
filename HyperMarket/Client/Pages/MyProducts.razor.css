@@ -1,0 +1,29 @@
+﻿.btn {
+    margin-left: 330px;
+    width: 163px;
+    color: white;
+    height: 40px;
+    background-color: #f35555;
+    margin-top: 15px;
+}
+
+h4 {
+    text-align: center;
+}
+
+.btn1 {
+    margin-left: 330px;
+    width: 163px;
+    color: white;
+    height: 40px;
+    background-color: #f35555;
+    margin-top: 15px;
+}
+.first {
+    padding: 205px;
+    margin-left: 200px;
+    margin-top: -150px;
+}
+table, th, td {
+    border: 1px solid black;
+}

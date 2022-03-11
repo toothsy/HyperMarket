@@ -1,0 +1,36 @@
+﻿.bg {
+    background-color: #cbf0f561;
+    
+}
+
+body {
+    background-color: #cbf0f561;
+    height: 100vh;
+}
+
+.card:hover {
+    box-shadow: -1px 9px 40px -12px #808080;
+}
+.card {
+    width: 25em;
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    height: auto;
+}
+
+.title {
+    color: #f35555;
+}
+
+.btn {
+    background-color: #f35555;
+    border: none;
+    height: 32px;
+    margin-left: 119px;
+    color: white;
+}
+
+.row {
+    padding-bottom: 220px;
+}

@@ -1,8 +1,8 @@
 ﻿.log {
     color: #f35555;
     margin-top: 40px;
-    font-style: italic;
     font-size: 24px;
+    align-items: "center";
 }
 
 .bg {
@@ -54,9 +54,26 @@
     color: white;
     height: 45px;
     background-color: #f35555;
-    margin-top: 30px;
+    margin-top: -195px;
 }
 
 .btncolor {
     color:white;
+}
+
+.checkbox1 {
+    margin-left: -200px;
+    margin-bottom: 61px;
+    margin-top: 0px;
+}
+.fourth {
+    padding-bottom: 30px;
+}
+
+.radio3 {
+    margin-left: -31px;
+}
+
+.radio4 {
+    margin-left: 12px;
 }
