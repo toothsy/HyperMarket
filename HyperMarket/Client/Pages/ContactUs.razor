@@ -4,10 +4,10 @@
 @using System.ComponentModel.DataAnnotations
 @inject HyperMarket.Data.Interfaces.IConfigService configService
 <div class = "bg">
-<MudGrid Class="ml-60 align-center">
-    <div class="first">
+<MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
+   
         <MudItem xs="12" sm="7">
-            <div class="second">
+            
                 <MudPaper Class="mx-auto pa-6">
                     <h3>Contact Us</h3>
                     <MudIconButton Icon="@Icons.Material.Filled.Phone" aria-label="phone"></MudIconButton>
@@ -15,9 +15,9 @@
                     <MudIconButton Icon="@Icons.Material.Filled.Email" aria-label="email"></MudIconButton>
                     <p>@config.EmailId   </p>
                 </MudPaper>
-            </div>
+           
         </MudItem>
-    </div>
+    
 </MudGrid>
 </div>
 

@@ -2,7 +2,7 @@
 @using HyperMarket.DB.Models
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
-@using HyperMarket.ViewModels;
+@*@using HyperMarket.ViewModels;*@
 @inject HyperMarket.DB.Interfaces.IUserService userService
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 
@@ -43,7 +43,7 @@
     public List<BusinessDetail> Businesses = new List<BusinessDetail>();
     public BusinessDetail business = new BusinessDetail();
 
-    public MyBusinessViewModel formDetails = new MyBusinessViewModel();
+    //public MyBusinessViewModel formDetails = new MyBusinessViewModel();
 
     protected override async Task OnInitializedAsync()
     {

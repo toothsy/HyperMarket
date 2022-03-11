@@ -1,13 +1,14 @@
-﻿.first {
+﻿/*.first {
     padding: 110px;
     margin-left: 295px;
     margin-top: -50px;
     padding-right: 0px;
     margin-right: -46px
-}
+}*/
+
 
 .bg {
-    height: 120vh;
+    background-color: #cbf0f561;
 }
 
 .bottom {
