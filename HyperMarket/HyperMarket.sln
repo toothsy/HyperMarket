@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperMarket.MailClient", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperMarket.UIControls", "UIControls\HyperMarket.UIControls.csproj", "{2C0F1620-98A0-4FBB-986B-4F06CAF8E650}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperMarket.Helpers", "HyperMarket.Helpers\HyperMarket.Helpers.csproj", "{8EA5D5E1-1B9B-442F-AC4A-83886243B025}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HyperMarket.Helpers", "HyperMarket.Helpers\HyperMarket.Helpers.csproj", "{8EA5D5E1-1B9B-442F-AC4A-83886243B025}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

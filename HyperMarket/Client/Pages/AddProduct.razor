@@ -4,7 +4,7 @@
 @inject HyperMarket.Data.Interfaces.IProductService productService
 
 <center>
-    <EditForm Model="@prod" OnValidSubmit="OnValidSubmit">
+    <EditForm Model="prod" OnValidSubmit="AddYourProduct">
         <DataAnnotationsValidator />
 <div class ="bg">
         <MudGrid Class="d-flex justify-center align-center">
@@ -13,16 +13,20 @@
                     <MudCard >
                         <h4>Add New Product</h4>
                         <MudCardContent>
-                            <MudTextField Label="Product name" HelperText="Max. 30 characters"
-                                          @bind-Value="prod.ProductName" />
-                            <MudTextField Label="Product Description" Class="mt-3"
-                                          @bind-Value="prod.ProductDescription" />
-                            <MudTextField Label="Price" HelperText="List your price" Class="mt-3"
-                                          @bind-Value="prod.Price" InputType="InputType.Number" />
+                            <MudTextField Label="Product name" HelperText="Max. 30 characters" @bind-Value="prod.ProductName" For="@(()=>prod.ProductName)" InputType="InputType.Text"/>
+                            <MudTextField Label="Product Description" Class="mt-3" @bind-Value="prod.ProductDescription" For="@(()=> prod.ProductDescription)" InputType="InputType.Text"/>
+                            <MudTextField Label="Price" HelperText="List your price" Class="mt-3" @bind-Value="prod.Price" For="@(()=> prod.Price)" InputType="InputType.Number" />
+                            <MudTextField Label="Category" HelperText="List your category" Class="mt-3" @bind-Value="prod.CategoryId" For="@(()=>prod.CategoryId)" InputType="InputType.Number" />
+                            <MudTextField Label="Sub-Category" HelperText="List your sub-category" Class="mt-3" @bind-Value="prod.SubCategoryId" For="@(()=>prod.SubCategoryId)" InputType="InputType.Number" />
+                            <MudTextField Label="Discount" HelperText="List your discount percentage" Class="mt-3" @bind-Value="prod.Discount" For="@(()=>prod.Discount)" InputType="InputType.Number" />
+                            <MudTextField Label="Address Line 1" Class="mt-3" @bind-Value="prod.AddressLine1" For="@(()=> prod.AddressLine1)" InputType="InputType.Text"/>
+                            <MudTextField Label="Address Line 2" Class="mt-3" @bind-Value="prod.AddressLine2" For="@(()=> prod.AddressLine2)" InputType="InputType.Text"/>
+                            <MudTextField Label="Address Line 3" Class="mt-3" @bind-Value="prod.AddressLine3" For="@(()=> prod.AddressLine3)" InputType="InputType.Text"/>
+                            <MudTextField Label="Pin" Class="mt-3" @bind-Value="prod.Pin" For="@(()=> prod.Pin)" InputType="InputType.Number" />
                         </MudCardContent>
                         <MudCardActions>
                             <div class="btn">
-                                <MudButton ButtonType="ButtonType.Submit" Align="align.Right" OnClick="@SaveChanges"><div class="btncolor">Register</div></MudButton>
+                                <MudButton ButtonType="ButtonType.Submit" Align="align.Right">Register</MudButton>
                             </div>
                         </MudCardActions>
 
@@ -37,16 +41,12 @@
 </center>
 
 @code {
-    Product prod = new Product();
     bool success;
-    public void SaveChanges()
+    AddProductModel prod = new AddProductModel();
+    async void AddYourProduct()
     {
-    }
-    private void OnValidSubmit(EditContext context)
-    {
-        success = true;
+        var x = 40;
         productService.SaveProduct(prod);
-        StateHasChanged();
     }
 
 }

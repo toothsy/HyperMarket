@@ -6,6 +6,7 @@ using System.Net.Http.Json;
 using HyperMarket.Data;
 using System.Text;
 using System.Threading.Tasks;
+using HyperMarket.ViewModels;
 
 namespace HyperMarket.Data.Interfaces
 {
@@ -34,9 +35,21 @@ namespace HyperMarket.Data.Interfaces
             return await _httpClient.GetFromJsonAsync<List<Product>>($"api/product");
         }
 
-        public async void SaveProduct(Product prod)
+        public async void SaveProduct(AddProductModel prod)
         {
-            var test = await _httpClient.PostAsJsonAsync($"api/product/",prod);
+            var test = new HttpResponseMessage();
+            try
+            {
+                test = await _httpClient.PostAsJsonAsync($"/api/product/", prod);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Console.WriteLine(test);
+            }
         }
         //public void SaveUser(User user)
         //{

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HyperMarket.DB.Models;
-
+using HyperMarket.ViewModels;
 
 namespace HyperMarket.Server.Controllers
 {
@@ -37,16 +37,36 @@ namespace HyperMarket.Server.Controllers
             return Ok(prod);
         }
 
-
-        
-
         [HttpPost]
-        public async Task<ActionResult<Product>> SaveProduct(Product prod)
+        public async Task<ActionResult<Product>> SaveProduct(AddProductModel prod)
         {
-            _context.Products.Add(prod);
-            await _context.SaveChangesAsync();
-            return Ok(prod.ProductId);
-        }
+            Product product = new Product()
+            {
+                UserId = 1001,
+                ProductName = prod.ProductName,
+                ProductDescription = prod.ProductDescription,
+                Price = prod.Price,
+                CategoryId =prod.CategoryId,
+                SubCategoryId =prod.SubCategoryId,
+                AddressLine1=prod.AddressLine1,
+                AddressLine2=prod.AddressLine2,
+                AddressLine3=prod.AddressLine3,
+                Pin=prod.Pin,
+                ImageCheck=false,
+                CreatedBy = -1,
+                UpdatedBy = -1,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                Discount = prod.Discount,
+                IsActive=true
+            };
+            Console.WriteLine("\n\n\nuser is here " + prod + "\n\n\n\n\n");
 
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return Ok(product.UserId);
+
+        }
     }
 }

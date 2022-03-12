@@ -1,4 +1,5 @@
 ﻿using HyperMarket.DB.Models;
+using HyperMarket.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace HyperMarket.Data.Interfaces
     {
         Task<List<Product>> GetProducts();
         Task<Product> GetProductById(int id);
-        void SaveProduct(Product prod);
+        void SaveProduct(AddProductModel prod);
     }
 }
