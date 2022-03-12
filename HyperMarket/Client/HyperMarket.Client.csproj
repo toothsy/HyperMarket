@@ -13,7 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Pages\MyOrder.razor.css" />
+	  <Content Include="Pages\MyOrderCustomer.razor.css" />
 	  <Content Include="Shared\ProductCard.razor.css" />
 	  <Content Include="Shared\Spinner.razor.css" />
 	</ItemGroup>

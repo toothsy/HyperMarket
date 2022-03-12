@@ -24,6 +24,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\DB\HyperMarket.DB.csproj" />
+		<ProjectReference Include="..\Shared\HyperMarket.ViewModels.csproj" />
 	</ItemGroup>
 
 </Project>

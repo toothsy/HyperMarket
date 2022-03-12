@@ -1,4 +1,5 @@
 ﻿using HyperMarket.DB.Models;
+using HyperMarket.ViewModels;
 
 namespace HyperMarket.Data.Interfaces
 {
@@ -6,7 +7,7 @@ namespace HyperMarket.Data.Interfaces
     {
         Task<List<BusinessDetail>> GetBusinesses();
         Task<BusinessDetail> GetBusinessById(int id);
-        void SaveBusiness(BusinessDetail businessDetail);
-        Task<BusinessDetail> UpdateBusiness(BusinessDetail Business);
+        void SaveBusiness(ListBusinessModel business);
+        Task<BusinessDetail> UpdateBusiness(BusinessDetail business);
     }
 }

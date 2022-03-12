@@ -4,8 +4,8 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.RegularExpressions
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
-@attribute [Authorize(Roles="User")]
-
+@*@attribute [Authorize(Roles="User")]
+*@
 
 <h3>List your business</h3>
 
@@ -17,97 +17,107 @@
     <NotAuthorized>
         You do not have access to view this page
     </NotAuthorized>
-</AuthorizeView>*@
+</AuthorizeView>
 
-<div class = "bg">
-    
-        <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
+*@
+<div>
+    <EditForm Model="listBusiness" OnValidSubmit="ListYourBusiness">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <MudGrid Class = "d-flex align-center justify-center mud-width-full py-8">
             <MudItem xs="12" sm="7">
-                <MudPaper Class="mx-auto pa-6"> 
-                    <MudForm @ref="form" @bind-IsValid="@success" @onsubmit ="postData">
-                            <h4 class = "position">Sign Up</h4>
-                            <MudTextField T="string" @bind-Value="user.UserName" Label="Username" HelperText="Username must be between 8-16 characters long" Required="true" RequiredError="User name is required!"
-                                          Validation=@(new Func<string, IEnumerable<string>>(UsernameCheck))></MudTextField>
-                    
-                            <MudTextField T="string" @bind-Value="user.EmailId" Label="Email" Required="true" RequiredError="Email is required!"
-                                          Validation="@(new EmailAddressAttribute() {ErrorMessage = "The email address is invalid"})"/>
-
-                            <MudTextField T="string" Label="Password" HelperText="The password must be atleast 8 characters long and must have at least one number." @ref="pwField1"
-                                          InputType="InputType.Password"
-                                          Validation="@(new Func<string, IEnumerable<string>>(PasswordStrength))" Required="true"
-                                          RequiredError="Password is required!"/>
-
-                            <MudTextField T="string"  @bind-Value="user.Password"
-                                          Label="Re-enter Password" HelperText="Repeat the password" InputType="InputType.Password"
-                                          Validation="@(new Func<string, string>(PasswordMatch))"/>
-
-                            <MudTextField T="string" @bind-Value="business.BusinessName" Label="Business Name" Required="true" RequiredError="Business Name is required!"/>
-                          
-                            <MudTextField T="string" @bind-Value="business.BusinessDescription" Label="Business Description" Required="false" />
-                            <div class=btn>
-                                <MudButton  xs="12" sm="6"  class="d-flex justify-space-between mt-6"
-                                ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" 
-                                Align = "right" 
-                                >Register</MudButton>
-                            </div>
-                    </MudForm>   
-                </MudPaper>
+                <MudCard>
+                    <MudCardContent>
+                        <h3>List your Business</h3>
+                        <MudTextField Label="Email Id" @bind-Value="listBusiness.Email" For="@(()=> listBusiness.Email)" InputType="InputType.Email"></MudTextField>
+                        <MudTextField Label="Business Name" @bind-Value="listBusiness.Businessname" For="@(()=> listBusiness.Businessname)" InputType="InputType.Text"></MudTextField>
+                        <MudTextField Label="Business Description" @bind-Value="listBusiness.BusinessDescription" For="@(()=> listBusiness.BusinessDescription)" InputType="InputType.Text"></MudTextField>
+                        
+                    </MudCardContent>
+                    <MudCardActions>
+                        <div class=btn>
+                            <MudButton  xs="12" sm="6"  class="d-flex justify-space-between mt-6" ButtonType="ButtonType.Submit"
+                            Variant="Variant.Filled" Color="Color.Error" Align = "right">Update</MudButton>
+                        </div>
+                    </MudCardActions>
+                </MudCard>
             </MudItem>
         </MudGrid>
-   
-    
+    </EditForm>
 </div>
 
 @code {
     bool success;
-    MudTextField<string> pwField1;
-    MudTextField<string> pwusername;
-    MudForm form;
-    User user = new User();
-    BusinessDetail business = new BusinessDetail();
-    Location location = new Location();
+    ListBusinessModel listBusiness = new ListBusinessModel();
+
+    async void ListYourBusiness()
+    {
+        var x = 40;
+        businessService.SaveBusiness(listBusiness);
+        //var result = await AuthService.Signup(userSignup, userOTP);
+        //if (result.Success)
+        //{
+        //    NavigationManager.NavigateTo("signin");
+        //}
+        //else
+        //{
+        //    Console.WriteLine(result.Message);
+        //}
+    }
+
+
+
+
+
+
+
+    //MudTextField<string> pwField1;
+    //MudTextField<string> pwusername;
+    //MudForm form;
+    //User user = new User();
+    //BusinessDetail business = new BusinessDetail();
+    //Location location = new Location();
         
-    public void postData()
-    {
-        businessService.SaveBusiness(business);
-    }
+    //public void postData()
+    //{
+    //    businessService.SaveBusiness(business);
+    //}
 
-    private IEnumerable<string> UsernameCheck(string uname)
-    {
-        if (uname.Length < 8)
-            yield return "Username must be at least of length 8";
-        if (!Regex.IsMatch(uname, @"[A-Z]"))
-            yield return "Username must contain at least one uppercase letter";
-        if (!Regex.IsMatch(uname, @"[0-9]"))
-            yield return "Username must contain at least one digit";
-    }
+    //private IEnumerable<string> UsernameCheck(string uname)
+    //{
+    //    if (uname.Length < 8)
+    //        yield return "Username must be at least of length 8";
+    //    if (!Regex.IsMatch(uname, @"[A-Z]"))
+    //        yield return "Username must contain at least one uppercase letter";
+    //    if (!Regex.IsMatch(uname, @"[0-9]"))
+    //        yield return "Username must contain at least one digit";
+    //}
 
-    private IEnumerable<string> PasswordStrength(string pw)
-    {
-        if (string.IsNullOrWhiteSpace(pw))
-        {
-            yield return "Password is required!";
-            yield break;
-        }
-        if (pw.Length < 8)
-            yield return "Password must be at least of length 8";
-        if (!Regex.IsMatch(pw, @"[A-Z]"))
-            yield return "Password must contain at least one capital letter";
-        if (!Regex.IsMatch(pw, @"[a-z]"))
-            yield return "Password must contain at least one lowercase letter";
-        if (!Regex.IsMatch(pw, @"[0-9]"))
-            yield return "Password must contain at least one digit";
-    }
-    private string PasswordMatch(string arg)
-    {
-        if (pwField1.Value != arg)
-            return "Passwords don't match";
-        return null;
-    }
-    public void OnValidSubmit(EditContext context)
-    {
-        success = true;
-        StateHasChanged();
-    }
+    //private IEnumerable<string> PasswordStrength(string pw)
+    //{
+    //    if (string.IsNullOrWhiteSpace(pw))
+    //    {
+    //        yield return "Password is required!";
+    //        yield break;
+    //    }
+    //    if (pw.Length < 8)
+    //        yield return "Password must be at least of length 8";
+    //    if (!Regex.IsMatch(pw, @"[A-Z]"))
+    //        yield return "Password must contain at least one capital letter";
+    //    if (!Regex.IsMatch(pw, @"[a-z]"))
+    //        yield return "Password must contain at least one lowercase letter";
+    //    if (!Regex.IsMatch(pw, @"[0-9]"))
+    //        yield return "Password must contain at least one digit";
+    //}
+    //private string PasswordMatch(string arg)
+    //{
+    //    if (pwField1.Value != arg)
+    //        return "Passwords don't match";
+    //    return null;
+    //}
+    //public void OnValidSubmit(EditContext context)
+    //{
+    //    success = true;
+    //    StateHasChanged();
+    //}
 
 }

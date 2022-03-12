@@ -1,4 +1,5 @@
 ﻿using HyperMarket.DB.Models;
+using HyperMarket.ViewModels;
 using System.Net.Http.Json;
 
 namespace HyperMarket.Data.Interfaces
@@ -24,7 +25,7 @@ namespace HyperMarket.Data.Interfaces
         }
 
 
-        public async void SaveBusiness(BusinessDetail business)
+        public async void SaveBusiness(ListBusinessModel business)
         {
             var test = new HttpResponseMessage();
             try
