@@ -6,11 +6,11 @@
 <center>
     <EditForm Model="@prod" OnValidSubmit="OnValidSubmit">
         <DataAnnotationsValidator />
-
+<div class ="bg">
         <MudGrid Class="d-flex justify-center align-center">
-            <div class="first">
-                <MudItem class="third">
-                    <MudCard class="second">
+           
+                <MudItem >
+                    <MudCard >
                         <h4>Add New Product</h4>
                         <MudCardContent>
                             <MudTextField Label="Product name" HelperText="Max. 30 characters"
@@ -28,9 +28,12 @@
 
                     </MudCard>
                 </MudItem>
-            </div>
+         
+
         </MudGrid>
+           </div>
     </EditForm>
+ 
 </center>
 
 @code {

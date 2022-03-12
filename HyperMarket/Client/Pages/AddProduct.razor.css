@@ -23,22 +23,26 @@ h4 {
     margin-top: 15px;
     margin-bottom: 15px
 }
+.bg {
+    background-color: #cbf0f561;
+}
 
-.third {
+/*.third {
     margin-left: 390px;
     margin-right: 335px;
-}
+}*/
 
 .btncolor {
     color: white;
 }
 
-.first {
+/*.first {
     margin-top: -93px;
     padding: 125px;
 }
-
-.second {
+*/
+/*.second {
     margin-left: -135px;
     margin-right: -5px
 }
+*/
