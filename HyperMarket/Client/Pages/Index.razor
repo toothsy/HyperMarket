@@ -13,11 +13,13 @@
         <Spinner />
     }
     else{
+        <div class="cardHolder">
         @foreach(var business in businesses) {
                 @if (business.TopBrands){
                     <BusinessCard business=business />
                 }
         }
+        </div>
     }
 </div>
 

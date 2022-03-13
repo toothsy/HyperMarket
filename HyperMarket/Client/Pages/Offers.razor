@@ -4,14 +4,19 @@
 @using HyperMarket.Shared
 @page "/offers"
 
-<div Class="d-flex justify-center align-center">
-    @if (currBiz == null) {
+<div class="d-flex justify-center align-center flex-column ">
+    @if (currBiz == null && ListOfProducts == null) {
         <Spinner/>
     }
   
     else{
-    <h1>Offers Realted to <br>@currBiz.BusinessName</h1>
 
+    <h1>Offers Realted to <br>@currBiz.BusinessName</h1>
+    <MudCard Class="d-flex flex-row flex-wrap">
+            @foreach(var item in ListOfProducts){
+                <ProductCard prod = "@item"/>
+            }
+    </MudCard>
     }
 </div>
 
@@ -20,9 +25,10 @@
     public BusinessDetail currBiz;
     protected override async Task OnInitializedAsync(){
 
-        currBiz = await sessionStorage.GetItemAsync<BusinessDetail>("business");
-        
-        ListOfProducts = await off.GetProductsByBusinessID(currBiz.BusinessId);
-
+        if (currBiz == null)
+        {
+            currBiz = await sessionStorage.GetItemAsync<BusinessDetail>("business");
+            ListOfProducts = await off.GetProductsByBusinessID(currBiz.BusinessId);
+        }
     }
 }

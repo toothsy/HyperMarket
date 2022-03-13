@@ -5,8 +5,12 @@
 @inject HyperMarket.Data.Interfaces.IPaymentService paymentService
 @inject HyperMarket.Data.Interfaces.ICustomerDetailService customerdetailService
 @* @inject HyperMarket.Data.Interfaces.IOrderService orderService*@
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
-
+@if (prod == null) {
+        <Spinner/>
+    }
+else{
 <div class="bg">
    <center>
       <div class="first">
@@ -30,7 +34,7 @@
                                         </MudRadioGroup>
                                         <h6>Total Amount :</h6>
                                         <div class="text1">
-                                            <MudTextField @bind-Value="payment1.Price" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                                            <MudTextField @bind-Value="prod.Price" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
                                         </div>
                                         @*<h6>Total credits:</h6><MudTextField class = "text1" @bind-Value="cus.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
                                         *@
@@ -52,7 +56,7 @@
         </div>
     </center>
 </div>
-
+}
 
 @code {
     public Placement Placement { get; set; } = Placement.Right;
@@ -61,7 +65,7 @@
     public string TextValue { get; set; }
 
     public Payment payment1 = new Payment();
-
+    public Product prod;
     public CustomerDetail customer1 = new CustomerDetail();
     public CustomerDetail customer2 = new CustomerDetail();
 
@@ -70,8 +74,8 @@
     protected override async Task OnInitializedAsync()
     {
         payment1 = await paymentService.GetPaymentById(801);
-        customer1 = await customerdetailService.GetCustomerDetailById(1001);
-
+        customer1 = await customerdetailService.GetCustomerDetailById(501);
+        prod = await sessionStorage.GetItemAsync<Product>("product");
 
 
         //ord = await orderService.GetOrderById(1);

@@ -13,18 +13,20 @@
     align-items: center;
     padding-top: .6em;
     box-shadow: -1px 9px 40px -12px #808080;
-    transition:all ease 150ms;
+    transition: all ease 150ms;
+    user-select: none;
 }
-.card-body{
-    display:flex;
-    align-items:center;
-    flex-direction:column;
-}
-.card-body .card-text{
+.card-body {
     display: flex;
-    align-items: flex-start;
-
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
 }
+    .card-body .card-text {
+        display: flex;
+        align-items: flex-start;
+        user-select: none;
+    }
 .imgLogo {
     height: 64px;
     width: 64px;
@@ -46,4 +48,18 @@
 .row {
     padding-bottom: 220px;
 }
-     
+
+@media only screen and (max-width: 420px) {
+
+
+    .card {
+        height: auto;
+        width: 15em;
+        margin:0;
+        margin-top: 20px;
+    }
+
+    button.btn {
+        height: 2.5em;
+    }
+    }

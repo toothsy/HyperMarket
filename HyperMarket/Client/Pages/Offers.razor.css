@@ -1,0 +1,4 @@
+﻿.cardHolder {
+    display:flex;
+    flex-direction: column;
+}

@@ -1,8 +1,37 @@
-﻿<div>
-    <h1>@prod.ProductName</h1>
-</div>
+﻿@using HyperMarket.DB.Models
+@inject NavigationManager UriHelper
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
+@if (prod==null) {
+        <Spinner/>
+    }
+else{
+    <div class = "card" style = "">
+
+        <div class = "card-body">
+
+            <div class = "card-title">
+                <h3>@prod.ProductName</h3> 
+            </div>
+
+            <div class = "card-text">
+                <p>@prod.ProductDescription</p>
+            </div>
+            <div class = "card-text">
+                <p>@prod.Price &#8377; </p>
+            </div>
+
+            <button class = "btn" @onclick=@clickHandler >Buy Now!!</button> 
+
+        </div>
+    </div>
+}
 @code {
     [Parameter]
     public Product prod { get; set; }
+    public async void clickHandler(){
+
+        await sessionStorage.SetItemAsync("product", this.prod);
+        UriHelper.NavigateTo("/MyPayment");
+    }
 }

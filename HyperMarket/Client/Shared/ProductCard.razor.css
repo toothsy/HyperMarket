@@ -1,1 +1,44 @@
-﻿
+﻿.card {
+    width: 25em;
+    margin-top: 50px;
+    margin-left: 100px;
+    margin-bottom: 50px;
+    height: auto;
+    border-radius: .6em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: -1px 9px 40px -12px #808080;
+    transition: all ease 150ms;
+    user-select: none;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    user-select: none;
+}
+
+    .card-body .card-text {
+        display: flex;
+        align-items: flex-start;
+        user-select: none;
+    }
+
+.card:hover {
+    box-shadow: 1px 9px 40px 12px;
+}
+
+.title {
+    color: #f35555;
+}
+
+.btn {
+    background-color: #f35555;
+    color: white;
+}
+
+.row {
+    padding-bottom: 220px;
+}
