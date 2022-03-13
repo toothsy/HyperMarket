@@ -15,12 +15,12 @@ namespace HyperMarket.Data.Interfaces
 
         public async Task<List<BusinessDetail>> GetBusinesses()
         {
-            return await _httpClient.GetFromJsonAsync<List<BusinessDetail>>($"api/BusinessDetail");
+            return await _httpClient.GetFromJsonAsync<List<BusinessDetail>>($"api/BusinessDetail/GetBusinesses");
         }
 
         public async Task<BusinessDetail> GetBusinessById(int id)
         {
-            var businessDetail = await _httpClient.GetFromJsonAsync<BusinessDetail>($"/api/BusinessDetail/{id}");
+            var businessDetail = await _httpClient.GetFromJsonAsync<BusinessDetail>($"/api/BusinessDetail/GetBusinessById/{id}");
             return businessDetail;
         }
 
@@ -30,7 +30,7 @@ namespace HyperMarket.Data.Interfaces
             var test = new HttpResponseMessage();
             try
             {
-                test = await _httpClient.PostAsJsonAsync($"/api/businessdetail/", business);
+                test = await _httpClient.PostAsJsonAsync($"/api/businessdetail/SaveBusiness", business);
             }
             catch (Exception e)
             {
@@ -44,7 +44,10 @@ namespace HyperMarket.Data.Interfaces
 
         public async Task<BusinessDetail> UpdateBusiness(BusinessDetail business)
         {
-            var response = await _httpClient.PutAsJsonAsync<BusinessDetail>($"api/businessdetail/{business.UserId}", business);
+            business.User = new User { EmailId = "asd@gmail.com", UserName = "test",Password="abcde12345",ReferredBy ="abcde" };
+
+            business.Location = new Location { LocationName="Delhi",IsLocationActive = true };
+            var response = await _httpClient.PostAsJsonAsync<BusinessDetail>($"api/businessdetail/UpdateBusiness", business);
 
             return await response.Content.ReadFromJsonAsync<BusinessDetail>();
         }

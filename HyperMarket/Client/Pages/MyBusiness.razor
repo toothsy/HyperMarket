@@ -2,29 +2,56 @@
 @using HyperMarket.DB.Models
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
-@*@using HyperMarket.ViewModels;*@
+@using HyperMarket.ViewModels;
 @inject HyperMarket.DB.Interfaces.IUserService userService
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 
 
-<div class="bg">
-    
+@if (user == null)
+{
+    <Spinner/>
+}
+else
+{
+    <div class="bg">
+    <EditForm Model="lb" OnValidSubmit=@OnValidSubmit> 
         <MudGrid Class="d-flex justify-center align-center">
             <MudItem xs="12" sm="7">
                 <MudCard Class="mx-auto pa-6">
                     <h2 >My Business</h2>
-                    <MudCardContent>
-                        <h6 class="side">Username</h6> <MudTextField @bind-Value="user.UserName" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense">@user.UserName</MudTextField>
-                        <h6 class="side">Business Name</h6> <MudTextField @bind-Value="business.BusinessName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                        <h6 class="side">Business Description</h6>  <MudTextField @bind-Value="business.BusinessDescription" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                        <h6 class="side">Mail Id</h6> <MudTextField @bind-Value="user.EmailId" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                        <h6 class="side">Location</h6> <MudTextField @bind-Value="business.LocationId" Label="" ReadOnly="true" Variant="Variant.Filled" />
+                    <MudCardContent >
+
+                        <h6 class="side">Username</h6> 
+                        <MudTextField @bind-Value="user.UserName" Label="" 
+                            ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense">
+                            @user.UserName
+                        </MudTextField>
+
+                        <h6 class="side">Business Name</h6> 
+                        <MudTextField @bind-Value="business.BusinessName" Label="" 
+                            Variant="Variant.Filled" Margin="Margin.Dense">
+                        </MudTextField>
+
+                        <h6 class="side">Business Description</h6> 
+                        <MudTextField @bind-Value="business.BusinessDescription" Label=""
+                            Variant="Variant.Filled" Margin="Margin.Dense">
+                        </MudTextField>
+
+                        <h6 class="side">Mail Id</h6> 
+                        <MudTextField @bind-Value="user.EmailId" Label="" 
+                            Variant="Variant.Filled" Margin="Margin.Dense">
+                        </MudTextField>
+                        <h6 class="side">Location</h6>
+                        <MudTextField  Label="" Value= "@LOC[business.LocationId]" ReadOnly="true" Variant="Variant.Filled" >
+                            
+                        </MudTextField>
                     </MudCardContent>
                     <MudCardActions>
                         
                         <div class=btn>
                                 <MudButton  xs="12" sm="6"  class="d-flex justify-space-between mt-6"
                                 ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" 
+                                
                                 Align = "right" 
                                 >Update</MudButton>
                             </div>
@@ -32,29 +59,29 @@
                 </MudCard>
             </MudItem>
         </MudGrid>
-   
+   </EditForm>
 </div>
 
+}
 
 @code 
 {
-    public List<User> users = new List<User>();
-    public User user = new User();
+    public User user ;
     public List<BusinessDetail> Businesses = new List<BusinessDetail>();
     public BusinessDetail business = new BusinessDetail();
-
-    //public MyBusinessViewModel formDetails = new MyBusinessViewModel();
-
+    ListBusinessModel lb = new ListBusinessModel();
+    String[] LOC = new String[]{"","Delhi","Mumbai","Hyderabad"};
     protected override async Task OnInitializedAsync()
     {
         business = await businessService.GetBusinessById(1001);
         user = await userService.GetUserById(1001);
     }
 
-    private async Task OnValidSubmit(EditContext context)
-    {
+    private async Task OnValidSubmit(EditContext context){
+
         
-        //await businessService.UpdateBusiness(business);
+        
+        await businessService.UpdateBusiness(business);
     }
 
 }

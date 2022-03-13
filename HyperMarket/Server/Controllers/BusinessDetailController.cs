@@ -8,7 +8,7 @@ using HyperMarket.ViewModels;
 
 namespace HyperMarket.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class BusinessDetailController : ControllerBase
     {
@@ -41,7 +41,6 @@ namespace HyperMarket.Server.Controllers
                 LocationId = 1,
                 Logo = String.Empty
             };
-            Console.WriteLine("\n\n\nuser is here " + business + "\n\n\n\n\n");
 
             _context.BusinessDetails.Add(businessDetail);
             await _context.SaveChangesAsync();
@@ -62,10 +61,12 @@ namespace HyperMarket.Server.Controllers
             return Ok(business);
         }
 
-        [HttpPut, Route("{id:int}")]
-        //[HttpPut("{id:int}")]
+
+        [HttpPost]
         public async Task<ActionResult<User>> UpdateBusiness(BusinessDetail business)
         {
+
+            Console.WriteLine("\n\n\n\nUpdating the user with bussiiness ID "+business.BusinessId);
             _context.BusinessDetails.Update(business);
             await _context.SaveChangesAsync();
             return Ok(business);
