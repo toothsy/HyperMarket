@@ -1,6 +1,7 @@
 ﻿using HyperMarket.Data;
 using HyperMarket.DB.Models;
 using System.Net.Http.Json;
+using HyperMarket.ViewModels;
 
 namespace HyperMarket.Data.Interfaces
 {
@@ -15,18 +16,20 @@ namespace HyperMarket.Data.Interfaces
 
         public async Task<List<CustomerDetail>> GetCustomerDetail()
         {
-            return await _httpClient.GetFromJsonAsync<List<CustomerDetail>>($"api/customerdetail");
+            return await _httpClient.GetFromJsonAsync<List<CustomerDetail>>($"api/customerdetail/GetCustomerDetail");
         }
 
         public async Task<CustomerDetail> GetCustomerDetailById(int id)
         {
-            var customer =  await _httpClient.GetFromJsonAsync<CustomerDetail>($"/api/customerdetail/{id}");
+            var customer = await _httpClient.GetFromJsonAsync<CustomerDetail>($"/api/customerdetail/GetCustomerDetailById/{id}");
             return customer;
         }
 
-        public async Task<CustomerDetail> UpdateUser(CustomerDetail customerDetail)
+        public async Task<CustomerDetail> UpdateUser(CustomerDetail c1)
         {
-            var response = await _httpClient.PutAsJsonAsync<CustomerDetail>($"/api/customerdetail/{customerDetail.UserId}", customerDetail);
+            c1.User = new User { UserName = "Hello", EmailId = "lucky@gmail.com", Password = "Hello123", ReferredBy = "Hello1234" };
+
+            var response = await _httpClient.PostAsJsonAsync<CustomerDetail>($"api/customerdetail/UpdateUser", c1);
 
             return await response.Content.ReadFromJsonAsync<CustomerDetail>();
         }

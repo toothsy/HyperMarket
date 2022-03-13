@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HyperMarket.DB.Models;
+using HyperMarket.ViewModels;
 
 namespace HyperMarket.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CustomerDetailController : ControllerBase
     {
@@ -47,7 +48,7 @@ namespace HyperMarket.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerDetailById(int id)
         {
-            var customer = await _context.CustomerDetails.FirstOrDefaultAsync(x => (x.UserId) == id);
+            var customer = await _context.CustomerDetails.FirstOrDefaultAsync(x => (x.CustomerId) == id);
 
             if (customer == null)
             {
@@ -65,12 +66,14 @@ namespace HyperMarket.Server.Controllers
 
         //}
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<User>> UpdateUser(CustomerDetail customerDetail)
+        [HttpPost]
+        public async Task<ActionResult<User>> UpdateUser(CustomerDetail c1)
         {
-            _context.CustomerDetails.Update(customerDetail);
+
+            Console.WriteLine("\n\n\n\nUpdating the user with CustomerDetail ID " + c1.CustomerId);
+            _context.CustomerDetails.Update(c1);
             await _context.SaveChangesAsync();
-            return Ok(customerDetail);
+            return Ok(c1);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HyperMarket.DB.Models;
+using HyperMarket.ViewModels;
 
 namespace HyperMarket.Data.Interfaces
 {
@@ -12,6 +13,6 @@ namespace HyperMarket.Data.Interfaces
         Task<List<CustomerDetail>> GetCustomerDetail();
         Task<CustomerDetail> GetCustomerDetailById(int id);
 
-        Task<CustomerDetail> UpdateUser(CustomerDetail customerDetail);
+        Task<CustomerDetail> UpdateUser(CustomerDetail c1);
     }
 }
