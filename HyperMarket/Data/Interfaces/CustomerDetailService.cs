@@ -25,11 +25,11 @@ namespace HyperMarket.Data.Interfaces
             return customer;
         }
 
-        public async Task<CustomerDetail> UpdateUser(CustomerDetail c1)
+        public async Task<CustomerDetail> UpdateUser(CustomerDetail customer1)
         {
-            c1.User = new User { UserName = "Hello", EmailId = "lucky@gmail.com", Password = "Hello123", ReferredBy = "Hello1234" };
+            customer1.User = new User { UserName = "Hello", EmailId = "lucky@gmail.com", Password = "Hello123", ReferredBy = "Hello1234" };
 
-            var response = await _httpClient.PostAsJsonAsync<CustomerDetail>($"api/customerdetail/UpdateUser", c1);
+            var response = await _httpClient.PostAsJsonAsync<CustomerDetail>($"api/customerdetail/UpdateUser", customer1);
 
             return await response.Content.ReadFromJsonAsync<CustomerDetail>();
         }

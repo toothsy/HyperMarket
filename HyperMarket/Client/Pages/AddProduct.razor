@@ -2,6 +2,7 @@
 @using System.ComponentModel.DataAnnotations
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IProductService productService
+@inject NavigationManager UriHelper
 
 <center>
     <EditForm Model="prod" OnValidSubmit="AddYourProduct">
@@ -47,6 +48,7 @@
     {
         var x = 40;
         productService.SaveProduct(prod);
+        UriHelper.NavigateTo("/Myproduct");
     }
 
 }

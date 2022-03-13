@@ -6,6 +6,7 @@
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 @*@attribute [Authorize(Roles="User")]
 *@
+@inject NavigationManager UriHelper
 
 <h3>List your business</h3>
 
@@ -53,6 +54,7 @@
     {
         var x = 40;
         businessService.SaveBusiness(listBusiness);
+        UriHelper.NavigateTo("/AddProduct");
         //var result = await AuthService.Signup(userSignup, userOTP);
         //if (result.Success)
         //{

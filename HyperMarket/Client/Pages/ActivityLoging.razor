@@ -1,0 +1,39 @@
+﻿@*@page "/ActivityLogs"
+
+<h3>ActivityLogs</h3>
+@inject HyperMarket.Data.Interfaces.IOrderService orderservice
+
+<h3 margin-bottom=10px><center>Activity Logs</center></h3>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="bg">
+<MudGrid Class="justify-center d-flex align-center mud-width-full py-8">
+    <MudTable Items=@order Class="card">
+    <HeaderContent>
+        <MudTh>ActivityID</MudTh>
+        <MudTh>Date</MudTh>
+        <MudTh>Description</MudTh>
+        <MudTh>UserID </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        @foreach(var bill in order)
+        {
+            @if (bill.UserId == 1001)
+            {
+                <MudTd >@bill.</MudTd>
+                <MudTd >@bill.PaymentId</MudTd>
+                <MudTd >@bill.BusinessName</MudTd>
+                <MudTd >@bill.MyOrderCredits</MudTd>
+            }
+        }
+    </RowTemplate>
+  </MudTable>
+</MudGrid>
+</div>
+@code {
+    public List<ActivityLog> ActivityLogs = new List<ActivityLogs>();
+    protected override async Task OnInitializedAsync()
+    {
+       order = await orderservice.GetOrders();
+    }
+}
+*@

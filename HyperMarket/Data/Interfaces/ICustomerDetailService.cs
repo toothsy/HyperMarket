@@ -13,6 +13,6 @@ namespace HyperMarket.Data.Interfaces
         Task<List<CustomerDetail>> GetCustomerDetail();
         Task<CustomerDetail> GetCustomerDetailById(int id);
 
-        Task<CustomerDetail> UpdateUser(CustomerDetail c1);
+        Task<CustomerDetail> UpdateUser(CustomerDetail customer1);
     }
 }
