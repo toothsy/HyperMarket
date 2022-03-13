@@ -1,6 +1,6 @@
 ﻿.btn {
-    margin-left: 330px;
-    width: 163px;
+    margin-left: 6px;
+    width: 117px;
     color: white;
     height: 40px;
     background-color: #f35555;
@@ -9,21 +9,65 @@
 
 h4 {
     text-align: center;
+    color: #f35555
 }
 
+/*.first {
+    margin-left: 30px;
+}*/
+
 .btn1 {
-    margin-left: 330px;
-    width: 163px;
+    width: 155px;
     color: white;
     height: 40px;
     background-color: #f35555;
-    margin-top: 15px;
+    margin-top: 0px;
+    border-radius: 5px;
+    position: relative;
+    left: 490px;
 }
+
 .first {
-    padding: 205px;
-    margin-left: 200px;
-    margin-top: -150px;
+    padding: 200px;
+    margin-left: 15px;
+    margin-top: -170px
 }
-table, th, td {
-    border: 1px solid black;
+
+
+table {
+    border: 0.5px solid black;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: 52px;
+    margin-top: 35px;
+    margin-bottom: 95px;
+    margin-right: 45px;
+}
+
+td, th {
+    border: 0.5px solid black;
+    text-align: left;
+    padding: 8px;
+}
+
+.btncolor1 {
+    text-align: center;
+    color: white;
+    margin-top: -4px;
+}
+
+.btncolor2 {
+    text-align: center;
+    color: white;
+    margin-left: 20px;
+}
+
+.third {
+    padding: 25px;
+    height: 445px;
+}
+
+.bg {
+    height: auto;
 }

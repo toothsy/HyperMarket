@@ -10,7 +10,7 @@ using HyperMarket.ViewModels;
 
 namespace HyperMarket.Data.Interfaces
 {
-    public class ProductService: IProductService
+    public class ProductService : IProductService
     {
         private readonly HttpClient _httpClient;
 
@@ -51,6 +51,12 @@ namespace HyperMarket.Data.Interfaces
                 Console.WriteLine(test);
             }
         }
+
+        public async Task DeleteProduct(int id)
+        {
+            await _httpClient.DeleteAsync($"/api/Product/{id}");
+        }
+
         //public void SaveUser(User user)
         //{
         //    if (user.UserId == 0) _dbContext.Users.Add(user);

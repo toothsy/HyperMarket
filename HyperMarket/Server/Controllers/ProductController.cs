@@ -46,19 +46,19 @@ namespace HyperMarket.Server.Controllers
                 ProductName = prod.ProductName,
                 ProductDescription = prod.ProductDescription,
                 Price = prod.Price,
-                CategoryId =prod.CategoryId,
-                SubCategoryId =prod.SubCategoryId,
-                AddressLine1=prod.AddressLine1,
-                AddressLine2=prod.AddressLine2,
-                AddressLine3=prod.AddressLine3,
-                Pin=prod.Pin,
-                ImageCheck=false,
+                CategoryId = prod.CategoryId,
+                SubCategoryId = prod.SubCategoryId,
+                AddressLine1 = prod.AddressLine1,
+                AddressLine2 = prod.AddressLine2,
+                AddressLine3 = prod.AddressLine3,
+                Pin = prod.Pin,
+                ImageCheck = false,
                 CreatedBy = -1,
                 UpdatedBy = -1,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Discount = prod.Discount,
-                IsActive=true
+                IsActive = true
             };
             Console.WriteLine("\n\n\nuser is here " + prod + "\n\n\n\n\n");
 
@@ -66,6 +66,22 @@ namespace HyperMarket.Server.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(product.UserId);
+
+        }
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            try
+            {
+                var product = await _context.Products.FindAsync(id);
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error while deleting record");
+            }
 
         }
     }

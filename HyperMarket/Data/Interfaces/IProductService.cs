@@ -13,5 +13,7 @@ namespace HyperMarket.Data.Interfaces
         Task<List<Product>> GetProducts();
         Task<Product> GetProductById(int id);
         void SaveProduct(AddProductModel prod);
+
+        Task DeleteProduct(int id);
     }
 }

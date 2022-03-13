@@ -3,46 +3,67 @@
 @using System.ComponentModel.DataAnnotations
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IProductService productService
+@inject NavigationManager NavigationManager;
 
-    <MudGrid Class="ml-60 align-center">
+<div class="bg">
+    <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
         <div class="first">
-        <MudItem xs="12" sm="7">
-            <MudPaper Class="mx-auto pa-6">
-                <h4>MyProducts</h4>
-                <table border="3">
-                    <thead>
-                    <th>ProductID</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Discount</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td contenteditable='true'>@P1.ProductId</td>
-                            <td contenteditable='true'>@P1.CategoryId</td>
-                            <td contenteditable='true'>@P1.Price</td>
-                            <td contenteditable='true'>@P1.Discount</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="btn">
-                    <MudButton ButtonType="ButtonType.Submit" Align="align.Center">Delete</MudButton>
-                </div>
-                <div class="btn1">
-                    <MudButton ButtonType="ButtonType.Submit" Align="align.Center"> Add</MudButton>
-                </div>
-            </MudPaper>
-        </MudItem>
+            <MudItem class="second">
+                <MudPaper Class="mx-auto pa-6">
+                    <h4>My Products</h4>
+                    <table border="1">
+                        <th>ProductID</th>
+                        <th>ProductName</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Discount</th>
+                        <th>Delete</th>
+                        <tbody>
+
+                            @foreach (var item in products)
+                            {
+                                <tr>
+                                    @*   <td> <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="" /></td>*@
+                                    <td contenteditable='true'>@item.ProductId</td>
+                                    <td contenteditable='true'>@item.ProductName</td>
+                                    <td contenteditable='true'>@item.CategoryId</td>
+                                    <td contenteditable='true'>@item.Price</td>
+                                    <td contenteditable='true'>@item.Discount</td>
+                                    <td contenteditable='true'><div class="btn"><MudButton ButtonType="ButtonType.Submit" OnClick="@(e => RemoveProduct(item.ProductId))" Align="align.Center"><a href="/MyProduct"><div class="btncolor1">Delete</div></a></MudButton></div></td>
+                                    <br>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                    <div class="btn1">
+                        <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><a href="/AddProduct"><div class="btncolor2">Add Product</div></a></MudButton>
+                    </div>
+                </MudPaper>
+            </MudItem>
         </div>
     </MudGrid>
+</div>
 
 
 @code {
     public Product P1 = new Product();
 
+    public List<Product> products = new List<Product>();
+
     protected override async Task OnInitializedAsync()
     {
-        P1 = await productService.GetProductById(1);
+        //P1 = await productService.GetProductById(101);
+
+        products = await productService.GetProducts();
+    }
+
+    public async Task RemoveProduct(int id)
+    {
+        await productService.DeleteProduct(id);
+
+        NavigationManager.NavigateTo("MyProduct", true);
     }
 
 }

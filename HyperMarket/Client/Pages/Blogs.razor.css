@@ -1,6 +1,7 @@
 ﻿.bg {
     background-color: #cbf0f561;
     /*margin-top: -70px;*/
+    height: auto;
 }
 
 .card:hover {
@@ -10,6 +11,7 @@
 .title {
     color: #f35555;
 }
+
 .card {
     width: 20em;
     margin-top: 50px;
