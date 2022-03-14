@@ -4,8 +4,9 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.RegularExpressions
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
-@*@attribute [Authorize(Roles="User")]
-*@
+
+@attribute [Authorize(Roles="User")]
+
 @inject NavigationManager UriHelper
 
 <h3>List your business</h3>
@@ -19,7 +20,6 @@
         You do not have access to view this page
     </NotAuthorized>
 </AuthorizeView>
-
 *@
 <div class = "bg">
     <EditForm Model="listBusiness" OnValidSubmit="ListYourBusiness">
