@@ -1,6 +1,7 @@
 ﻿.bg {
-         background-color:#cbf0f561;
-     }
+    background-color: #cbf0f561;
+    height: 120vh;
+}
 .card {
     width: 25em;
     margin-top: 50px;

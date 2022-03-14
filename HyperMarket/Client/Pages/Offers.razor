@@ -4,6 +4,7 @@
 @using HyperMarket.Shared
 @page "/offers"
 
+<div class = "bg">
 <div class="d-flex justify-center align-center flex-column ">
     @if (currBiz == null && ListOfProducts == null) {
         <Spinner/>
@@ -18,6 +19,7 @@
             }
     </MudCard>
     }
+</div>
 </div>
 
 @code {
