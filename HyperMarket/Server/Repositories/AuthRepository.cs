@@ -53,6 +53,7 @@ namespace HyperMarket.Server
                 await _context.SaveChangesAsync();
             }
 
+
             return new ServiceResponse<int> { Data = user.UserId, Message = "Registration successful!" };
         }
 

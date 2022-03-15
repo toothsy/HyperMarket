@@ -7,18 +7,20 @@
 <PageTitle>HyperMarket</PageTitle>
 
 <div class = "bg">
-<div Class="d-flex align-center justify-center mud-width-full py-8">
+<div class="d-flex justify-center align-center flex-column ">
     
     @if(businesses == null){
         <Spinner />
     }
     else{
         <div class="cardHolder">
+            <MudCard Class="d-flex flex-row flex-wrap">
         @foreach(var business in businesses) {
                 @if (business.TopBrands){
                     <BusinessCard business=business />
                 }
         }
+        </MudCard>
         </div>
     }
 </div>

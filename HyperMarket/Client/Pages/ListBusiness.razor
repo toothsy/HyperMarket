@@ -4,6 +4,7 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.RegularExpressions
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
+@inject HyperMarket.Data.Interfaces.IUserRole userRoleServices
 
 @*@attribute [Authorize(Roles="User")]*@
 
@@ -65,6 +66,7 @@
     public List<String> AllLocations = new List<String>();
     public Location loc = new Location();
     public string businessImage{ get; set; }
+    public UserRole userRole = new UserRole();
 
     public async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEvent)
     {
@@ -91,6 +93,11 @@
     {
         var x = 40;
         businessService.SaveBusiness(listBusiness);
+        //if(userRole.RoleId != 1)
+        //{
+        //    userRole.RoleId = userRole.RoleId + 1;
+        //}
+        //await userRoleServices.UserRoleUpdate(userRole);
         UriHelper.NavigateTo("/AddProduct");
         
     }
