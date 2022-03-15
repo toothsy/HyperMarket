@@ -90,18 +90,9 @@
     async void ListYourBusiness()
     {
         var x = 40;
-        //loc = await locationService.GetIdByLocation(listBusiness.location);
         businessService.SaveBusiness(listBusiness);
         UriHelper.NavigateTo("/AddProduct");
-        //var result = await AuthService.Signup(userSignup, userOTP);
-        //if (result.Success)
-        //{
-        //    NavigationManager.NavigateTo("signin");
-        //}
-        //else
-        //{
-        //    Console.WriteLine(result.Message);
-        //}
+        
     }
 
     
