@@ -4,58 +4,110 @@
 @inject NavigationManager NavigationManager
 
 
-<MudThemeProvider/>
-<MudDialogProvider/>
-<MudSnackbarProvider/>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
 
 <MudLayout>
-    <MudAppBar style = "background-color : #f35555;" Fixed="false" Dense="true" >
-    <a href="/">
-    <MudImage Src = "images/LOGO.png" Width="48" Height="48" />
-    </a>
-    <MudSelect style = "margin-right: 750px;"Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
-            @foreach (var item in AllLocations){
-                <MudSelectItem Value=@item/>
-            }
-            
-    </MudSelect>
-    <MudSpacer />
-    <AuthorizeView>
-            <Authorized>
-                <span>Hi, @context.User.Identity.Name </span>
-                <MudLink href="listBusiness">List Your Business</MudLink>
-                <MudLink @onclick="Signout">Sign Out</MudLink>
-            </Authorized>
-            <NotAuthorized>
-                <div>
-                    <MudLink href="signin">Sign In</MudLink>
-                    <MudLink href="signup">Sign Up</MudLink>
-                </div>
-            </NotAuthorized>
-     </AuthorizeView>
-    
-    @*<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />*@
-    </MudAppBar>
+    <div class="flex-container">
+        <MudAppBar style="background-color : #f35555;" Fixed="false" Dense="true">
+            <div><a href="/"> <MudImage Src="images/LOGO.png" Width="48" Height="48" /></a></div>
+            <div>
+                <MudSelect style="width: 170px;" Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
+                    @foreach (var item in AllLocations)
+                    {
+                        <MudSelectItem Value=@item />
+                    }
 
-    
-    <MudMainContent style = "background-color: #cbf0f5d4;">
+                </MudSelect>
+            </div>
+
+            <AuthorizeView Roles="User">
+                <Authorized>
+                    <div class="space1">
+                        <span>Hi, @context.User.Identity.Name </span>
+                    </div>
+                    <div class="space2">
+                        <MudLink href="listBusiness"><div class="appcolor">List Your Business</div></MudLink>
+                    </div>
+
+                    @* <div>
+                        <div class="second">
+                        <MudSelect class = "dropdowncolor" T="string"  Label="Categories" AnchorOrigin="Origin.BottomCenter">
+                        <a href="/"><MudSelectItem Value="@("Top Brands")" /></a>
+                        <a href="/"><MudSelectItem Value="@("Restaurants")" /></a>
+                        <a href="/"><MudSelectItem Value="@("Salon")" /></a>
+                        <a href="/"><MudSelectItem Value="@("Spa")" /></a>
+
+                        </MudSelect>
+                        </div>
+                        </div>*@
+
+                    <div>
+                        <div class="first">
+                            <MudSelect T="string" Label="My Account" AnchorOrigin="Origin.BottomCenter">
+                                <a href="/MyProfile"><MudSelectItem Value="@("My Profile")" /></a>
+                                <a href="/MyOrderCustomer"><MudSelectItem Value="@("My Orders")" /></a>
+
+                            </MudSelect>
+                        </div>
+                    </div>
+                    <div class="space3"> <MudLink @onclick="Signout"><div class="appcolor">Sign Out</div></MudLink></div>
+
+                </Authorized>
+                <NotAuthorized>
+
+                    <div class="space4"><MudLink href="signin"><div class="appcolor">Sign In</div></MudLink></div>
+                    <div class="space5"><MudLink href="signup"><div class="appcolor">Sign Up</div></MudLink></div>
+
+                </NotAuthorized>
+            </AuthorizeView>
+
+            @* <AuthorizeView Roles="Business">
+                <Authorized>
+                <div class="space1">
+                <span>Hi, @context.User.Identity.Name </span>
+                </div>
+
+                <div>
+                <div class="first">
+                <MudSelect T="string" Label="My Account" AnchorOrigin="Origin.BottomCenter">
+                <a href="/MyBusiness"><MudSelectItem Value="@("My Business")" /></a>
+                <a href="/MyProduct"><MudSelectItem Value="@("My Products")" /></a>
+
+                </MudSelect>
+                </div>
+                </div>
+                <div class="space3"> <MudLink @onclick="Signout"><div class = "appcolor">Sign Out</div></MudLink></div>
+
+                </Authorized>
+
+                <NotAuthorized>
+                You do not have access to view this page
+                </NotAuthorized>
+                </AuthorizeView>*@
+
+            @*<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />*@
+        </MudAppBar>
+    </div>
+
+    <MudMainContent style="background-color: #cbf0f5d4;">
         @Body
     </MudMainContent>
-    
-    <MudAppBar
-        Color="Color.Dark" Fixed="true" Dense="true" Bottom="true">
-        <MudItem>    
-        <MudLink Href="/About" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;padding-left: 170px;"href="/about">About</a></MudLink>
-        </MudItem>
-        <MudLink Href="/Blog" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;" href="/blog">Blog</a></MudLink>
-        <MudLink Href="/SocialMedia" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;" href="/SocialMedia" >Social Media</a></MudLink>
-        <MudLink Href="/FAQ" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;" href="/FAQ" >FAQ's</a></MudLink>
-        <MudLink Href="/ContactUs" Style="color: white;" Underline="Underline.Always"><a style = " color: White;padding-right: 170px;"  href="/ContactUs">Contact Us</a></MudLink>
-    </MudAppBar>
+    <div class="container">
+        <ul class="flex-row">
+            <MudAppBar Color="Color.Dark" Fixed="true" Dense="true" Bottom="true">
+                <MudLink Href="/About" Underline="Underline.Always"><a class="link1" href="/about">About</a></MudLink>
+                <MudLink Href="/Blog" Underline="Underline.Always"><a class="link1" href="/blog">Blog</a></MudLink>
+                <MudLink Href="/SocialMedia" Style="color: white;" Underline="Underline.Always"><a class="link1" href="/SocialMedia">Social Media</a></MudLink>
+                <MudLink Href="/FAQ" Style="color: white;" Underline="Underline.Always"><a class="link1" href="/FAQ">FAQ's</a></MudLink>
+                <MudLink Href="/ContactUs" Style="color: white;" Underline="Underline.Always"><a class="link1" href="/ContactUs">Contact Us</a></MudLink>
+            </MudAppBar>
+        </ul>
+    </div>
 </MudLayout>
-    
-     
+
 
 @code {
     public List<String> AllLocations = new List<String>();
@@ -66,7 +118,7 @@
         AllLocations = await locationService.GetAllLocation();
 
     }
-    
+
     private async void Signout()
     {
         await LocalStorage.RemoveItemAsync("authToken");
