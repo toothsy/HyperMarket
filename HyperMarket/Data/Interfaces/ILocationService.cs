@@ -12,6 +12,6 @@ namespace HyperMarket.Data.Interfaces
     {
         Task<Location> GetLocationById(int id);
         Task<List<String>> GetAllLocation();
-
+        Task<Location> GetIdByLocation(string location);
     }
 }

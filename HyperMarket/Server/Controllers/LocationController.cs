@@ -31,10 +31,10 @@ namespace HyperMarket.Server.Controllers
                 return Ok(locName);
             }
 
-        [HttpGet("{id}")]
-            public async Task<IActionResult> GetLocationById(int id)
+        [HttpGet("{location}")]
+            public async Task<IActionResult> GetIdLocation(string location)
             {
-                var location1 = await _context.Locations.FirstOrDefaultAsync(x => x.LocationId == id);
+                var location1 = await _context.Locations.FirstOrDefaultAsync(x => x.LocationName == location);
 
 
                 if (location1 == null)
@@ -43,6 +43,18 @@ namespace HyperMarket.Server.Controllers
                 }
                 return Ok(location1);
             }
-        
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetLocationById(int id)
+        {
+            var location1 = await _context.Locations.FirstOrDefaultAsync(x => x.LocationId == id);
+
+
+            if (location1 == null)
+            {
+                return NotFound("Location not found!");
+            }
+            return Ok(location1);
+        }
     }
 }

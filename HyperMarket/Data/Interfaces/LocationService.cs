@@ -27,6 +27,12 @@ namespace HyperMarket.Data.Interfaces
             var location = await _httpClient.GetFromJsonAsync<Location>($"/api/location/{id}");
             return location;
         }
+
+        public async Task<Location> GetIdByLocation(string location)
+        {
+            var loc = await _httpClient.GetFromJsonAsync<Location>($"/api/location/{location}");
+            return loc;
+        }
         public async Task<List<String>> GetAllLocation()
         {
             var location = await _httpClient.GetFromJsonAsync<List<String>>($"/api/location/all");

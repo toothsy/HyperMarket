@@ -77,7 +77,7 @@ namespace HyperMarket.Server.Controllers
             var emailClient = new EmailClient();
             var otp = emailClient.GenerateOTP();
             var encryptedOtp = EncryptionHelper.Encrypt($"{otp}${DateTime.UtcNow.ToString("yyyyMMddHHmmss")}");
-            bool emailSuccess = emailClient.SendEmail(user.Email, "ss.hypermarket@gmail.com", "hypermarket@123", "Team HyperMarket");
+            bool emailSuccess = emailClient.SendEmail(user.Email, "code6737@gmail.com", "HyperMarket@4", "Team HyperMarket");
 
             if (!emailSuccess)
             {

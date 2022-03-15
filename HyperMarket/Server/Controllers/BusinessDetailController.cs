@@ -1,10 +1,10 @@
 ﻿using HyperMarket.Data;
-using HyperMarket.DB.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HyperMarket.DB.Models;
 using HyperMarket.ViewModels;
+using HyperMarket.Client;
+using HyperMarket.Data.Interfaces;
 
 namespace HyperMarket.Server.Controllers
 {
@@ -13,6 +13,14 @@ namespace HyperMarket.Server.Controllers
     public class BusinessDetailController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        //public readonly LocationService locationService;
+        //private readonly HttpClient _httpClient;
+
+        //public BusinessDetailController(HttpClient httpClient)
+        //{
+        //    _httpClient = httpClient;
+        //}
+
         public BusinessDetailController(ApplicationDbContext context)
         {
             _context = context;
@@ -30,16 +38,18 @@ namespace HyperMarket.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<BusinessDetail>> SaveBusiness(ListBusinessModel business)
         {
+            Location loc = new Location();
+            //loc = await _httpClient.GetFromJsonAsync<Location>($"/api/location/{business.location}");
             BusinessDetail businessDetail = new BusinessDetail()
             {
                 UserId = 1001,
-                BusinessId = 3001,
+                
                 BusinessName = business.Businessname,
                 BusinessDescription = business.BusinessDescription,
-                TopBrands = false,
+                TopBrands = true,
                 ProductsSold = 0,
                 LocationId = 1,
-                Logo = String.Empty
+                Logo = business.imageurl
             };
 
             _context.BusinessDetails.Add(businessDetail);
