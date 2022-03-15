@@ -10,6 +10,7 @@
 
 
 <MudLayout>
+   @* <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">*@
     <div class="flex-container">
         <MudAppBar style="background-color : #f35555;" Fixed="false" Dense="true">
             <div><a href="/"> <MudImage Src="images/LOGO.png" Width="48" Height="48" /></a></div>
@@ -35,9 +36,12 @@
 
                     <div>
                         <div class="first">
-                            <MudSelect T="string" Label="My Account" AnchorOrigin="Origin.BottomCenter">
+                            <MudSelect T="string" Label="My Account"  AnchorOrigin="Origin.BottomCenter">
                                 <a href="/MyProfile"><MudSelectItem Value="@("My Profile")" /></a>
-                                <a href="/MyOrderCustomer"><MudSelectItem Value="@("My Orders")" /></a>
+                               @* <a href="/MyOrderCustomer"><MudSelectItem Value="@("My Orders")" /></a>*@
+                                <a href="/MyBusiness"><MudSelectItem Value="@("My Business")" /></a>
+                                <a href="/AddProduct"><MudSelectItem Value="@("Add Product")" /></a>
+                                <a href="/MyProduct"><MudSelectItem Value="@("My Products")" /></a>
 
                             </MudSelect>
                         </div>
@@ -80,6 +84,7 @@
             @*<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />*@
         </MudAppBar>
     </div>
+   @* </MudGrid>*@
 
     <MudMainContent style="background-color: #cbf0f5d4;">
         @Body
