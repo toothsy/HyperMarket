@@ -27,6 +27,8 @@ builder.Services.AddScoped<IFAQsService, FAQsService>();
 builder.Services.AddScoped<IOffer, OfferService>();
 builder.Services.AddScoped<IUserRole, UserRoleService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();

@@ -3,11 +3,14 @@
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IProductService productService
 @inject NavigationManager UriHelper
+@inject ICategoryService categoryService
+@inject ISubCategoryService subcategoryService
 
 <center>
     <EditForm Model="prod" OnValidSubmit="AddYourProduct">
         <DataAnnotationsValidator />
 <div class ="bg">
+       
         <MudGrid Class="d-flex justify-center align-center">
            
                 <MudItem >
@@ -17,8 +20,18 @@
                             <MudTextField Label="Product name" HelperText="Max. 30 characters" @bind-Value="prod.ProductName" For="@(()=>prod.ProductName)" InputType="InputType.Text"/>
                             <MudTextField Label="Product Description" Class="mt-3" @bind-Value="prod.ProductDescription" For="@(()=> prod.ProductDescription)" InputType="InputType.Text"/>
                             <MudTextField Label="Price" HelperText="List your price" Class="mt-3" @bind-Value="prod.Price" For="@(()=> prod.Price)" InputType="InputType.Number" />
-                            <MudTextField Label="Category" HelperText="List your category" Class="mt-3" @bind-Value="prod.CategoryId" For="@(()=>prod.CategoryId)" InputType="InputType.Number" />
-                            <MudTextField Label="Sub-Category" HelperText="List your sub-category" Class="mt-3" @bind-Value="prod.SubCategoryId" For="@(()=>prod.SubCategoryId)" InputType="InputType.Number" />
+                           <MudSelect T="string" Label="Category"  AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var item in category)
+                                {
+                                    <MudSelectItem Value=@item.CategoryName />
+                                }
+                            </MudSelect>
+                            @*<MudSelect T="string" Label="SubCategory"  AnchorOrigin="Origin.BottomCenter">
+                                @foreach (var item in subcategory)
+                                {
+                                    <MudSelectItem Value=@item />
+                                }
+                            </MudSelect>*@
                             <MudTextField Label="Discount" HelperText="List your discount percentage" Class="mt-3" @bind-Value="prod.Discount" For="@(()=>prod.Discount)" InputType="InputType.Number" />
                             <MudTextField Label="Address Line 1" Class="mt-3" @bind-Value="prod.AddressLine1" For="@(()=> prod.AddressLine1)" InputType="InputType.Text"/>
                             <MudTextField Label="Address Line 2" Class="mt-3" @bind-Value="prod.AddressLine2" For="@(()=> prod.AddressLine2)" InputType="InputType.Text"/>
@@ -44,9 +57,15 @@
 @code {
     bool success;
     AddProductModel prod = new AddProductModel();
+    List<Category> category = new List<Category>();
+    //List<String> subcategory = new List<String>();
+    protected override async Task OnInitializedAsync()
+    {
+        category = await categoryService.GetAllCategory();
+        //subcategory = await subcategoryService.GetAllSubCategory();
+    }
     async void AddYourProduct()
     {
-        var x = 40;
         productService.SaveProduct(prod);
         UriHelper.NavigateTo("/Myproduct");
     }
