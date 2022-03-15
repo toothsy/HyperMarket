@@ -20,7 +20,7 @@
                             <MudTextField Label="Email Id" @bind-Value="userSignin.Email" For="@(()=> userSignin.Email)" InputType="InputType.Email" />
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Get OTP</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Get OTP</MudButton>
                         </MudCardActions>
                     </MudCard>
                 </MudItem>
@@ -36,7 +36,7 @@
                             <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Sign In</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign In</MudButton>
                         </MudCardActions>
                     </MudCard>
                 </MudItem>

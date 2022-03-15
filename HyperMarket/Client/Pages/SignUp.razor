@@ -18,7 +18,7 @@
                             <MudTextField Label="User Name" @bind-Value="userSignup.Username" For="@(()=> userSignup.Username)" />
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Get OTP</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Get OTP</MudButton>
                         </MudCardActions>
                     </MudCard>
                 </MudItem>
@@ -27,14 +27,14 @@
 
         <EditForm Model="userOTP" OnValidSubmit="HandleSignup" hidden="@(hideForm)">
             <DataAnnotationsValidator></DataAnnotationsValidator>
-            <MudGrid Class="ml-60 align-center">
+            <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
                 <MudItem xs="12" sm="7">
                     <MudCard>
                         <MudCardContent>
                             <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Sign Up</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign Up</MudButton>
                         </MudCardActions>
                     </MudCard>
                 </MudItem>
