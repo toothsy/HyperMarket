@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HyperMarket.DB.Models;
-
+using HyperMarket.ViewModels;
 
 namespace HyperMarket.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -37,13 +37,21 @@ namespace HyperMarket.Server.Controllers
             return Ok(order1);
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult<Product>> SaveProduct(Product prod)
-        //{
-        //    _context.Products.Add(prod);
-        //    await _context.SaveChangesAsync();
-        //    return Ok(prod.ProductId);
-        //}
+        [HttpPost]
+        public async Task<ActionResult<Order>> CreateOrder(OrderModel orders)
+        {
+            Order order=new Order()
+            {
+                BusinessName = orders.BusinessName,
+                UserId = orders.UserId,
+                ProductId = orders.ProductId,
+                MyOrderCredits = orders.MyOrderCredits,
+                PaymentId =orders.PaymentId
+            };
+            _context.Orders.Add(order);
+            await _context.SaveChangesAsync();
+            return Ok(order.OrderId);
+        }
 
     }
 }

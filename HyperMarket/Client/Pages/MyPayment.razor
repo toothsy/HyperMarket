@@ -4,8 +4,9 @@
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IPaymentService paymentService
 @inject HyperMarket.Data.Interfaces.ICustomerDetailService customerdetailService
-@* @inject HyperMarket.Data.Interfaces.IOrderService orderService*@
+@inject HyperMarket.Data.Interfaces.IOrderService orderService
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject HyperMarket.Data.Interfaces.IBusinessDetailService businessdetailService
 
 @using HyperMarket.ViewModels;
 
@@ -77,16 +78,19 @@ else{
     public CustomerDetail c1 = new CustomerDetail();
     UpdateProfile pay = new UpdateProfile();
     public User user;
+    public OrderModel order;
+    public BusinessDetail business = new BusinessDetail();
 
     protected override async Task OnInitializedAsync()
     {
         //payment1 = await paymentService.GetPaymentById(801);
         c1 = await customerdetailService.GetCustomerDetailById(501);
+        business = await businessdetailService.GetBusinessById(1001);
         prod = await sessionStorage.GetItemAsync<Product>("product");
     }
-   
 
-     private async Task OnValidSubmit(EditContext context)
+
+    private async Task OnValidSubmit(EditContext context)
     {
         int s = prod.Price;
         int cashbackPercentage = 10;
@@ -99,6 +103,12 @@ else{
             c1.MyCredits = c1.MyCredits - s;
         }
         await customerdetailService.UpdateUser(c1);
+        order.BusinessName = business.BusinessName;
+        order.UserId = c1.UserId;
+        order.ProductId = prod.ProductId;
+        order.MyOrderCredits = prod.Price;
+        order.PaymentId = 1001;
+        orderService.CreateOrder(order);
         //<a href="/PaymentSuccessful"></a>
         UriHelper.NavigateTo("/PaymentSuccessful");
     }

@@ -1,4 +1,5 @@
 ﻿using HyperMarket.DB.Models;
+using HyperMarket.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,12 @@ namespace HyperMarket.Data.Interfaces
                 var order1 =  await _httpClient.GetFromJsonAsync<List<Order>>($"api/order");
                 return order1;   
                 
+            }
+
+            public async void CreateOrder(OrderModel order)
+            {
+                var test = new HttpResponseMessage();
+                test = await _httpClient.PostAsJsonAsync($"api/order/CreateOrder", order);
             }
         }
     
