@@ -1,0 +1,27 @@
+﻿@page "/RoleAuthoring"
+
+@*<center><h3>Role Authoring</h3></center>
+<MudGrid Class="justify-center d-flex align-center mud-width-full py-8">
+    <MudTable Items=@userrole HorizontalScrollbar="false" Bordered="true">
+        <HeaderContent>
+            <MudTh>User Id</MudTh>
+            <MudTh>Role</MudTh>
+            <MudTh>User Role Id</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            @foreach(var persona in userrole)
+            {
+                <MudTd>@persona.UserId</MudTd>
+                <MudTd>@persona.Role</MudTd>
+                <MudTd>@persona.UserRoleId</MudTd>
+            }
+        </RowTemplate>
+    </MudTable>
+</MudGrid>*@
+@code {
+    public List<UserRole> userrole = new List<UserRole>();
+    //protected override Task OnInitializedAsync()
+    //{
+    //    userrole = await userservice.GetUserRoles();
+    //}
+}

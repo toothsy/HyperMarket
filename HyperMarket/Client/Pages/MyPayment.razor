@@ -103,12 +103,12 @@ else{
             c1.MyCredits = c1.MyCredits - s;
         }
         await customerdetailService.UpdateUser(c1);
-        order.BusinessName = business.BusinessName;
-        order.UserId = c1.UserId;
-        order.ProductId = prod.ProductId;
-        order.MyOrderCredits = prod.Price;
-        order.PaymentId = 1001;
-        orderService.CreateOrder(order);
+        //order.BusinessName = business.BusinessName;
+        //order.UserId = c1.UserId;
+        //order.ProductId = prod.ProductId;
+        //order.MyOrderCredits = prod.Price;
+        //order.PaymentId = 1001;
+        //orderService.CreateOrder(order);
         //<a href="/PaymentSuccessful"></a>
         UriHelper.NavigateTo("/PaymentSuccessful");
     }
