@@ -14,13 +14,14 @@
         <MudAppBar style="background-color : #f35555;" Fixed="false" Dense="true">
             <div><a href="/"> <MudImage Src="images/LOGO.png" Width="48" Height="48" /></a></div>
             <div>
-                <MudSelect style="width: 170px;" Margin="Margin.Dense" T="string" Label="Location" Variant="Variant.Outlined">
+               
+                <MudSelect T="string" Label="Location" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var item in AllLocations)
                     {
                         <MudSelectItem Value=@item />
                     }
 
-                </MudSelect>
+                 </MudSelect>
             </div>
 
             <AuthorizeView Roles="User">
@@ -31,18 +32,6 @@
                     <div class="space2">
                         <MudLink href="listBusiness"><div class="appcolor">List Your Business</div></MudLink>
                     </div>
-
-                    @* <div>
-                        <div class="second">
-                        <MudSelect class = "dropdowncolor" T="string"  Label="Categories" AnchorOrigin="Origin.BottomCenter">
-                        <a href="/"><MudSelectItem Value="@("Top Brands")" /></a>
-                        <a href="/"><MudSelectItem Value="@("Restaurants")" /></a>
-                        <a href="/"><MudSelectItem Value="@("Salon")" /></a>
-                        <a href="/"><MudSelectItem Value="@("Spa")" /></a>
-
-                        </MudSelect>
-                        </div>
-                        </div>*@
 
                     <div>
                         <div class="first">
@@ -109,14 +98,13 @@
 </MudLayout>
 
 
-@code {
+@code
+{
     public List<String> AllLocations = new List<String>();
 
     protected override async Task OnInitializedAsync()
     {
-
         AllLocations = await locationService.GetAllLocation();
-
     }
 
     private async void Signout()
