@@ -68,6 +68,8 @@ namespace HyperMarket.Server.Controllers
             return Ok(product.UserId);
 
         }
+
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             try
