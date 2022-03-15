@@ -2,7 +2,13 @@
     background-color: #cbf0f561;
     height: 200vh;
 }
-
+/*
+.bgcolor {
+    background-color: #cbf0f561;
+}
+d-flex flex-row flex-wrap {
+    background-color: #cbf0f561;
+}*/
 body {
     background-color: #cbf0f561;
     height: 100vh;
@@ -18,11 +24,11 @@ body {
     margin-bottom: 50px;
     height: auto;
 }
-.cardHolder{
+/*.cardHolder{
     display:flex;
     flex-direction:row;
 }
-
+*/
 .title {
     color: #f35555;
 }

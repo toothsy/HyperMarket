@@ -6,32 +6,40 @@
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 <PageTitle>HyperMarket</PageTitle>
 
-<div class = "bg">
-<div class="d-flex justify-center align-center flex-column ">
-    
-    @if(businesses == null){
-        <Spinner />
-    }
-    else{
-        <div class="cardHolder">
-            <MudCard Class="d-flex flex-row flex-wrap">
-        @foreach(var business in businesses) {
-                @if (business.TopBrands){
-                    <BusinessCard business=business />
-                }
+<div class="bg">
+    <div class="d-flex justify-center align-center flex-column ">
+
+        @if (businesses == null)
+        {
+            <Spinner />
         }
-        </MudCard>
-        </div>
-    }
-</div>
+        else
+        {
+           @* <div class="cardHolder">
+*@
+                <MudCard style = " background-color: #cbf0f561;width: 100%;height: auto;" Class="d-flex flex-row flex-wrap">
+                    
+                        @foreach (var business in businesses)
+                        {
+                            @if (business.TopBrands)
+                            {
+                                <BusinessCard business=business />
+                            }
+                        }
+                </MudCard>
+
+            @*</div>*@
+        }
+    </div>
 </div>
 
 
 @code {
 
-    public List<BusinessDetail> businesses ;
+    public List<BusinessDetail> businesses;
 
-    protected override async Task OnInitializedAsync(){
+    protected override async Task OnInitializedAsync()
+    {
         businesses = await businessService.GetBusinesses();
 
 
