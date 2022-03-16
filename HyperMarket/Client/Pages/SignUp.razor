@@ -7,40 +7,25 @@
 <div class="bg">
     <center>
 
-        <EditForm Model="userSignup" OnValidSubmit="HandleGetOTP" hidden="@(!hideForm)">
+        <EditForm Model="userSignup" OnValidSubmit="HandleGetOTP">
             <DataAnnotationsValidator></DataAnnotationsValidator>
-            <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
+            <MudGrid Class="d-flex align-center justify-center mud-width-full py-15">
                 <MudItem xs="12" sm="7">
                     <MudCard>
                         <MudCardContent>
                             <h3>Sign Up</h3>
 
-                            <MudTextField Label="Email Id" @bind-Value="userSignup.Email" For="@(()=> userSignup.Email)" InputType="InputType.Email" />
-                            <MudTextField Label="User Name" @bind-Value="userSignup.Username" For="@(()=> userSignup.Username)" />
-                            <MudTextField Label="First Name" @bind-Value="userSignup.FirstName" For="@(()=> userSignup.FirstName)" />
-                            <MudTextField Label="Last Name" @bind-Value="userSignup.LastName" For="@(()=> userSignup.LastName)" />
-                            <MudTextField Label="Referral code" @bind-Value="userSignup.ReferralCode" For="@(()=> userSignup.ReferralCode)" />
-
+                            <MudTextField ReadOnly="@(!hideForm)" Label="Email Id" @bind-Value="userSignup.Email" For="@(()=> userSignup.Email)" InputType="InputType.Email" />
+                            <MudTextField ReadOnly="@(!hideForm)"  Label="User Name" @bind-Value="userSignup.Username" For="@(()=> userSignup.Username)" />
+                            <MudTextField ReadOnly="@(!hideForm)"  Label="First Name" @bind-Value="userSignup.FirstName" For="@(()=> userSignup.FirstName)" />
+                            <MudTextField ReadOnly="@(!hideForm)"  Label="Last Name" @bind-Value="userSignup.LastName" For="@(()=> userSignup.LastName)" />
+                            <MudTextField ReadOnly="@(!hideForm)" Label="Referral code" @bind-Value="userSignup.ReferralCode" For="@(()=> userSignup.ReferralCode)" />
                         </MudCardContent>
                         <MudCardActions>
+                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
                             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Get OTP</MudButton>
                         </MudCardActions>
-                    </MudCard>
-                </MudItem>
-            </MudGrid>
-        </EditForm>
-
-        <EditForm Model="userOTP" OnValidSubmit="HandleSignup" hidden="@(hideForm)">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
-            <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
-                <MudItem xs="12" sm="7">
-                    <MudCard>
-                        <MudCardContent>
-                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
-                        </MudCardContent>
-                        <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign Up</MudButton>
-                        </MudCardActions>
+                            <MudButton OnClick="HandleSignup" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign Up</MudButton>
                     </MudCard>
                 </MudItem>
             </MudGrid>
@@ -52,7 +37,6 @@
 @code {
     UserSignup userSignup = new UserSignup();
     UserOTP userOTP = new UserOTP();
-    CustomerDetail cd = new CustomerDetail();
     private bool hideForm = true;
 
     async void HandleSignup()
@@ -60,18 +44,6 @@
         var result = await AuthService.Signup(userSignup, userOTP);
 
         if (result.Success){
-            cd.UserId = result.Data;
-            cd.FirstName = userSignup.FirstName;
-            cd.LastName = userSignup.LastName;
-            cd.ReferralCode = userSignup.LastName;
-            User U = new();
-            U.EmailId = userSignup.Email;
-            U.UserName = userSignup.Username;
-            U.Password = "thiiIsMistake";
-            U.ReferredBy = userSignup.ReferralCode;
-
-            cd.User = U;
-            cdSer.SaveUser(cd);
             NavigationManager.NavigateTo("/signin");
 
         }

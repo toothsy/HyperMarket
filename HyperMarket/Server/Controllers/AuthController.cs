@@ -23,24 +23,36 @@ namespace HyperMarket.Server.Controllers
         public async Task<IActionResult> Signup(UserSignup request)
         {
             var isValidOtp = await ValidateOTP(request.OTPValidate);
+            User userObject = new User()
+            {
+                UserName = request.Username,
+                Password = String.Empty,
+                EmailId = request.Email,
+                ReferredBy = String.Empty,
+                CreatedBy = -1,
+                UpdatedBy = -1,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
             if (isValidOtp.Success)
             {
-                var response = await _authRepo.Signup(
-                new User
-                {
-                    UserName = request.Username,
-                    Password = String.Empty,
-                    EmailId = request.Email,
-                    ReferredBy = String.Empty,
-                    CreatedBy = -1,
-                    UpdatedBy = -1,
-                    CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
-                });
+                var response = await _authRepo.Signup(userObject);
                 if (!response.Success)
                 {
                     return BadRequest(response);
                 }
+                CustomerDetail cd = new CustomerDetail()
+                {
+                    User = userObject,
+                    UserId = userObject.UserId,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    ReferralCode = request.ReferralCode,
+                    MyCredits = 10
+                };
+                if(!(await _authRepo.createCustomer(cd)))
+                    return BadRequest(response);
+                    
                 return Ok(response);
             }
             else

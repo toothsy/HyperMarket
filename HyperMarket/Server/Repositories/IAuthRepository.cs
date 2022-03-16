@@ -8,5 +8,7 @@ namespace HyperMarket.Server
         Task<ServiceResponse<int>> Signup(User user);
         Task<ServiceResponse<string>> Signin(string email);
         Task<bool> UserExists(string email);
+
+        Task<bool> createCustomer(CustomerDetail cd);
     }
 }

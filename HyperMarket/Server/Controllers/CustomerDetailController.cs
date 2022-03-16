@@ -48,7 +48,7 @@ namespace HyperMarket.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerDetailById(int id)
         {
-            var customer = await _context.CustomerDetails.FirstOrDefaultAsync(x => (x.CustomerId) == id);
+            var customer = await _context.CustomerDetails.FirstOrDefaultAsync(x => (x.UserId) == id);
 
             if (customer == null)
             {

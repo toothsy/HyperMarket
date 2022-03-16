@@ -19,6 +19,14 @@ namespace HyperMarket.Server
             _configuration = configuration;
         }
 
+        public async Task<bool> createCustomer(CustomerDetail cd){
+
+            if (_context.CustomerDetails.Add(cd) == null) return false;
+            await _context.SaveChangesAsync();
+            return  true;
+            
+        }
+
         public async Task<ServiceResponse<string>> Signin(string email)
         {
             var response = new ServiceResponse<string>();
@@ -99,6 +107,8 @@ namespace HyperMarket.Server
 
             return jwt;
         }
+
+
 
     }
 }
