@@ -1,6 +1,6 @@
 ﻿@page "/RoleAuthoring"
 
-@*<center><h3>Role Authoring</h3></center>
+<center><h3>Role Authoring</h3></center>
 <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">
     <MudTable Items=@userrole HorizontalScrollbar="false" Bordered="true">
         <HeaderContent>
@@ -17,7 +17,7 @@
             }
         </RowTemplate>
     </MudTable>
-</MudGrid>*@
+</MudGrid>
 @code {
     public List<UserRole> userrole = new List<UserRole>();
     //protected override Task OnInitializedAsync()
