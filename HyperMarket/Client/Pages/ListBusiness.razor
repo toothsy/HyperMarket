@@ -4,9 +4,10 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.RegularExpressions
 @using HyperMarket.UIControls.LoadingIcon
-
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 @inject HyperMarket.Data.Interfaces.IUserRole userRoleServices
+@inject AuthenticationStateProvider AuthStateProvider
+
 
 @*@attribute [Authorize(Roles="User")]*@
 
@@ -42,13 +43,10 @@
                             }
                         </MudSelect>
 
-                        @*<MudTextField Label="image link" @bind-Value="listBusiness.imageurl" For="@(()=> listBusiness.imageurl)" InputType="InputType.Text"></MudTextField>*@
                         <MudItem>
 
                         <InputFile OnChange = "@OnInputFileChanged" />
                         </MudItem>
-                        @*<MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Filled.CloudUpload" for="fileInput">Upload Files</MudButton>
-                        *@
                     </MudCardContent>
                     <MudCardActions>
                         <div class=btn>
@@ -67,8 +65,9 @@
     ListBusinessModel listBusiness = new ListBusinessModel();
     public List<String> AllLocations = new List<String>();
     public Location loc = new Location();
-    public string businessImage{ get; set; }
+    public string businessImage { get; set; } = string.Empty;
     public UserRole userRole = new UserRole();
+
 
     public async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEvent)
     {
@@ -80,83 +79,20 @@
         await file.OpenReadStream().ReadAsync(buffer);
 
         //byte array to base 64 string
-        listBusiness.imageurl = $"data:image/jpg;base64,{Convert.ToBase64String(buffer)}";
-
+        businessImage= $"data:image/jpg;base64,{Convert.ToBase64String(buffer)}";
     }
 
     protected override async Task OnInitializedAsync()
     {
-
         AllLocations = await locationService.GetAllLocation();
-
     }
 
     async void ListYourBusiness()
     {
+        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+        listBusiness.UserId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+        listBusiness.imageurl = businessImage;
         businessService.SaveBusiness(listBusiness);
-        //if(userRole.RoleId != 1)
-        //{
-        //    userRole.RoleId = userRole.RoleId + 1;
-        //}
-        //await userRoleServices.UserRoleUpdate(userRole);
         UriHelper.NavigateTo("/AddProduct");
-        
     }
-
-    
-
-
-
-
-
-    //MudTextField<string> pwField1;
-    //MudTextField<string> pwusername;
-    //MudForm form;
-    //User user = new User();
-    //BusinessDetail business = new BusinessDetail();
-    //Location location = new Location();
-        
-    //public void postData()
-    //{
-    //    businessService.SaveBusiness(business);
-    //}
-
-    //private IEnumerable<string> UsernameCheck(string uname)
-    //{
-    //    if (uname.Length < 8)
-    //        yield return "Username must be at least of length 8";
-    //    if (!Regex.IsMatch(uname, @"[A-Z]"))
-    //        yield return "Username must contain at least one uppercase letter";
-    //    if (!Regex.IsMatch(uname, @"[0-9]"))
-    //        yield return "Username must contain at least one digit";
-    //}
-
-    //private IEnumerable<string> PasswordStrength(string pw)
-    //{
-    //    if (string.IsNullOrWhiteSpace(pw))
-    //    {
-    //        yield return "Password is required!";
-    //        yield break;
-    //    }
-    //    if (pw.Length < 8)
-    //        yield return "Password must be at least of length 8";
-    //    if (!Regex.IsMatch(pw, @"[A-Z]"))
-    //        yield return "Password must contain at least one capital letter";
-    //    if (!Regex.IsMatch(pw, @"[a-z]"))
-    //        yield return "Password must contain at least one lowercase letter";
-    //    if (!Regex.IsMatch(pw, @"[0-9]"))
-    //        yield return "Password must contain at least one digit";
-    //}
-    //private string PasswordMatch(string arg)
-    //{
-    //    if (pwField1.Value != arg)
-    //        return "Passwords don't match";
-    //    return null;
-    //}
-    //public void OnValidSubmit(EditContext context)
-    //{
-    //    success = true;
-    //    StateHasChanged();
-    //}
-
 }

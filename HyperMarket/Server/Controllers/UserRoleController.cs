@@ -22,7 +22,7 @@ namespace HyperMarket.Server.Controllers
         public async Task<ActionResult<User>> UserRoleUpdate(UserRole usreRole)
         {
 
-            Console.WriteLine("\n\n\n\nUpdating the user with bussiiness ID " + usreRole.UserRoleId);
+            Console.WriteLine("\n\n\n\nUpdating the user with bussiness ID " + usreRole.UserRoleId);
             _context.UserRoles.Update(usreRole);
             await _context.SaveChangesAsync();
             return Ok(usreRole);
