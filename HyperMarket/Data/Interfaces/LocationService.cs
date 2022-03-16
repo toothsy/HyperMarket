@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using HyperMarket.DB.Models;
-
-
-using HyperMarket.Data;
+﻿using HyperMarket.DB.Models;
 using System.Net.Http.Json;
 
 namespace HyperMarket.Data.Interfaces

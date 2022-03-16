@@ -5,7 +5,7 @@
 @using HyperMarket.ViewModels;
 @inject HyperMarket.DB.Interfaces.IUserService userService
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
-
+@inject AuthenticationStateProvider AuthStateProvider
 
 @if (user == null)
 {
@@ -54,7 +54,7 @@ else
                                 
                                 Align = "right" 
                                 >Update</MudButton>
-                            </div>
+                        </div>
                     </MudCardActions>
                 </MudCard>
             </MudItem>
@@ -67,21 +67,24 @@ else
 @code 
 {
     public User user ;
+    public int userId;
     public List<BusinessDetail> Businesses = new List<BusinessDetail>();
     public BusinessDetail business = new BusinessDetail();
     ListBusinessModel lb = new ListBusinessModel();
     String[] LOC = new String[]{"","Delhi","Mumbai","Hyderabad"};
     protected override async Task OnInitializedAsync()
     {
-        business = await businessService.GetBusinessById(1001);
-        user = await userService.GetUserById(1001);
+        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+        business = await businessService.GetBusinessById(userId);
+        user = await userService.GetUserById(userId);
     }
 
-    private async Task OnValidSubmit(EditContext context){
-
-        
+    private async Task OnValidSubmit(EditContext context)
+    {
         
         await businessService.UpdateBusiness(business);
+
     }
 
 }
