@@ -39,11 +39,11 @@ namespace HyperMarket.Server.Controllers
         public async Task<ActionResult<BusinessDetail>> SaveBusiness(ListBusinessModel business)
         {
             Location loc = new Location();
+            
             //loc = await _httpClient.GetFromJsonAsync<Location>($"/api/location/{business.location}");
             BusinessDetail businessDetail = new BusinessDetail()
             {
-                UserId = 1001,
-                
+                UserId = business.UserId,
                 BusinessName = business.Businessname,
                 BusinessDescription = business.BusinessDescription,
                 TopBrands = true,
@@ -54,6 +54,15 @@ namespace HyperMarket.Server.Controllers
 
             _context.BusinessDetails.Add(businessDetail);
             await _context.SaveChangesAsync();
+
+            var userRoleType = await _context.Roles.FirstOrDefaultAsync(s => s.RoleName.Equals("BusinessUser"));
+
+            if (userRoleType != null)
+            {
+                _context.UserRoles.Add(new UserRole { UserId = businessDetail.UserId, RoleId = userRoleType.RoleId });
+
+                await _context.SaveChangesAsync();
+            }
 
             return Ok(businessDetail.UserId);
 

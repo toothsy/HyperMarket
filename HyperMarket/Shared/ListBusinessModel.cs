@@ -4,6 +4,7 @@ namespace HyperMarket.ViewModels
 {
     public class ListBusinessModel
     {
+        public int UserId { get; set; }
         [Required, EmailAddress]
         public string Email { get; set; }
 
