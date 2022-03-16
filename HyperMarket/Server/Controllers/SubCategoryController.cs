@@ -17,7 +17,7 @@ namespace HyperMarket.Server.Controllers
         {
             _context = context;
         }
-        [HttpGet("all")]
+        [HttpGet]
         public async Task<IActionResult> GetAllSubCategory()
         {
             //List<String> subcategoryName = await (from l in _context.SubCategories orderby l.SubCategoryName select l.SubCategoryName).ToListAsync();

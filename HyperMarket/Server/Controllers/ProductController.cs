@@ -29,7 +29,7 @@ namespace HyperMarket.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
-            var prod = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == id);
+            var prod = await _context.Products.FirstOrDefaultAsync(x => x.UserId == id);
             if (prod == null)
             {
                 return NotFound("Product not found!");

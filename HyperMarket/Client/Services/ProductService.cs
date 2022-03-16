@@ -24,15 +24,15 @@ namespace HyperMarket.Data.Interfaces
         //    //return _dbContext.Users.ToList();
         //}
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<List<Product>> GetProductById(int id)
         {
-            var prod = await _httpClient.GetFromJsonAsync<Product>($"/api/product/{id}");
+            var prod = await _httpClient.GetFromJsonAsync<List<Product>>($"/api/product/{id}");
             return prod;
         }
 
         public async Task<List<Product>> GetProducts()
         {
-            return await _httpClient.GetFromJsonAsync<List<Product>>($"api/product");
+            return await _httpClient.GetFromJsonAsync<List<Product>>($"/api/product");
         }
 
         public async void SaveProduct(AddProductModel prod)

@@ -17,14 +17,16 @@ namespace HyperMarket.Client.Services
             return await _httpClient.GetFromJsonAsync<List<Category>>($"api/category");
         }
 
-        public Task<Category> GetCategoryById(int id)
+        public async Task<Category> GetCategoryById(int id)
         {
-            throw new NotImplementedException();
+            var category = await _httpClient.GetFromJsonAsync<Category>($"/api/category/{id}");
+            return category;
         }
 
-        public Task<Category> GetIdByCategory(string category)
+        public async Task<Category> GetIdByCategory(string category)
         {
-            throw new NotImplementedException();
+            var loc = await _httpClient.GetFromJsonAsync<Category>($"/api/Category/{category}");
+            return loc;
         }
     }
 }

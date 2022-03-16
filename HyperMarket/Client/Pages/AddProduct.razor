@@ -20,16 +20,20 @@
                             <MudTextField Label="Product name" HelperText="Max. 30 characters" @bind-Value="prod.ProductName" For="@(()=>prod.ProductName)" InputType="InputType.Text"/>
                             <MudTextField Label="Product Description" Class="mt-3" @bind-Value="prod.ProductDescription" For="@(()=> prod.ProductDescription)" InputType="InputType.Text"/>
                             <MudTextField Label="Price" HelperText="List your price" Class="mt-3" @bind-Value="prod.Price" For="@(()=> prod.Price)" InputType="InputType.Number" />
-                           <MudSelect T="string" Label="Category"  AnchorOrigin="Origin.BottomCenter">
+                           <MudSelect @bind-Value="@prod.CategoryId" Label="Category"  AnchorOrigin="Origin.BottomCenter">
                                 @foreach (var item in category)
                                 {
-                                    <MudSelectItem Value=@item.CategoryName />
+                                    <MudSelectItem Value=@item.CategoryId >
+                                        @item.CategoryName
+                                        </MudSelectItem>
                                 }
                             </MudSelect>
-                            <MudSelect T="string" Label="SubCategory"  AnchorOrigin="Origin.BottomCenter">
+                            <MudSelect @bind-Value="@prod.SubCategoryId" Label="SubCategory"  AnchorOrigin="Origin.BottomCenter">
                                 @foreach (var item in subcategory)
                                 {
-                                    <MudSelectItem Value=@item.SubCategoryName />
+                                    <MudSelectItem Value=@item.SubCategoryId >
+                                        @item.SubCategoryName
+                                        </MudSelectItem>
                                 }
                             </MudSelect>
                             <MudTextField Label="Discount" HelperText="List your discount percentage" Class="mt-3" @bind-Value="prod.Discount" For="@(()=>prod.Discount)" InputType="InputType.Number" />
@@ -66,8 +70,9 @@
     }
     async void AddYourProduct()
     {
-        prod.CategoryId = 1;
-        prod.SubCategoryId = 1;
+        prod.CategoryId = prod.CategoryId;
+        prod.SubCategoryId = prod.SubCategoryId;
+        
         productService.SaveProduct(prod);
         UriHelper.NavigateTo("/Myproduct");
     }

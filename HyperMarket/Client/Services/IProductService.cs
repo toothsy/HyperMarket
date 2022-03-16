@@ -11,7 +11,7 @@ namespace HyperMarket.Data.Interfaces
     public interface IProductService
     {
         Task<List<Product>> GetProducts();
-        Task<Product> GetProductById(int id);
+        Task<List<Product>> GetProductById(int id);
         void SaveProduct(AddProductModel prod);
 
         Task DeleteProduct(int id);
