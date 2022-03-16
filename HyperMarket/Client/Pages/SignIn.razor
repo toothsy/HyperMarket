@@ -2,12 +2,14 @@
 @inject NavigationManager NavigationManager
 @inject IAuthService AuthService
 @inject ILocalStorageService LocalStorage
-@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject ISnackbar Snackbar
 
+@inject AuthenticationStateProvider AuthStateProvider
 <div class="bg">
     <center>
 
-        <EditForm Model="userSignin" OnValidSubmit="HandleGetOTP" hidden="@(!hideForm)">
+        <EditForm Model="userSignin" OnValidSubmit="HandleGetOTP" >
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <MudGrid Class="d-flex justify-center align-center">
                 <MudItem xs="12" sm="7">
@@ -17,31 +19,26 @@
 
                             Please Sign In below or <a href="signup">Sign Up</a> for a new account.
 
-                            <MudTextField Label="Email Id" @bind-Value="userSignin.Email" For="@(()=> userSignin.Email)" InputType="InputType.Email" />
+                            <MudTextField ReadOnly="@(!hideForm)" Label="Email Id" @bind-Value="userSignin.Email" For="@(()=> userSignin.Email)" InputType="InputType.Email" />
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Get OTP</MudButton>
+                            <MudButton  ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Get OTP</MudButton>
                         </MudCardActions>
+                        <MudCardContent>
+                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
+                        </MudCardContent>
+                            <MudButton ButtonType="ButtonType.Submit" 
+                                Variant="Variant.Filled" OnClick="HandleSignin"
+                                Color="Color.Error" Class="ml-auto">Sign In
+                            </MudButton>
+
+
                     </MudCard>
                 </MudItem>
             </MudGrid>
         </EditForm>
 
-        <EditForm Model="userOTP" OnValidSubmit="HandleSignin" hidden="@(hideForm)">
-            <DataAnnotationsValidator></DataAnnotationsValidator>
-            <MudGrid Class="d-flex justify-center align-center">
-                <MudItem xs="12" sm="7">
-                    <MudCard>
-                        <MudCardContent>
-                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
-                        </MudCardContent>
-                        <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign In</MudButton>
-                        </MudCardActions>
-                    </MudCard>
-                </MudItem>
-            </MudGrid>
-        </EditForm>
+        
     </center>
 </div>
 
@@ -54,10 +51,13 @@
     async void HandleSignin()
     {
         var result = await AuthService.Signin(userSignin, userOTP);
-        if (result.Success)
-        {
+        if (result.Success){
             await LocalStorage.SetItemAsync<string>("authToken", result.Data);
-            await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            await AuthStateProvider.GetAuthenticationStateAsync();
+
+            AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+            int userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            await sessionStorage.SetItemAsync("userId", userId );
 
             if (NavigationManager.Uri.EndsWith("/signin"))
             {
@@ -68,8 +68,8 @@
                 NavigationManager.NavigateTo(NavigationManager.Uri);
             }
         }
-        else
-        {
+        else{
+            StateHasChanged();
             Console.WriteLine(result.Message);
         }
     }

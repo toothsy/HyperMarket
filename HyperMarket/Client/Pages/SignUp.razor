@@ -7,7 +7,7 @@
 <div class="bg">
     <center>
 
-        <EditForm Model="userSignup" OnValidSubmit="HandleGetOTP">
+        <EditForm Model="userSignup" >
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <MudGrid Class="d-flex align-center justify-center mud-width-full py-15">
                 <MudItem xs="12" sm="7">
@@ -21,9 +21,12 @@
                             <MudTextField ReadOnly="@(!hideForm)"  Label="Last Name" @bind-Value="userSignup.LastName" For="@(()=> userSignup.LastName)" />
                             <MudTextField ReadOnly="@(!hideForm)" Label="Referral code" @bind-Value="userSignup.ReferralCode" For="@(()=> userSignup.ReferralCode)" />
                         </MudCardContent>
+
                         <MudCardActions>
-                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Get OTP</MudButton>
+                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" 
+                                For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled"
+                                Color="Color.Error" Class="ml-auto" OnClick="HandleGetOTP">Get OTP</MudButton>
                         </MudCardActions>
                             <MudButton OnClick="HandleSignup" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign Up</MudButton>
                     </MudCard>

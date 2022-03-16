@@ -1,0 +1,37 @@
+﻿
+@if (type=="pass")
+{
+    <MudAlert Severity="Severity.Success" 
+            ContentAlignment="HorizontalAlignment.Center" 
+            ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@message
+    </MudAlert>
+}
+else if (type == "fail")
+{
+    <MudAlert Severity="Severity.Error" 
+            ContentAlignment="HorizontalAlignment.Center" 
+            ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@message
+    </MudAlert>
+}
+else if(type == "info"){
+    <MudAlert Severity="Severity.Info" 
+            ContentAlignment="HorizontalAlignment.Center" 
+            ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">@message
+    </MudAlert>
+}
+
+@code {
+
+    [Parameter]
+    public string type { get; set; }
+
+    
+    [Parameter]
+    public string message { get; set; }
+
+    private bool showCallAlert = true;
+
+    private void CloseMe(bool value){showCallAlert = false;}
+
+}
+
