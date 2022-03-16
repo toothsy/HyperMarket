@@ -1,4 +1,5 @@
 ﻿@page "/SignUp"
+@inject HyperMarket.Data.Interfaces.ICustomerDetailService cdSer
 @inject NavigationManager NavigationManager
 @inject IAuthService AuthService
 @inject ILocalStorageService LocalStorage
@@ -16,6 +17,10 @@
 
                             <MudTextField Label="Email Id" @bind-Value="userSignup.Email" For="@(()=> userSignup.Email)" InputType="InputType.Email" />
                             <MudTextField Label="User Name" @bind-Value="userSignup.Username" For="@(()=> userSignup.Username)" />
+                            <MudTextField Label="First Name" @bind-Value="userSignup.FirstName" For="@(()=> userSignup.FirstName)" />
+                            <MudTextField Label="Last Name" @bind-Value="userSignup.LastName" For="@(()=> userSignup.LastName)" />
+                            <MudTextField Label="Referral code" @bind-Value="userSignup.ReferralCode" For="@(()=> userSignup.ReferralCode)" />
+
                         </MudCardContent>
                         <MudCardActions>
                             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Get OTP</MudButton>
@@ -40,20 +45,35 @@
                 </MudItem>
             </MudGrid>
         </EditForm>
+
     </center>
 </div>
 
 @code {
     UserSignup userSignup = new UserSignup();
     UserOTP userOTP = new UserOTP();
+    CustomerDetail cd = new CustomerDetail();
     private bool hideForm = true;
 
     async void HandleSignup()
     {
         var result = await AuthService.Signup(userSignup, userOTP);
-        if (result.Success)
-        {
+
+        if (result.Success){
+            cd.UserId = result.Data;
+            cd.FirstName = userSignup.FirstName;
+            cd.LastName = userSignup.LastName;
+            cd.ReferralCode = userSignup.LastName;
+            User U = new();
+            U.EmailId = userSignup.Email;
+            U.UserName = userSignup.Username;
+            U.Password = "thiiIsMistake";
+            U.ReferredBy = userSignup.ReferralCode;
+
+            cd.User = U;
+            cdSer.SaveUser(cd);
             NavigationManager.NavigateTo("/signin");
+
         }
         else
         {

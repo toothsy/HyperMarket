@@ -7,6 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="LoadingIcon\Loading.razor.css" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="LoadingIcon\Loading.razor.css" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
 

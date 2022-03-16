@@ -1,13 +1,15 @@
 ﻿
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 @inject HyperMarket.Data.Interfaces.IOffer off
+@using HyperMarket.UIControls.LoadingIcon
+
 @using HyperMarket.Shared
 @page "/offers"
 
 <div class = "bg">
 <div class="d-flex justify-center align-center flex-column ">
     @if (currBiz == null && ListOfProducts == null) {
-        <Spinner/>
+        <Loading/>
     }
   
     else{

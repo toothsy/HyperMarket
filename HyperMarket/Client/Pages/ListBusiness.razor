@@ -3,6 +3,8 @@
 @using HyperMarket.DB.Models;
 @using System.ComponentModel.DataAnnotations
 @using System.Text.RegularExpressions
+@using HyperMarket.UIControls.LoadingIcon
+
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 @inject HyperMarket.Data.Interfaces.IUserRole userRoleServices
 
@@ -91,7 +93,6 @@
 
     async void ListYourBusiness()
     {
-        var x = 40;
         businessService.SaveBusiness(listBusiness);
         //if(userRole.RoleId != 1)
         //{

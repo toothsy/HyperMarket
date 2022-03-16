@@ -25,6 +25,11 @@ namespace HyperMarket.Data.Interfaces
             return customer;
         }
 
+        public async void SaveUser(CustomerDetail c)
+        {
+            var res = await _httpClient.PostAsJsonAsync("api/CustomerDetail/SaveUser", c);
+        }
+
         public async Task<CustomerDetail> UpdateUser(CustomerDetail customer1)
         {
             customer1.User = new User { UserName = "Hello", EmailId = "lucky@gmail.com", Password = "Hello123", ReferredBy = "Hello1234" };

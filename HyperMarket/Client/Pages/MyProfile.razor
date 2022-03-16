@@ -3,6 +3,8 @@
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
 @using HyperMarket.ViewModels;
+@using HyperMarket.UIControls.LoadingIcon
+
 @inject HyperMarket.DB.Interfaces.IUserService userService
 @inject HyperMarket.Data.Interfaces.ICustomerDetailService customerDetailService
 @inject AuthenticationStateProvider AuthStateProvider
@@ -11,7 +13,7 @@
 
 @if (users1 == null)
 {
-    <Spinner />
+    <Loading />
 }
 else
 {

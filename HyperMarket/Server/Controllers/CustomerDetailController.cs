@@ -57,14 +57,14 @@ namespace HyperMarket.Server.Controllers
             return Ok(customer);
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult<User>> SaveUser(User user)
-        //{
-        //    _context.Users.Add(user);
-        //    await _context.SaveChangesAsync();
-        //    return Ok(user.UserId);
+        [HttpPost]
+        public async Task<ActionResult<User>> SaveUser(CustomerDetail cd)
+        {
+            _context.CustomerDetails.Add(cd);
+            await _context.SaveChangesAsync();
+            return Ok(cd.UserId);
 
-        //}
+        }
 
         [HttpPost]
         public async Task<ActionResult<User>> UpdateUser(CustomerDetail customer1)

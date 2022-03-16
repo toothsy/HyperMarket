@@ -2,6 +2,8 @@
 @inject NavigationManager UriHelper
 @using HyperMarket.Shared
 @using HyperMarket.DB.Models
+@using HyperMarket.UIControls.LoadingIcon
+
 @inject HyperMarket.Data.Interfaces.IPaymentService paymentService
 @inject HyperMarket.Data.Interfaces.ICustomerDetailService customerdetailService
 @inject HyperMarket.Data.Interfaces.IOrderService orderService
@@ -11,7 +13,7 @@
 @using HyperMarket.ViewModels;
 
 @if (prod == null) {
-        <Spinner/>
+        <Loading/>
     }
 else{
 <div class="bg">

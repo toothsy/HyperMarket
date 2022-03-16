@@ -10,9 +10,9 @@ namespace HyperMarket.Client.Services
         {
             _httpClient = httpClient;
         }
-        public async Task<List<String>> GetAllSubCategory()
+        public async Task<List<SubCategory>> GetAllSubCategory()
         {
-            var subcategory = await _httpClient.GetFromJsonAsync<List<String>>($"/api/subcategory/all");
+            var subcategory = await _httpClient.GetFromJsonAsync<List<SubCategory>>($"api/subcategory");
             return subcategory;
         }
 

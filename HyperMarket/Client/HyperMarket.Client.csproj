@@ -10,14 +10,12 @@
 	  <None Remove="Pages\MyOrder.razor.css" />
 	  <None Remove="Pages\Offers.razor.css" />
 	  <None Remove="Shared\ProductCard.razor.css" />
-	  <None Remove="Shared\Spinner.razor.css" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Content Include="Pages\MyOrder.razor.css" />
 	  <Content Include="Pages\Offers.razor.css" />
 	  <Content Include="Shared\ProductCard.razor.css" />
-	  <Content Include="Shared\Spinner.razor.css" />
 	</ItemGroup>
 
 	<ItemGroup>

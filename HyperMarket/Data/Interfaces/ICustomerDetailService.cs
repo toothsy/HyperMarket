@@ -14,5 +14,7 @@ namespace HyperMarket.Data.Interfaces
         Task<CustomerDetail> GetCustomerDetailById(int id);
 
         Task<CustomerDetail> UpdateUser(CustomerDetail customer1);
+        void SaveUser(CustomerDetail customer1);
+
     }
 }

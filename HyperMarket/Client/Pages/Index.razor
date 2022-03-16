@@ -2,6 +2,7 @@
 @using HyperMarket.DB.Models
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
+@using HyperMarket.UIControls.LoadingIcon
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 <PageTitle>HyperMarket</PageTitle>
@@ -11,7 +12,7 @@
 
         @if (businesses == null)
         {
-            <Spinner />
+            <Loading/>
         }
         else
         {

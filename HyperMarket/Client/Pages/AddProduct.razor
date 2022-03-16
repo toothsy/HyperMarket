@@ -26,12 +26,12 @@
                                     <MudSelectItem Value=@item.CategoryName />
                                 }
                             </MudSelect>
-                            @*<MudSelect T="string" Label="SubCategory"  AnchorOrigin="Origin.BottomCenter">
+                            <MudSelect T="string" Label="SubCategory"  AnchorOrigin="Origin.BottomCenter">
                                 @foreach (var item in subcategory)
                                 {
-                                    <MudSelectItem Value=@item />
+                                    <MudSelectItem Value=@item.SubCategoryName />
                                 }
-                            </MudSelect>*@
+                            </MudSelect>
                             <MudTextField Label="Discount" HelperText="List your discount percentage" Class="mt-3" @bind-Value="prod.Discount" For="@(()=>prod.Discount)" InputType="InputType.Number" />
                             <MudTextField Label="Address Line 1" Class="mt-3" @bind-Value="prod.AddressLine1" For="@(()=> prod.AddressLine1)" InputType="InputType.Text"/>
                             <MudTextField Label="Address Line 2" Class="mt-3" @bind-Value="prod.AddressLine2" For="@(()=> prod.AddressLine2)" InputType="InputType.Text"/>
@@ -58,14 +58,16 @@
     bool success;
     AddProductModel prod = new AddProductModel();
     List<Category> category = new List<Category>();
-    //List<String> subcategory = new List<String>();
+    List<SubCategory> subcategory = new List<SubCategory>();
     protected override async Task OnInitializedAsync()
     {
         category = await categoryService.GetAllCategory();
-        //subcategory = await subcategoryService.GetAllSubCategory();
+        subcategory = await subcategoryService.GetAllSubCategory();
     }
     async void AddYourProduct()
     {
+        prod.CategoryId = 1;
+        prod.SubCategoryId = 1;
         productService.SaveProduct(prod);
         UriHelper.NavigateTo("/Myproduct");
     }

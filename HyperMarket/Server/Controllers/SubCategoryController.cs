@@ -1,6 +1,10 @@
 ﻿using HyperMarket.Data;
+using HyperMarket.DB.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using HyperMarket.DB.Models;
+
 
 namespace HyperMarket.Server.Controllers
 {
@@ -16,15 +20,16 @@ namespace HyperMarket.Server.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAllSubCategory()
         {
-            List<String> subcategoryName = await (from l in _context.SubCategories orderby l.SubCategoryName select l.SubCategoryName).ToListAsync();
+            //List<String> subcategoryName = await (from l in _context.SubCategories orderby l.SubCategoryName select l.SubCategoryName).ToListAsync();
 
-            if (subcategoryName == null)
-            {
-                return NotFound("Category not found!");
-            }
-            return Ok(subcategoryName);
+            //if (subcategoryName == null)
+            //{
+            //    return NotFound("Category not found!");
+            //}
+            //return Ok(subcategoryName);
+            return Ok(await _context.SubCategories.ToListAsync());
+
         }
-
         [HttpGet("{Category}")]
         public async Task<IActionResult> GetIdSubCategory(string subcategory)
         {

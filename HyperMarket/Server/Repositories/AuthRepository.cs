@@ -44,12 +44,16 @@ namespace HyperMarket.Server
             }
 
             _context.Users.Add(user);
+            //_context.CustomerDetails.Add(cd);
             await _context.SaveChangesAsync();
+
+            //CustomerDetail cd = new CustomerDetail { UserId = user.UserId,FirstName = user.}
 
             var userRoleType = await _context.Roles.FirstOrDefaultAsync(s => s.RoleName.Equals("User"));
             if (userRoleType != null)
             {
                 _context.UserRoles.Add(new UserRole { UserId = user.UserId, RoleId = userRoleType.RoleId });
+
                 await _context.SaveChangesAsync();
             }
 
