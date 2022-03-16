@@ -1,8 +1,14 @@
 ﻿@page "/RoleAuthoring"
+@inject HyperMarket.Data.Interfaces.IUserRole userservice
 
 <center><h3>Role Authoring</h3></center>
 <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">
-    <MudTable Items=@userrole HorizontalScrollbar="false" Bordered="true">
+    <MudTable Items=@userrole HorizontalScrollbar="false" Bordered="true" Hover="true" Dense="true" Striped="true">
+        <ToolBarContent>
+            <MudText Typo="Typo.h6">Role Table</MudText>
+                <MudSpacer />
+            <MudTextField @bind-Value="searchstring" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        </ToolBarContent>
         <HeaderContent>
             <MudTh>User Id</MudTh>
             <MudTh>Role</MudTh>
@@ -16,10 +22,34 @@
                 <MudTd>@persona.UserRoleId</MudTd>
             }
         </RowTemplate>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
     </MudTable>
 </MudGrid>
 @code {
     public List<UserRole> userrole = new List<UserRole>();
+    public string searchstring = "";
+    public UserRole user = new UserRole();
+    private UserRole selectedItem1 = null;
+    private HashSet<UserRole> selectedItems = new HashSet<UserRole>();
+
+    //private IEnumerable<UserRole> Elements = new List<UserRole>();
+    //private bool FilterFunc1(User element) => FilterFunc(element, searchstring);
+
+    //private bool FilterFunc(UserRole element, string searchString)
+    //{
+    //    if (string.IsNullOrWhiteSpace(searchString))
+    //        return true;
+    //    if (element.UserId.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+    //        return true;
+    //    if (element..Contains(searchString, StringComparison.OrdinalIgnoreCase))
+    //        return true;
+    //    if ($"{element.Number} {element.Position} {element.Molar}".Contains(searchString))
+    //        return true;
+    //    return false;
+    //}
+
     //protected override Task OnInitializedAsync()
     //{
     //    userrole = await userservice.GetUserRoles();
