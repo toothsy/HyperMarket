@@ -4,6 +4,7 @@
 @using System.ComponentModel.DataAnnotations
 @using HyperMarket.ViewModels;
 @using HyperMarket.UIControls.LoadingIcon
+@inject ISnackbar Snackbar
 
 @inject HyperMarket.DB.Interfaces.IUserService userService
 @inject HyperMarket.Data.Interfaces.ICustomerDetailService customerDetailService
@@ -56,16 +57,25 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
-        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-        users1 = await userService.GetUserById(userId);
-        c1 = await customerDetailService.GetCustomerDetailById(userId);
+        
+        try
+        {
+            AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+            userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            users1 = await userService.GetUserById(userId);
+            c1 = await customerDetailService.GetCustomerDetailById(userId);
+        }
+        catch
+        {
+             Snackbar.Add("User is not a Customer", Severity.Success);
+        }
     }
 
 
     private async Task OnValidSubmit(EditContext context)
     {
         await customerDetailService.UpdateUser(c1);
+        Snackbar.Add("Updated Sucessfully", Severity.Success);
     }
 
   }

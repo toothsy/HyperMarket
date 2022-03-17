@@ -3,6 +3,7 @@
 @inject NavigationManager NavigationManager
 @inject IAuthService AuthService
 @inject ILocalStorageService LocalStorage
+@inject ISnackbar Snackbar
 
 <div class="bg">
     <center>
@@ -53,6 +54,7 @@
         else
         {
             Console.WriteLine(result.Message);
+            Snackbar.Add("User already Exist", Severity.Success);
         }
     }
 
@@ -76,6 +78,7 @@
         else
         {
             Console.WriteLine(result.Message);
+            Snackbar.Add("InValid OTP", Severity.Success);
         }
     }
     }

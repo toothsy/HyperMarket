@@ -11,10 +11,9 @@
 <MudLayout>
    @* <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">*@
     <div class="flex-container">
-        <MudAppBar style="background-color : #f35555;" Fixed="true" Dense="true" >
+        <MudAppBar style="background-color : #f35555;" Fixed="true" Dense="true">
             <div><a href="/"> <MudImage Src="images/LOGO.png" Width="48" Height="48" /></a></div>
-            <div>
-               
+            <div class=grid>  
                 <MudSelect T="string" Label="Location" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var item in AllLocations)
                     {

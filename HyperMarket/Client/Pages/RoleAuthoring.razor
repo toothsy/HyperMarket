@@ -13,6 +13,7 @@
             <MudTh>User Id</MudTh>
             <MudTh>Role</MudTh>
             <MudTh>User Role Id</MudTh>
+            <MudTh>Action</MudTh>
         </HeaderContent>
         <RowTemplate>
             @foreach(var persona in userrole)
@@ -20,6 +21,7 @@
                 <MudTd>@persona.UserId</MudTd>
                 <MudTd>@persona.Role</MudTd>
                 <MudTd>@persona.UserRoleId</MudTd>
+                <MudTd><MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete">Delete</MudIconButton></MudTd>
             }
         </RowTemplate>
         <PagerContent>

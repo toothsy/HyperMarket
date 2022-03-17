@@ -71,6 +71,7 @@
         else{
             StateHasChanged();
             Console.WriteLine(result.Message);
+            Snackbar.Add("InValid Information", Severity.Warning);
         }
     }
 
@@ -83,10 +84,12 @@
         {
             Console.WriteLine(result.Message);
             await LocalStorage.SetItemAsync<string>("OTP", result.Data);
+            Snackbar.Add("OTP Sent", Severity.Success);
         }
         else
         {
             Console.WriteLine(result.Message);
+            Snackbar.Add("InValid Email", Severity.Warning);
         }
     }
 }

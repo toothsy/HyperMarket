@@ -1,5 +1,5 @@
 ﻿@page "/Myproduct"
-
+@inject ISnackbar Snackbar
 @using System.ComponentModel.DataAnnotations
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IProductService productService
@@ -69,7 +69,7 @@
     public async Task RemoveProduct(int id)
     {
         await productService.DeleteProduct(id);
-
+        Snackbar.Add("Deleted Sucessfully", Severity.Success);
         NavigationManager.NavigateTo("MyProduct", true);
     }
 
