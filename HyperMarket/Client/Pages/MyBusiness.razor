@@ -1,4 +1,5 @@
 ﻿@page "/MyBusiness"
+@inject ISnackbar Snackbar
 @using HyperMarket.DB.Models
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
@@ -75,16 +76,26 @@ else
     String[] LOC = new String[]{"","Delhi","Mumbai","Hyderabad"};
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
-        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-        business = await businessService.GetBusinessById(userId);
-        user = await userService.GetUserById(userId);
+        try
+        {
+            AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+            userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            business = await businessService.GetBusinessById(userId);
+            user = await userService.GetUserById(userId);
+        }
+        catch
+        {
+            Snackbar.Add("User is not a Business Persona", Severity.Success);
+        }
+
+        
     }
 
     private async Task OnValidSubmit(EditContext context)
     {
         
         await businessService.UpdateBusiness(business);
+        Snackbar.Add("Updated Sucessfully", Severity.Success);
 
     }
 
