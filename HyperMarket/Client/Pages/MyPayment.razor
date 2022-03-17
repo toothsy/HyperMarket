@@ -17,7 +17,7 @@
 else{
 <div class="bg">
    <center>
-       <EditForm Model="paymentModel" OnValidSubmit=@OnValidSubmit> 
+       <EditForm Model="paymentModel" OnValidSubmit=@OnValidSubmit > 
       <div class="first">
          <MudGrid Class="d-flex justify-center align-center">
             <div class="second">
@@ -42,10 +42,23 @@ else{
                                             <MudTextField @bind-Value="prod.Price" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
                                             </div>
                                         <h6>My Credits :</h6>
-                                        <div class="text1">
+                                        @if(check==true)
+                                                {
+                                                    OnUsingCredits();
+                                                <div class="text1">
                                             <MudTextField @bind-Value="customer.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                                        </div>
-                                    </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                     <div class="text1">
+                                            <MudTextField @bind-Value="creditsdisp" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div>
+                                     <MudSwitch @bind-Checked="@check" Align="left" Color="Color.Secondary">Use Credits</MudSwitch>
+                                     </div>
                                 </MudCardContent>
                                 @*<div class="checkbox1">
                                     <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Use Credits" CheckedChanged =@OnUsingCredits/>
@@ -69,7 +82,7 @@ else{
 @code {
     public Placement Placement { get; set; } = Placement.Right;
     public bool Basic_CheckBox2 { get; set; } = false;
-
+    public bool check = false;
     public int userId = 0;
     public CustomerDetail customer = new CustomerDetail();
     public BusinessDetail business = new BusinessDetail();
@@ -81,7 +94,7 @@ else{
     public User user;
     public OrderModel order = new OrderModel();
     public PaymentModel paymentModel = new PaymentModel();
-
+    public int creditsdisp;
     protected override async Task OnInitializedAsync()
     {
         AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
@@ -92,6 +105,7 @@ else{
         paymentModel.PaymentType = "Net Banking";
         paymentModel.CreditsUsed = 0;
         finalPrice = prod.Price;
+        creditsdisp = customer.MyCredits;
     }
 
     private async Task OnValidSubmit(EditContext context)
