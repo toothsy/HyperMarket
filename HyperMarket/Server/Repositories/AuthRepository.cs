@@ -108,7 +108,25 @@ namespace HyperMarket.Server
             return jwt;
         }
 
-
+        public async Task<ServiceResponse<string>> ValidateReferral(string referral)
+        {
+            var response = new ServiceResponse<string>();
+            try
+            {
+                var referralUser = await _context.CustomerDetails.FirstOrDefaultAsync(x => x.ReferralCode == referral);
+                referralUser.MyCredits += 200;
+                _context.CustomerDetails.Update(referralUser);
+                await _context.SaveChangesAsync();
+                response.Message = "Referral successful";
+                response.Success = true;
+            }
+            catch (Exception ex)
+            {
+                response.Message = "Invalid referral code";
+                response.Success = false;
+            }
+            return response;
+        }
 
     }
 }

@@ -23,6 +23,8 @@ namespace HyperMarket.Server.Controllers
         public async Task<IActionResult> Signup(UserSignup request)
         {
             var isValidOtp = await ValidateOTP(request.OTPValidate);
+            var isReferred = await _authRepo.ValidateReferral(request.ReferralCode);
+
             User userObject = new User()
             {
                 UserName = request.Username,
@@ -41,16 +43,21 @@ namespace HyperMarket.Server.Controllers
                 {
                     return BadRequest(response);
                 }
+                
                 CustomerDetail cd = new CustomerDetail()
                 {
                     User = userObject,
                     UserId = userObject.UserId,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
-                    ReferralCode = request.ReferralCode,
+                    ReferralCode = userObject.UserName + "10",
                     MyCredits = 10
                 };
-                if(!(await _authRepo.createCustomer(cd)))
+                if (isReferred.Success)
+                {
+                    cd.MyCredits = cd.MyCredits + 100;
+                }
+                if (!(await _authRepo.createCustomer(cd)))
                     return BadRequest(response);
                     
                 return Ok(response);
@@ -121,5 +128,7 @@ namespace HyperMarket.Server.Controllers
             response.Message = "Valid OTP";
             return response;
         }
+
+        
     }
 }
