@@ -32,7 +32,7 @@
         if (currBiz == null)
         {
             currBiz = await sessionStorage.GetItemAsync<BusinessDetail>("business");
-            ListOfProducts = await off.GetProductsByBusinessID(currBiz.BusinessId);
+            ListOfProducts = await off.GetProductsByBusinessID(currBiz.UserId);
         }
     }
 }

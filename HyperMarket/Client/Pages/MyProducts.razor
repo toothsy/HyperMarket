@@ -4,6 +4,7 @@
 @using HyperMarket.DB.Models
 @inject HyperMarket.Data.Interfaces.IProductService productService
 @inject NavigationManager NavigationManager;
+@inject AuthenticationStateProvider AuthStateProvider
 
 <div class="bg">
     <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
@@ -22,7 +23,9 @@
 
                             @foreach (var item in products)
                             {
-                                <tr>
+                                @if (item.UserId == userId)
+                                {
+                                    <tr>
                                     @*<td> <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="" /></td>*@
                                     <td contenteditable='true'>@item.ProductId</td>
                                     <td contenteditable='true'>@item.ProductName</td>
@@ -31,7 +34,8 @@
                                     <td contenteditable='true'>@item.Discount</td>
                                     <td contenteditable='true'><div class="btn"><MudButton ButtonType="ButtonType.Submit" OnClick="@(e => RemoveProduct(item.ProductId))" Align="align.Center"><a href="/MyProduct"><div class="btncolor1">Delete</div></a></MudButton></div></td>
                                     <br>
-                                </tr>
+                                    </tr>
+                                }
                             }
 
                         </tbody>
@@ -51,9 +55,12 @@
     public Product P1 = new Product();
 
     public List<Product> products = new List<Product>();
+    public int userId = 0;
 
     protected override async Task OnInitializedAsync()
     {
+        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
         //P1 = await productService.GetProductById(101);
 
         products = await productService.GetProducts();
