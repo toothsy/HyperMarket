@@ -8,7 +8,7 @@ using HyperMarket.ViewModels;
 
 namespace HyperMarket.Server.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -42,8 +42,9 @@ namespace HyperMarket.Server.Controllers
         {
             Order order=new Order()
             {
-                BusinessName = orders.BusinessName,
+                //BusinessName = orders.BusinessName,
                 UserId = orders.UserId,
+                BusinessDetailId = orders.BusinessId,
                 ProductId = orders.ProductId,
                 MyOrderCredits = orders.MyOrderCredits,
                 PaymentId =orders.PaymentId

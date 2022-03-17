@@ -3,13 +3,12 @@
 @using HyperMarket.Shared
 @using HyperMarket.DB.Models
 @using HyperMarket.UIControls.LoadingIcon
-
 @inject HyperMarket.Data.Interfaces.IPaymentService paymentService
 @inject HyperMarket.Data.Interfaces.ICustomerDetailService customerdetailService
 @inject HyperMarket.Data.Interfaces.IOrderService orderService
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessdetailService
-
+@inject AuthenticationStateProvider AuthStateProvider
 @using HyperMarket.ViewModels;
 
 @if (prod == null) {
@@ -18,7 +17,7 @@
 else{
 <div class="bg">
    <center>
-       <EditForm Model="pay" OnValidSubmit=@OnValidSubmit> 
+       <EditForm Model="paymentModel" OnValidSubmit=@OnValidSubmit> 
       <div class="first">
          <MudGrid Class="d-flex justify-center align-center">
             <div class="second">
@@ -28,7 +27,7 @@ else{
                              <MudCardContent>
                                  <h2 class="log">Payment</h2>
                                     <div class="radiotype">
-                                        <MudRadioGroup @bind-SelectedOption="@Placement">
+                                        <MudRadioGroup @bind-SelectedOption="@Placement" @bind-Value="paymentModel.PaymentType">
                                             <MudRadio Color="Color.Primary" Option="@(Placement.Top)">Credit Card</MudRadio> <br />
                                             <MudRadio Color="Color.Primary" Option="@(Placement.Bottom)">Debit Card</MudRadio><br />
                                             <div class="radio3">
@@ -44,14 +43,12 @@ else{
                                             </div>
                                         <h6>My Credits :</h6>
                                         <div class="text1">
-                                            <MudTextField @bind-Value="c1.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                                            <MudTextField @bind-Value="customer.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
                                         </div>
-                                        @*<h6>Total credits:</h6><MudTextField class = "text1" @bind-Value="cus.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                                        *@
                                     </div>
                                 </MudCardContent>
                                 <div class="checkbox1">
-                                    <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Use Credits" />
+                                    <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Use Credits" CheckedChanged =@OnUsingCredits/>
                                 </div>
                                 <MudCardActions>
                                     <div class="btn">
@@ -73,47 +70,62 @@ else{
     public Placement Placement { get; set; } = Placement.Right;
     public bool Basic_CheckBox2 { get; set; } = false;
 
-    public string TextValue { get; set; }
-
-    public Payment payment1 = new Payment();
+    public int userId = 0;
+    public CustomerDetail customer = new CustomerDetail();
+    public BusinessDetail business = new BusinessDetail();
     public Product prod;
-    public CustomerDetail c1 = new CustomerDetail();
+    public int finalPrice;
+    public Payment paymentDetails = new Payment();
+
+
     UpdateProfile pay = new UpdateProfile();
     public User user;
-    public OrderModel order;
-    public BusinessDetail business = new BusinessDetail();
+    public OrderModel order = new OrderModel();
+    public PaymentModel paymentModel = new PaymentModel();
 
     protected override async Task OnInitializedAsync()
     {
-        //payment1 = await paymentService.GetPaymentById(801);
-
-        int userId = int.Parse(await sessionStorage.GetItemAsync<string>("userId"));
-        c1 = await customerdetailService.GetCustomerDetailById(userId);
-        business = await businessdetailService.GetBusinessById(userId);
+        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+        customer = await customerdetailService.GetCustomerDetailById(userId);
+        business = await sessionStorage.GetItemAsync<BusinessDetail>("business");
         prod = await sessionStorage.GetItemAsync<Product>("product");
+        paymentModel.PaymentType = "Net Banking";
+        paymentModel.CreditsUsed = 0;
+        finalPrice = prod.Price;
     }
-
 
     private async Task OnValidSubmit(EditContext context)
     {
-        int s = prod.Price;
-        int cashbackPercentage = 10;
-        if(s > c1.MyCredits)
+        paymentModel.CreditsUsed = customer.MyCredits;
+        paymentModel.Price = finalPrice;
+        customer.MyCredits = customer.MyCredits + prod.Price;
+
+        paymentService.SavePaymentDetails(paymentModel);
+        await customerdetailService.UpdateUser(customer);
+        paymentDetails = await paymentService.GetCurrentPayment();
+        order.BusinessId = business.BusinessId;
+        order.UserId = userId;
+        order.ProductId = prod.ProductId;
+        order.MyOrderCredits = prod.Price;
+        order.PaymentId = paymentDetails.PaymentId;
+        orderService.CreateOrder(order);
+        //<a href="/PaymentSuccessful"></a>
+        UriHelper.NavigateTo("/PaymentSuccessful");
+    }
+
+    public void OnUsingCredits()
+    {
+         if (prod.Price <= (customer.MyCredits / 10))
         {
-            c1.MyCredits = c1.MyCredits + (s/cashbackPercentage);
+            finalPrice = 0;
+            customer.MyCredits = customer.MyCredits - prod.Price * 10;
         }
         else
         {
-            c1.MyCredits = c1.MyCredits - s;
+            finalPrice = prod.Price - customer.MyCredits/10;
+            customer.MyCredits = 0;
         }
-        await customerdetailService.UpdateUser(c1);
-        //order.BusinessName = business.BusinessName;
-        //order.UserId = c1.UserId;
-        //order.ProductId = prod.ProductId;
-        //order.MyOrderCredits = prod.Price;
-        //order.PaymentId = 1001;
-        //orderService.CreateOrder(order);
-        //<a href="/PaymentSuccessful"></a>
-        UriHelper.NavigateTo("/PaymentSuccessful");
+        paymentModel.CreditsUsed = customer.MyCredits;
     }
   }

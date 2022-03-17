@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using HyperMarket.DB.Models;
-
-
-using HyperMarket.Data;
+﻿using HyperMarket.DB.Models;
+using HyperMarket.ViewModels;
 using System.Net.Http.Json;
 
 namespace HyperMarket.Data.Interfaces
@@ -20,11 +12,26 @@ namespace HyperMarket.Data.Interfaces
         {
             _httpClient = httpClient;
         }
-
-
-        public async Task<Payment> GetPaymentById(int id)
+        public async void SavePaymentDetails(PaymentModel bill)
         {
-            var pay = await _httpClient.GetFromJsonAsync<Payment>($"/api/payment/{id}");
+            var test = new HttpResponseMessage();
+            try
+            {
+                test = await _httpClient.PostAsJsonAsync($"/api/payment", bill);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+            finally
+            {
+                Console.WriteLine(test);
+            }
+        }
+
+        public async Task<Payment> GetCurrentPayment()
+        {
+            var pay = await _httpClient.GetFromJsonAsync<Payment>($"/api/payment");
             return pay;
         }
     }

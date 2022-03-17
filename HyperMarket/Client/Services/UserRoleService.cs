@@ -18,7 +18,6 @@ namespace HyperMarket.Data.Interfaces
             _httpClient = httpClient;
         }
         public async Task<UserRole> UserRoleUpdate(UserRole userRole){
-            //userRole.User = new User { UserName = "Hello", EmailId = "lucky@gmail.com", Password = "Hello123", ReferredBy = "Hello1234" };
 
             var response = await _httpClient.PostAsJsonAsync<UserRole>($"api/UserRoleUpdate", userRole);
 

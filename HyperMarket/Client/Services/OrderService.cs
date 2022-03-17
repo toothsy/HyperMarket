@@ -36,7 +36,7 @@ namespace HyperMarket.Data.Interfaces
             public async void CreateOrder(OrderModel order)
             {
                 var test = new HttpResponseMessage();
-                test = await _httpClient.PostAsJsonAsync($"api/order/CreateOrder", order);
+                test = await _httpClient.PostAsJsonAsync($"api/order", order);
             }
         }
     
