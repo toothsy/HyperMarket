@@ -38,18 +38,6 @@ namespace HyperMarket.Server.Controllers
         }
 
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetCustomerDetailById(int id)
-        //{
-        //    var user = await _context.CustomerDetails.FirstOrDefaultAsync(x => x.UserId == id)
-        //                     ;
-        //    if (user == null)
-        //    {
-        //        return NotFound("User not found!");
-        //    }
-        //    return Ok(user);
-        //}
-
         [HttpPost]
         public async Task<ActionResult<User>> SaveUser (User user){
             _context.Users.Add(user);

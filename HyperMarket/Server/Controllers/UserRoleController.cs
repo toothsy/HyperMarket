@@ -8,7 +8,7 @@ using HyperMarket.Data.Interfaces;
 
 namespace HyperMarket.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserRoleController : ControllerBase
     {
@@ -19,13 +19,23 @@ namespace HyperMarket.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<User>> UserRoleUpdate(UserRole usreRole)
-        {
+        public async Task<ActionResult<UserRole>> GetAllUserRoles(){
 
-            Console.WriteLine("\n\n\n\nUpdating the user with bussiness ID " + usreRole.UserRoleId);
-            _context.UserRoles.Update(usreRole);
-            await _context.SaveChangesAsync();
-            return Ok(usreRole);
+            List<UserRole> AllUserRoles = await _context.UserRoles.ToListAsync();
+            return Ok(AllUserRoles);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<UserRole>> GetUserRoleByID(int userID)
+        {
+            //wip
+            var singleUser = await _context.UserRoles.Where(x=>x.UserId==userID)
+                                    .OrderBy(x => x.UserId)
+                                    .ThenBy(x => x.RoleId).ToListAsync();
+            if (singleUser == null)
+                return BadRequest("user does not exist");
+
+            return Ok(singleUser);
         }
 
     }

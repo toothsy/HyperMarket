@@ -80,7 +80,7 @@ namespace HyperMarket.Server.Controllers
             catch (Exception exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error while deleting record");
+                "Error while deleting record\n"+exception.StackTrace);
             }
 
         }
