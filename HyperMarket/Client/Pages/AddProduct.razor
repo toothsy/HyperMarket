@@ -5,6 +5,7 @@
 @inject NavigationManager UriHelper
 @inject ICategoryService categoryService
 @inject ISubCategoryService subcategoryService
+@inject AuthenticationStateProvider AuthStateProvider
 
 <center>
     <EditForm Model="prod" OnValidSubmit="AddYourProduct">
@@ -42,6 +43,10 @@
                             <MudTextField Label="Address Line 3" Class="mt-3" @bind-Value="prod.AddressLine3" For="@(()=> prod.AddressLine3)" InputType="InputType.Text"/>
                             <MudTextField Label="Pin" Class="mt-3" @bind-Value="prod.Pin" For="@(()=> prod.Pin)" InputType="InputType.Number" />
                         </MudCardContent>
+                        <MudItem>
+
+                        <InputFile OnChange = "@OnInputFileChanged" />
+                        </MudItem>
                         <MudCardActions>
                             <div class="btn">
                                 <MudButton ButtonType="ButtonType.Submit" Align="align.Right">Register</MudButton>
@@ -63,6 +68,9 @@
     AddProductModel prod = new AddProductModel();
     List<Category> category = new List<Category>();
     List<SubCategory> subcategory = new List<SubCategory>();
+    public string productImage = string.Empty;
+
+
     protected override async Task OnInitializedAsync()
     {
         category = await categoryService.GetAllCategory();
@@ -70,11 +78,27 @@
     }
     async void AddYourProduct()
     {
+        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+        prod.userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
         prod.CategoryId = prod.CategoryId;
         prod.SubCategoryId = prod.SubCategoryId;
-        
+        prod.ImageUrl = productImage;
+
         productService.SaveProduct(prod);
         UriHelper.NavigateTo("/Myproduct");
+    }
+
+    public async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEvent)
+    {
+        //getting the file
+        var file = inputFileChangeEvent.File;
+
+        //byte array
+        var buffer = new byte[file.Size];
+        await file.OpenReadStream().ReadAsync(buffer);
+
+        //byte array to base 64 string
+        productImage= $"data:image/jpg;base64,{Convert.ToBase64String(buffer)}";
     }
 
 }

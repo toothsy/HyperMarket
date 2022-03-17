@@ -42,7 +42,7 @@ namespace HyperMarket.Server.Controllers
         {
             Product product = new Product()
             {
-                UserId = 1001,
+                UserId = prod.userId,
                 ProductName = prod.ProductName,
                 ProductDescription = prod.ProductDescription,
                 Price = prod.Price,
@@ -52,7 +52,7 @@ namespace HyperMarket.Server.Controllers
                 AddressLine2 = prod.AddressLine2,
                 AddressLine3 = prod.AddressLine3,
                 Pin = prod.Pin,
-                ImageCheck = false,
+                ImageUrl = prod.ImageUrl,
                 CreatedBy = -1,
                 UpdatedBy = -1,
                 CreatedAt = DateTime.UtcNow,
@@ -60,11 +60,9 @@ namespace HyperMarket.Server.Controllers
                 Discount = prod.Discount,
                 IsActive = true
             };
-            Console.WriteLine("\n\n\nuser is here " + prod + "\n\n\n\n\n");
 
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
-
             return Ok(product.UserId);
 
         }

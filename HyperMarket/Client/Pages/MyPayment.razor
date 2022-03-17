@@ -47,9 +47,9 @@ else{
                                         </div>
                                     </div>
                                 </MudCardContent>
-                                <div class="checkbox1">
+                                @*<div class="checkbox1">
                                     <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="Use Credits" CheckedChanged =@OnUsingCredits/>
-                                </div>
+                                </div>*@
                                 <MudCardActions>
                                     <div class="btn">
                                         <MudButton ButtonType="ButtonType.Submit" Align="align.Center" > <div class="btncolor">Pay Now</div></MudButton>
@@ -76,7 +76,6 @@ else{
     public Product prod;
     public int finalPrice;
     public Payment paymentDetails = new Payment();
-
 
     UpdateProfile pay = new UpdateProfile();
     public User user;
@@ -110,7 +109,6 @@ else{
         order.MyOrderCredits = prod.Price;
         order.PaymentId = paymentDetails.PaymentId;
         orderService.CreateOrder(order);
-        //<a href="/PaymentSuccessful"></a>
         UriHelper.NavigateTo("/PaymentSuccessful");
     }
 

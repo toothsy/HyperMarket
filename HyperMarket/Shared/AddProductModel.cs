@@ -27,5 +27,8 @@ namespace HyperMarket.ViewModels
         public string AddressLine3 { get; set; }
         [Required]
         public int Pin { get; set; }
+
+        public string ImageUrl { get; set; }
+        public int userId { get; set; }
     }
 }

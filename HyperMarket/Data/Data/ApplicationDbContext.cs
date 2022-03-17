@@ -25,7 +25,6 @@ namespace HyperMarket.Data
         public DbSet<Config> Config { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<Faq> Faq { get; set; }
-        public DbSet<Image> Images { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Payment> payments { get; set; }
         public DbSet<Product> Products { get; set; }
