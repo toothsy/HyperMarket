@@ -2,7 +2,7 @@
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 @inject HyperMarket.Data.Interfaces.IOffer off
 @using HyperMarket.UIControls.LoadingIcon
-
+@inject ISnackbar Snackbar
 @using HyperMarket.Shared
 @page "/offers"
 
@@ -28,11 +28,17 @@
     public List<Product> ListOfProducts;
     public BusinessDetail currBiz;
     protected override async Task OnInitializedAsync(){
-
-        if (currBiz == null)
+        try
         {
-            currBiz = await sessionStorage.GetItemAsync<BusinessDetail>("business");
-            ListOfProducts = await off.GetProductsByBusinessID(currBiz.UserId);
+            if (currBiz == null)
+            {
+                currBiz = await sessionStorage.GetItemAsync<BusinessDetail>("business");
+                ListOfProducts = await off.GetProductsByBusinessID(currBiz.UserId);
+            }
+        }
+        catch
+        {
+            Snackbar.Add("No Offers", Severity.Info);
         }
     }
 }

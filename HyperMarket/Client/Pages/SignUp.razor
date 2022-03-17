@@ -29,8 +29,10 @@
                             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled"
                                 Color="Color.Error" Class="ml-auto" OnClick="HandleGetOTP">Get OTP</MudButton>
                         </MudCardActions>
+                        <div class = "btn">
                             <MudButton OnClick="HandleSignup" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign Up</MudButton>
-                    </MudCard>
+                        </div>
+                        </MudCard>
                 </MudItem>
             </MudGrid>
         </EditForm>
@@ -48,13 +50,15 @@
         var result = await AuthService.Signup(userSignup, userOTP);
 
         if (result.Success){
+            Snackbar.Add("Successful SignUp", Severity.Success);
             NavigationManager.NavigateTo("/signin");
+
 
         }
         else
         {
             Console.WriteLine(result.Message);
-            Snackbar.Add("User already Exist", Severity.Success);
+            Snackbar.Add("User already Exist", Severity.Info);
         }
     }
 
@@ -74,11 +78,12 @@
         {
             Console.WriteLine(result.Message);
             await LocalStorage.SetItemAsync<string>("OTP", result.Data);
+            Snackbar.Add("OTP Sent", Severity.Success);
         }
         else
         {
             Console.WriteLine(result.Message);
-            Snackbar.Add("InValid OTP", Severity.Success);
+            Snackbar.Add("InValid OTP", Severity.Warning);
         }
     }
     }

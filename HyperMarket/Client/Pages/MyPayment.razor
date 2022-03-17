@@ -10,6 +10,7 @@
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessdetailService
 @inject AuthenticationStateProvider AuthStateProvider
 @using HyperMarket.ViewModels;
+@inject ISnackbar Snackbar
 
 @if (prod == null) {
         <Loading/>
@@ -97,15 +98,21 @@ else{
     public int creditsdisp;
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
-        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-        customer = await customerdetailService.GetCustomerDetailById(userId);
-        business = await sessionStorage.GetItemAsync<BusinessDetail>("business");
-        prod = await sessionStorage.GetItemAsync<Product>("product");
-        paymentModel.PaymentType = "Net Banking";
-        paymentModel.CreditsUsed = 0;
-        finalPrice = prod.Price;
-        creditsdisp = customer.MyCredits;
+        try
+        {
+            AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+            userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            customer = await customerdetailService.GetCustomerDetailById(userId);
+            business = await sessionStorage.GetItemAsync<BusinessDetail>("business");
+            prod = await sessionStorage.GetItemAsync<Product>("product");
+            paymentModel.PaymentType = "Net Banking";
+            paymentModel.CreditsUsed = 0;
+            finalPrice = prod.Price;
+            creditsdisp = customer.MyCredits;
+        }
+        catch{
+            Snackbar.Add("Payment Failed", Severity.Error);
+        }
     }
 
     private async Task OnValidSubmit(EditContext context)

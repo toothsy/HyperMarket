@@ -1,6 +1,8 @@
 ﻿@page "/MyOrderCustomer"
 @*@using HyperMarket.DB.Models;*@
 @inject HyperMarket.Data.Interfaces.IOrderService orderservice
+@inject ISnackbar Snackbar
+
 
 <h3 margin-bottom=10px><center>My Orders</center></h3>
 <div class="bg">
@@ -31,6 +33,14 @@
     public List<Order> order = new List<Order>();
     protected override async Task OnInitializedAsync()
     {
-       order = await orderservice.GetOrders();
+       try
+        {
+            order = await orderservice.GetOrders();
+            Snackbar.Add("Orders Placed Sucessfully", Severity.Info);
+        }
+        catch
+        {
+            Snackbar.Add("No Orders", Severity.Success);
+        }
     }
 }

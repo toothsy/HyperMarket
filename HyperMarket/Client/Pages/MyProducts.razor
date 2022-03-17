@@ -5,6 +5,7 @@
 @inject HyperMarket.Data.Interfaces.IProductService productService
 @inject NavigationManager NavigationManager;
 @inject AuthenticationStateProvider AuthStateProvider
+@inject ISnackbar Snackbar
 
 <div class="bg">
     <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
@@ -59,18 +60,26 @@
 
     protected override async Task OnInitializedAsync()
     {
-        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
-        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-        //P1 = await productService.GetProductById(101);
+        try
+        {
+            AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+            userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            //P1 = await productService.GetProductById(101);
 
-        products = await productService.GetProducts();
+            products = await productService.GetProducts();
+        }
+        catch
+        {
+             Snackbar.Add("No Products", Severity.Info);
+        }
     }
 
     public async Task RemoveProduct(int id)
     {
         await productService.DeleteProduct(id);
-        Snackbar.Add("Deleted Sucessfully", Severity.Success);
         NavigationManager.NavigateTo("MyProduct", true);
+        Snackbar.Add("Deleted Sucessfully", Severity.Success);
+        
     }
 
 }
