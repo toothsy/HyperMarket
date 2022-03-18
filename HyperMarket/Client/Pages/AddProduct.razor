@@ -44,18 +44,18 @@
                             <MudTextField Label="Address Line 3" Class="mt-3" @bind-Value="prod.AddressLine3" For="@(()=> prod.AddressLine3)" InputType="InputType.Text"/>
                             <MudTextField Label="Pin" Class="mt-3" @bind-Value="prod.Pin" For="@(()=> prod.Pin)" InputType="InputType.Number" />
                         </MudCardContent>
-                        @*<MudItem>
+                        <MudItem>
 
                         <InputFile OnChange = "@OnInputFileChanged" />
-                        </MudItem>*@
-                        <InputFile id="fileInput112" OnChange="UploadFiles" hidden multiple accept=".jpg, .jpeg, .png" />
+                        </MudItem>
+                        @*<InputFile id="fileInput112" OnChange="UploadFiles" hidden multiple accept=".jpg, .jpeg, .png" />
                         <MudButton HtmlTag="label"
                             Variant="Variant.Filled"
                             Color="Color.Primary"
                             StartIcon="@Icons.Filled.CloudUpload"
                                 for="fileInput112">
                                 Upload your image
-                        </MudButton>
+                        </MudButton>*@
                         <MudCardActions>
                             <div class="btn">
                                 <MudButton ButtonType="ButtonType.Submit" Align="align.Right">Register</MudButton>
@@ -98,29 +98,30 @@
         UriHelper.NavigateTo("/Myproduct");
     }
 
-    //public async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEvent)
-    //{
-    //    //getting the file
-    //    var file = inputFileChangeEvent.File;
-
-    //    //byte array
-    //    var buffer = new byte[file.Size];
-    //    await file.OpenReadStream().ReadAsync(buffer);
-
-    //    //byte array to base 64 string
-    //    productImage= $"data:image/jpg;base64,{Convert.ToBase64String(buffer)}";
-    //}
-    private void UploadFiles(InputFileChangeEventArgs e)
+    public async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEvent)
     {
-        var entries = e.GetMultipleFiles();
-        //Do your validations here
-        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+        //getting the file
+        var file = inputFileChangeEvent.File;
+
+        //byte array
+        var buffer = new byte[file.Size];
+        await file.OpenReadStream().ReadAsync(buffer);
+
+        //byte array to base 64 string
+        productImage= $"data:image/jpg;base64,{Convert.ToBase64String(buffer)}";
         Snackbar.Add("Image Uploaded", Severity.Success);
-        //Snackbar.Add($"Files with {entries.FirstOrDefault().Size} bytes size are not allowed", Severity.Error);
-        //Snackbar.Add($"Files starting with letter {entries.FirstOrDefault().Name.Substring(0, 1)} are not recommended", Severity.Warning);
-        //Snackbar.Add($"This file has the extension {entries.FirstOrDefault().Name.Split(".").Last()}", Severity.Info);
+    }
+    //private void UploadFiles(InputFileChangeEventArgs e)
+    //{
+    //    var entries = e.GetMultipleFiles();
+    //    //Do your validations here
+    //    Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+    //    Snackbar.Add("Image Uploaded", Severity.Success);
+    //    //Snackbar.Add($"Files with {entries.FirstOrDefault().Size} bytes size are not allowed", Severity.Error);
+    //    //Snackbar.Add($"Files starting with letter {entries.FirstOrDefault().Name.Substring(0, 1)} are not recommended", Severity.Warning);
+    //    //Snackbar.Add($"This file has the extension {entries.FirstOrDefault().Name.Split(".").Last()}", Severity.Info);
 
         
-    }
+    //}
 
 }
