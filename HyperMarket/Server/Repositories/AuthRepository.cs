@@ -114,11 +114,20 @@ namespace HyperMarket.Server
             try
             {
                 var referralUser = await _context.CustomerDetails.FirstOrDefaultAsync(x => x.ReferralCode == referral);
-                referralUser.MyCredits += 200;
-                _context.CustomerDetails.Update(referralUser);
-                await _context.SaveChangesAsync();
-                response.Message = "Referral successful";
-                response.Success = true;
+                if (referralUser != null)
+                {
+                    referralUser.MyCredits += 200;
+                    _context.CustomerDetails.Update(referralUser);
+                    await _context.SaveChangesAsync();
+                    response.Message = "Referral successful";
+                    response.Success = true;
+                }
+                else
+                {
+                    response.Message = "Invalid referral code";
+                    response.Success = false;
+                }
+                
             }
             catch (Exception ex)
             {
