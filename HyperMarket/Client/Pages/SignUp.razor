@@ -5,14 +5,13 @@
 @inject ILocalStorageService LocalStorage
 @inject ISnackbar Snackbar
 
-<div class="bg">
-    <center>
+    <center class="main-height">
 
-        <EditForm Model="userSignup" >
+        <EditForm Model="userSignup" OnValidSubmit="HandleGetOTP" >
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <MudGrid Class="d-flex align-center justify-center mud-width-full py-15">
                 <MudItem xs="12" sm="7">
-                    <MudCard>
+                    <MudCard class="card-beautified">
                         <MudCardContent>
                             <h3>Sign Up</h3>
 
@@ -24,21 +23,33 @@
                         </MudCardContent>
 
                         <MudCardActions>
-                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" 
-                                For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
+                            
                             <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled"
-                                Color="Color.Error" Class="ml-auto" OnClick="HandleGetOTP">Get OTP</MudButton>
+                                Color="Color.Error" Class="ml-auto" >@(@hideForm?"Get Otp":"Edit information")</MudButton>
                         </MudCardActions>
-                        <div class = "btn">
-                            <MudButton OnClick="HandleSignup" ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign Up</MudButton>
-                        </div>
                         </MudCard>
+                </MudItem>
+            </MudGrid>
+        </EditForm>
+        <EditForm Model="userOTP" OnValidSubmit="HandleSignup" hidden="@(hideForm)">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <MudGrid Class="d-flex justify-center align-center">
+                <MudItem xs="12" sm="7">
+                    <MudCard class="card-beautified">
+                        <MudCardContent>
+                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" InputType="InputType.Number"
+                            For="@(()=>userOTP.OTP)" />
+                        </MudCardContent>
+                        <MudCardActions>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" 
+                            Color="Color.Error" Class="ml-auto">Sign Up!</MudButton>
+                        </MudCardActions>
+                    </MudCard>
                 </MudItem>
             </MudGrid>
         </EditForm>
 
     </center>
-</div>
 
 @code {
     UserSignup userSignup = new UserSignup();
@@ -57,7 +68,6 @@
         }
         else
         {
-            Console.WriteLine(result.Message);
             Snackbar.Add("User already Exist", Severity.Info);
         }
     }
@@ -76,13 +86,11 @@
             });
         if (result.Success)
         {
-            Console.WriteLine(result.Message);
             await LocalStorage.SetItemAsync<string>("OTP", result.Data);
             Snackbar.Add("OTP Sent", Severity.Success);
         }
         else
         {
-            Console.WriteLine(result.Message);
             Snackbar.Add("InValid OTP", Severity.Warning);
         }
     }

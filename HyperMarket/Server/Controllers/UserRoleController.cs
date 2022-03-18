@@ -18,7 +18,7 @@ namespace HyperMarket.Server.Controllers
             _context = context;
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult<UserRole>> GetAllUserRoles(){
 
             List<UserRole> AllUserRoles = await _context.UserRoles.ToListAsync();
@@ -26,12 +26,10 @@ namespace HyperMarket.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserRole>> GetUserRoleByID(int userID)
+        public async Task<ActionResult<UserRole>> GetUserRoleByID(User u)
         {
             //wip
-            var singleUser = await _context.UserRoles.Where(x=>x.UserId==userID)
-                                    .OrderBy(x => x.UserId)
-                                    .ThenBy(x => x.RoleId).ToListAsync();
+            var singleUser = _context.UserRoles.Where(x => x.UserId == u.UserId).ToList();
             if (singleUser == null)
                 return BadRequest("user does not exist");
 

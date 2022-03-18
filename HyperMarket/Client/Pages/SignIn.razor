@@ -6,22 +6,24 @@
 @inject ISnackbar Snackbar
 
 @inject AuthenticationStateProvider AuthStateProvider
-<div class="bg">
-    <center>
+    <center class="main-height">
         <EditForm Model="userSignin" OnValidSubmit="HandleGetOTP"  >
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <MudGrid Class="d-flex justify-center align-center">
                 <MudItem xs="12" sm="7">
-                    <MudCard>
+                    <MudCard class="card-beautified">
                         <MudCardContent>
                             <h3>Sign In</h3>
 
                             Please Sign In below or <a href="signup">Sign Up</a> for a new account.
 
-                            <MudTextField Label="Email Id" @bind-Value="userSignin.Email" For="@(()=> userSignin.Email)" InputType="InputType.Email" />
+                            <MudTextField Label="Email Id" @bind-Value="userSignin.Email" 
+                                ReadOnly=@(!(@hideForm))
+                                For="@(()=> userSignin.Email)" InputType="InputType.Email" />
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Get OTP</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" 
+                                Color="Color.Error" Class="ml-auto">@(@hideForm?"Get Otp":"Edit email") </MudButton>
                         </MudCardActions>
                     </MudCard>
                 </MudItem>
@@ -32,19 +34,20 @@
             <DataAnnotationsValidator></DataAnnotationsValidator>
             <MudGrid Class="d-flex justify-center align-center">
                 <MudItem xs="12" sm="7">
-                    <MudCard>
+                    <MudCard class="card-beautified">
                         <MudCardContent>
-                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" For="@(()=> userOTP.OTP)" InputType="InputType.Number" />
+                            <MudTextField Label="OTP" @bind-Value="userOTP.OTP" InputType="InputType.Number"
+                            For="@(()=>userOTP.OTP)" />
                         </MudCardContent>
                         <MudCardActions>
-                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Sign In</MudButton>
+                            <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" 
+                            Color="Color.Error" Class="ml-auto">Sign In</MudButton>
                         </MudCardActions>
                     </MudCard>
                 </MudItem>
             </MudGrid>
         </EditForm>
     </center>
-</div>
 
 
 @code {
@@ -52,7 +55,7 @@
     UserOTP userOTP = new UserOTP();
     private bool hideForm = true;
     private bool disabled = false;
-
+    private string messageForButton = "Get OTP";
     async void HandleSignin()
     {
         var result = await AuthService.Signin(userSignin, userOTP);
@@ -75,9 +78,8 @@
             }
         }
         else{
-            StateHasChanged();
             Console.WriteLine(result.Message);
-            Snackbar.Add("InValid Information", Severity.Warning);
+            Snackbar.Add("Invalid Information", Severity.Warning);
         }
     }
 
@@ -88,14 +90,11 @@
         var result = await AuthService.GetOTP(userSignin);
         if (result.Success)
         {
-            Console.WriteLine(result.Message);
             await LocalStorage.SetItemAsync<string>("OTP", result.Data);
             Snackbar.Add("OTP Sent", Severity.Success);
-            //disabled = false;
         }
         else
         {
-            Console.WriteLine(result.Message);
             Snackbar.Add("InValid Email", Severity.Warning);
         }
     }

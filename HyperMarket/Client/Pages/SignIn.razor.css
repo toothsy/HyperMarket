@@ -1,37 +1,19 @@
-﻿.log {
-    color: #f35555;
-    margin-top: 40px;
-    font-size: 24px;
-    align-items: "center";
-}
-
-.bg {
-    background-color: #cbf0f561;
-    height: 120vh;
-}
-
-.d-flex justify-center align-center {
+﻿.d-flex justify-center align-center {
     margin-top: -50px;
 }
 
-.third {
-    margin-left: 155px;
-    margin-right: 150px;
-    margin-top: 60px;
-    padding-bottom: 90px
+
+::deep form {
+    position: relative;
+    top: 30%;
+
 }
 
-.fourth {
-    margin-left: 315px;
-    margin-right: 10px;
-    width: 135px;
-    color: white;
-    height: 40px;
-    background-color: #f35555;
-    margin-top: 35px;
-    margin-bottom: 30px
+::deep div.card-beautified {
+    width: 60%;
+    border-radius:12px
 }
-
-.logincolor {
-    color: white
+.main-height {
+    height: 98vh;
+    background-color: #87E0ED;
 }

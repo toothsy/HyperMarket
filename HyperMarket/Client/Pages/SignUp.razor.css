@@ -1,29 +1,15 @@
-﻿.position {
-    color: #f35555;
-    text-align: center;
+﻿.main-height {
+    height: 98vh;
+    background-color: #87E0ED;
 }
 
-.first {
-    margin-left: 310px;
-    padding: 120px;
-    margin-top: -50px;
+::deep form {
+    position: relative;
+    top: 10%;
+
 }
 
-.second {
-    margin-right: 300px;
-    margin-left: 45px;
-}
-
-.bg {
-    background-color: #cbf0f561;
-    height: 120vh;
-}
-
-.btn {
-    margin-left: 753px;
-    
-}
-
-.btncolor {
-    color: white;
+::deep div.card-beautified {
+    width: 55%;
+    border-radius: 12px
 }
