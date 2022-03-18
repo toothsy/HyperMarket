@@ -11,6 +11,7 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @using HyperMarket.ViewModels;
 @inject ISnackbar Snackbar
+@attribute [Authorize(Roles="User")]
 
 @if (prod == null) {
         <Loading/>

@@ -2,6 +2,7 @@
 @using HyperMarket.DB.Models
 @using HyperMarket.Shared
 @using System.ComponentModel.DataAnnotations
+@attribute [Authorize(Roles="User")]
 
 <div class="first">
     <MudGrid Class="d-flex justify-center align-center;">

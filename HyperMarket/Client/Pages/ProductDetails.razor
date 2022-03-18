@@ -1,0 +1,48 @@
+﻿@page "/ProductDetails"
+@using HyperMarket.DB.Models
+@using HyperMarket.UIControls.LoadingIcon
+@inject HyperMarket.Data.Interfaces.IPaymentService paymentService
+@inject HyperMarket.Data.Interfaces.ICustomerDetailService customerdetailService
+@inject HyperMarket.Data.Interfaces.IOrderService orderService
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject HyperMarket.Data.Interfaces.IBusinessDetailService businessdetailService
+@inject AuthenticationStateProvider AuthStateProvider
+@using HyperMarket.ViewModels;
+@inject ISnackbar Snackbar
+
+@if (prod == null) {
+        <Loading/>
+    }
+
+else{
+    
+<MudCard>
+    <MudCardMedia Image=@prod.ImageUrl  Height="200" />
+    <MudCardContent>
+        <MudText Typo="Typo.h5">@prod.ProductName</MudText>
+        <MudText Typo="Typo.h5">@prod.Price</MudText>
+        <MudText Typo="Typo.h5">@prod.ProductDescription</MudText>
+        <MudText Typo="Typo.body2">@prod.AddressLine1</MudText>
+        <MudText Typo="Typo.body2">@prod.AddressLine2</MudText>
+        <MudText Typo="Typo.body2">@prod.AddressLine3</MudText>
+        <MudText Typo="Typo.body2">@prod.Pin</MudText>
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" ButtonType="ButtonType.Submit"><a href="/">All Offers</a></MudButton>
+        <MudButton Variant="Variant.Text" Color="Color.Primary" ButtonType="ButtonType.Submit"><a href="/offers">More Offers</a></MudButton>
+        <div class="paymentbtn">
+            <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><a href="/MyPayment"><div class="btncolor">Buy Now</div></a></MudButton>
+        </div>
+    </MudCardActions>
+</MudCard>
+}
+@code {
+    public Product prod;
+    protected override async Task OnInitializedAsync()
+    {
+        prod = await sessionStorage.GetItemAsync<Product>("product");
+    }
+    }
+
+
+

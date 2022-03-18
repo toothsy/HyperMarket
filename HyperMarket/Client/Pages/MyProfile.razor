@@ -10,6 +10,8 @@
 @inject HyperMarket.Data.Interfaces.ICustomerDetailService customerDetailService
 @inject AuthenticationStateProvider AuthStateProvider
 
+@attribute [Authorize(Roles="User")]
+
 <PageTitle>My Profile</PageTitle>
 
 @if (users1 == null)

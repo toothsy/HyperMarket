@@ -1,0 +1,12 @@
+﻿.paymentbtn {
+    margin-top: -165px;
+    margin-left: 350px;
+    width: 120px;
+    background-color: #f35555;
+}
+
+.btncolor {
+    color: white;
+    text-align: left;
+    margin-left: 40px;
+}

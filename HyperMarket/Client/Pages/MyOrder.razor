@@ -2,7 +2,7 @@
 @*@using HyperMarket.DB.Models;*@
 @inject HyperMarket.Data.Interfaces.IOrderService orderservice
 @inject ISnackbar Snackbar
-
+@attribute [Authorize(Roles="User")]
 
 <h3 margin-bottom=10px><center>My Orders</center></h3>
 <div class="bg">
