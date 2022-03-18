@@ -8,15 +8,16 @@
 @inject HyperMarket.DB.Interfaces.IUserService userService
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 @inject AuthenticationStateProvider AuthStateProvider
-@attribute [Authorize(Roles="BusinessUser")]
 @if (user == null)
 {
     <Loading/>
 }
 else
 {
+    <AuthorizeView Roles="User" Context="BusinessUser">
+    <Authorized>
     <div class="bg">
-    <EditForm Model="lb" OnValidSubmit=@OnValidSubmit> 
+    <EditForm Model="lb" OnValidSubmit=@OnValidSubmit Context="formContext"> 
         <MudGrid Class="d-flex justify-center align-center">
             <MudItem xs="12" sm="7">
                 <MudCard Class="mx-auto pa-6">
@@ -63,6 +64,8 @@ else
         </MudGrid>
    </EditForm>
 </div>
+</Authorized>
+</AuthorizeView>
 
 }
 
