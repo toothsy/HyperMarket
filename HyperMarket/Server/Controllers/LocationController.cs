@@ -22,7 +22,7 @@ namespace HyperMarket.Server.Controllers
             }
             [HttpGet("all")]
         public async Task<IActionResult> GetAllLocation(){
-            List<String> locName = await (from l in _context.Locations orderby l.LocationName select l.LocationName).ToListAsync();
+            List<Location> locName = await (from l in _context.Locations orderby l.LocationName select l).ToListAsync();
 
                 if (locName == null)
                 {

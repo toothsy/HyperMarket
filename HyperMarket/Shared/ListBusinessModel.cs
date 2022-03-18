@@ -12,7 +12,7 @@ namespace HyperMarket.ViewModels
         public string Businessname { get; set; }
         public string BusinessDescription { get; set; }
 
-        public string location { get; set; }
+        public int locationID { get; set; }
         public string imageurl { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace HyperMarket.Server.Controllers
                 BusinessDescription = business.BusinessDescription,
                 TopBrands = true,
                 ProductsSold = 0,
-                LocationId = 1,
+                LocationId = business.locationID,
                 Logo = business.imageurl
             };
 

@@ -3,6 +3,7 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 @inject HyperMarket.Data.Interfaces.IConfigService configService
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 
 
 <MudThemeProvider />
@@ -16,10 +17,11 @@
         <MudAppBar Fixed="true" Dense="true">
             <div><a href="/"> <MudImage Src="images/LOGO.png" Width="48" Height="48" /></a></div>
             <div id="location-dropdown">  
-                <MudSelect T="string" Label="Location" AnchorOrigin="Origin.BottomCenter">
+                <MudSelect T="Location" Class="wider" @bind-Value="savedLocation"
+                    Label="Location" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var item in AllLocations)
                     {
-                        <MudSelectItem Value=@item />
+                        <MudSelectItem Class="wider" Value=@item >@item.LocationName</MudSelectItem>
                     }
 
                  </MudSelect>
@@ -130,13 +132,18 @@
 
 @code
 {
-    public List<String> AllLocations = new List<String>();
+    public List<Location> AllLocations = new List<Location>();
     public Config config = new Config();
-
+    public Location savedLocation;
     protected override async Task OnInitializedAsync()
     {
         AllLocations = await locationService.GetAllLocation();
         config = await configService.GetConfigById(601);
+
+    }
+
+    private async void saveLocation(){
+        await sessionStorage.SetItemAsync("Location",85);
 
     }
 

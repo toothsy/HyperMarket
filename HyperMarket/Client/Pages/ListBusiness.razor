@@ -36,10 +36,10 @@
                         <MudTextField Label="Email Id" @bind-Value="listBusiness.Email" For="@(()=> listBusiness.Email)" InputType="InputType.Email"></MudTextField>
                         <MudTextField Label="Business Name" @bind-Value="listBusiness.Businessname" For="@(()=> listBusiness.Businessname)" InputType="InputType.Text"></MudTextField>
                         <MudTextField Label="Business Description" @bind-Value="listBusiness.BusinessDescription" For="@(()=> listBusiness.BusinessDescription)" InputType="InputType.Text"></MudTextField>
-                        <MudSelect T="string" Label="Location"  @bind-Value="listBusiness.location" For="@(()=> listBusiness.location)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelect T="int" Label="Location"  @bind-Value="listBusiness.locationID" For="@(()=> listBusiness.locationID)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
                             @foreach (var item in AllLocations)
                             {
-                                <MudSelectItem Value=@item/>
+                                <MudSelectItem Value=@item.LocationId>@item.LocationName</MudSelectItem>
                             }
                         </MudSelect>
 
@@ -63,7 +63,7 @@
 @code {
     bool success;
     ListBusinessModel listBusiness = new ListBusinessModel();
-    public List<String> AllLocations = new List<String>();
+    public List<Location> AllLocations = new List<Location>();
     public Location loc = new Location();
     public string businessImage { get; set; } = string.Empty;
     public UserRole userRole = new UserRole();
