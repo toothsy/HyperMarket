@@ -7,37 +7,34 @@
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 <PageTitle>HyperMarket</PageTitle>
 
-<div class="bg">
+<div class="backgroundclolor_height">
     <div class="d-flex justify-center align-center flex-column ">
 
         @if (businesses == null)
         {
-            <Loading/>
+            <Loading />
         }
         else
         {
-           @* <div class="cardHolder">
-*@
-                <MudCard style = " background-color: #cbf0f561;width: 100%;height: auto;" Class="d-flex flex-row flex-wrap">
-                    
-                        @foreach (var business in businesses)
-                        {
-                            @if (business.TopBrands&&car<4)
-                            {
-                        car++;
-                        <BusinessCard business=business />
-                            }
-                        }
-                </MudCard>
 
-            @*</div>*@
+            <MudCard Class="d-flex flex-row flex-wrap">
+                <div class="row">
+                    @foreach (var business in businesses)
+                    {
+                        @if (business.TopBrands)
+                        {
+                            <BusinessCard business=business />
+                        }
+                    }
+                </div>
+            </MudCard>
         }
     </div>
 </div>
 
 
 @code {
-    public int car = 0;
+
     public List<BusinessDetail> businesses;
 
     protected override async Task OnInitializedAsync()

@@ -4,7 +4,7 @@
 @using System.ComponentModel.DataAnnotations
 @inject HyperMarket.Data.Interfaces.IBlogService blogService
 
-<body class="bg">
+<body class="backgroundcolor_height">
     <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
     <div class="row">
         @foreach (var item in blogs)
@@ -19,11 +19,10 @@
                     </div>
                     <a href="#" class="btn">Read More</a>
                 </div>
-
             </div>
         }
     </div>
-    <div class="bottom"></div>
+    
     </MudGrid>
 </body>
 

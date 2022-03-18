@@ -4,11 +4,11 @@
 @using System.Text.RegularExpressions
 @using System.ComponentModel.DataAnnotations
 @inject HyperMarket.Data.Interfaces.IConfigService configService
-<div class="bg">
+
+<div class="backgroundcolor_height">
     <MudGrid>
         <div Class="d-flex align-center justify-center mud-width-full py-8">
             <MudItem xs="12" sm="7">
-               
                     <MudPaper Class="mx-auto pa-6">
                         <h3>Follow Us On</h3>
                         <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Primary" aria-label="facebook"></MudIconButton>
@@ -18,12 +18,13 @@
                         <MudIconButton Icon="@Icons.Custom.Brands.Twitter" Color="Color.Primary" aria-label="teitter"></MudIconButton>
                         <p>@config.TwitterHandle</p>
 
-                    </MudPaper>
-               
+                    </MudPaper>  
             </MudItem>
         </div>
     </MudGrid>
 </div>
+
+
 
 @code {
     public Config config = new Config();

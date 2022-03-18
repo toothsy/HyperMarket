@@ -3,31 +3,28 @@
 @using System.Text.RegularExpressions
 @using System.ComponentModel.DataAnnotations
 @inject HyperMarket.Data.Interfaces.IFAQsService faqsService
-<div class="bg">
+
+<div class="backgroundcolor_height">
     <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
-       
-            <MudItem xs="12" sm="7">
-               
-                    <MudPaper Class="mx-auto pa-6">
-                        <h3>Frequently Asked Questions</h3>
-                        <MudExpansionPanels>
-                            <MudExpansionPanel Text="@f.FaqTitle" MaxHeight="150">
-                                @f.FaqSolution
-                            </MudExpansionPanel>
-                            <MudExpansionPanel Text="@f1.FaqTitle" MaxHeight="500">
-                                @f1.FaqSolution
-                            </MudExpansionPanel>
-                            <MudExpansionPanel Text="@f2.FaqTitle" MaxHeight="1000">
-                                @f2.FaqSolution
-                            </MudExpansionPanel>
 
-                        </MudExpansionPanels>
+        <MudItem xs="12" sm="7">
 
+            <MudPaper Class="mx-auto pa-6">
+                <h3>Frequently Asked Questions</h3>
+                <MudExpansionPanels>
+                    <MudExpansionPanel Text="@f.FaqTitle" MaxHeight="150">
+                        @f.FaqSolution
+                    </MudExpansionPanel>
+                    <MudExpansionPanel Text="@f1.FaqTitle" MaxHeight="500">
+                        @f1.FaqSolution
+                    </MudExpansionPanel>
+                    <MudExpansionPanel Text="@f2.FaqTitle" MaxHeight="1000">
+                        @f2.FaqSolution
+                    </MudExpansionPanel>
 
-                    </MudPaper>
-               
-            </MudItem>
-       
+                </MudExpansionPanels>
+            </MudPaper>
+        </MudItem>
     </MudGrid>
 </div>
 

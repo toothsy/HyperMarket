@@ -18,19 +18,19 @@
 }
 else
 {
-    <div class="bg">
+    <div class="backgroundcolor_height">
         <EditForm Model="profileup" OnValidSubmit="OnValidSubmit">
             <MudGrid Class="d-flex justify-center align-center;">
                 <MudItem xs="12" sm="7">
-                    <MudCard style="padding-bottom: 40px;">
-                        <h2 class="log">My Profile</h2>
+                    <MudCard Style = "padding-bottom: 40px;">
+                        <h2 class="MyProfile_heading">My Profile</h2>
                         <MudCardContent>
-                            <h6 class="side">Username</h6>  <MudTextField @bind-Value="users1.UserName" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense">@users1.UserName</MudTextField>
-                            <h6 class="side">First Name</h6>  <MudTextField @bind-Value="c1.FirstName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                            <h6 class="side">Last Name</h6>  <MudTextField @bind-Value="c1.LastName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                            <h6 class="side">Mail Id</h6>   <MudTextField @bind-Value="users1.EmailId" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
-                            <h6 class="side">Referral Code</h6>  <MudTextField @bind-Value="c1.ReferralCode" Label="" ReadOnly="true" Variant="Variant.Filled" />
-                            <h6 class="side">Credits</h6>  <MudTextField @bind-Value="c1.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                            <h6 class="content_alignment_top">Username</h6>  <MudTextField @bind-Value="users1.UserName" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense">@users1.UserName</MudTextField>
+                            <h6 class="content_alignment_top">First Name</h6>  <MudTextField @bind-Value="c1.FirstName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                            <h6 class="content_alignment_top">Last Name</h6>  <MudTextField @bind-Value="c1.LastName" Label="" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                            <h6 class="content_alignment_top">Mail Id</h6>   <MudTextField @bind-Value="users1.EmailId" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
+                            <h6 class="content_alignment_top">Referral Code</h6>  <MudTextField @bind-Value="c1.ReferralCode" Label="" ReadOnly="true" Variant="Variant.Filled" />
+                            <h6 class="content_alignment_top">Credits</h6>  <MudTextField @bind-Value="c1.MyCredits" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
                         </MudCardContent>
                         <MudCardActions>
                             <div class="btn">

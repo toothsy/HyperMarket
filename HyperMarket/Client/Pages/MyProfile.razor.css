@@ -1,4 +1,4 @@
-﻿.log {
+﻿.MyProfile_heading {
     color: #f35555;
     margin-top: 60px;
     text-align: center;
@@ -6,35 +6,14 @@
     font-size: 24px;
 }
 
-.side {
+.content_alignment_top {
     margin-top: 15px;
 }
 
-.bg {
+.backgroundcolor_height {
     background-color: #cbf0f561;
     height: 170vh;
     width: 100%;
-}
-
-.first {
-    margin-top: -90px;
-    background-color: #cbf0f5;
-}
-
-.second {
-    margin-top: -70px;
-    padding: 125px;
-}
-
-.third {
-    position: relative;
-    height: 800px;
-    left: 30px;
-    width: 560px;
-}
-
-.inside {
-    height: 790px;
 }
 
 .btn {

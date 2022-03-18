@@ -1,22 +1,12 @@
-﻿.bg {
+﻿.backgroundclolor_height {
     background-color: #cbf0f561;
-    height: 200vh;
-}
-/*
-.bgcolor {
-    background-color: #cbf0f561;
-}
-d-flex flex-row flex-wrap {
-    background-color: #cbf0f561;
-}*/
-body {
-    background-color: #cbf0f561;
-    height: 100vh;
+    height: auto;
 }
 
 .card:hover {
     box-shadow: -1px 9px 40px -12px #808080;
 }
+
 .card {
     width: 25em;
     margin-top: 50px;
@@ -24,11 +14,8 @@ body {
     margin-bottom: 50px;
     height: auto;
 }
-/*.cardHolder{
-    display:flex;
-    flex-direction:row;
-}
-*/
+
+
 .title {
     color: #f35555;
 }
@@ -42,7 +29,9 @@ body {
 
 .row {
     padding-bottom: 220px;
+    background-color: #5fd5e54f;
 }
+
 @media only screen and (max-width: 420px) {
     .cardHolder {
         flex-direction: column;
