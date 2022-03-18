@@ -22,9 +22,10 @@
                     
                         @foreach (var business in businesses)
                         {
-                            @if (business.TopBrands)
+                            @if (business.TopBrands&&car<4)
                             {
-                                <BusinessCard business=business />
+                        car++;
+                        <BusinessCard business=business />
                             }
                         }
                 </MudCard>
@@ -36,7 +37,7 @@
 
 
 @code {
-
+    public int car = 0;
     public List<BusinessDetail> businesses;
 
     protected override async Task OnInitializedAsync()

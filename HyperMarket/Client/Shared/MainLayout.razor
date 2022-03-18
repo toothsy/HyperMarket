@@ -2,6 +2,8 @@
 @inject ILocalStorageService LocalStorage
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
+@inject HyperMarket.Data.Interfaces.IConfigService configService
+
 
 <MudThemeProvider />
 <MudDialogProvider />
@@ -11,9 +13,9 @@
 <MudLayout>
    @* <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">*@
     <div class="flex-container">
-        <MudAppBar style="background-color : #f35555;" Fixed="true" Dense="true">
+        <MudAppBar Fixed="true" Dense="true">
             <div><a href="/"> <MudImage Src="images/LOGO.png" Width="48" Height="48" /></a></div>
-            <div class=grid>  
+            <div id="location-dropdown">  
                 <MudSelect T="string" Label="Location" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var item in AllLocations)
                     {
@@ -22,18 +24,16 @@
 
                  </MudSelect>
             </div>
-
+            <MudSpacer/>
             <AuthorizeView Roles="User">
                 <Authorized>
-                    <div class="space1">
+                    <div class="navbar-padding">
                         <span>Hi, @context.User.Identity.Name </span>
                     </div>
-                    <div class="space2">
+                    <div class="navbar-padding">
                         <MudLink href="listBusiness"><div class="appcolor">List Your Business</div></MudLink>
                     </div>
-
-                    <div>
-                        <div class="first">
+                        <div class="navbar-padding">
                             <MudSelect T="string" Label="My Account"  AnchorOrigin="Origin.BottomCenter">
                                 <a href="/MyProfile"><MudSelectItem Value="@("My Profile")" /></a>
                                @* <a href="/MyOrderCustomer"><MudSelectItem Value="@("My Orders")" /></a>*@
@@ -43,14 +43,13 @@
 
                             </MudSelect>
                         </div>
-                    </div>
-                    <div class="space3"> <MudLink @onclick="Signout"><div class="appcolor">Sign Out</div></MudLink></div>
+                    <div class="navbar-padding"> <MudLink @onclick="Signout"><div class="appcolor">Sign Out</div></MudLink></div>
 
                 </Authorized>
                 <NotAuthorized>
 
-                    <div class="space4"><MudLink href="signin"><div class="appcolor">Sign In</div></MudLink></div>
-                    <div class="space5"><MudLink href="signup"><div class="appcolor">Sign Up</div></MudLink></div>
+                    <div><MudLink href="signin"><div class="appcolor app-margin">Sign In</div></MudLink></div>
+                    <div><MudLink href="signup"><div class="appcolor app-margin">Sign Up</div></MudLink></div>
 
                 </NotAuthorized>
             </AuthorizeView>
@@ -84,10 +83,10 @@
     </div>
    @* </MudGrid>*@
 
-    <MudMainContent style="background-color: #cbf0f5d4;">
+    <MudMainContent>
         @Body
     </MudMainContent>
-    <div class="container">
+    @*<div class="container">
         <ul class="flex-row">
             <MudAppBar Color="Color.Dark" Fixed="true" Dense="true" Bottom="true">
                 <MudLink Href="/About" Underline="Underline.Always"><a class="link1" href="/about">About</a></MudLink>
@@ -96,18 +95,49 @@
                 <MudLink Href="/FAQ" Style="color: white;" Underline="Underline.Always"><a class="link1" href="/FAQ">FAQ's</a></MudLink>
                 <MudLink Href="/ContactUs" Style="color: white;" Underline="Underline.Always"><a class="link1" href="/ContactUs">Contact Us</a></MudLink>
             </MudAppBar>
-        </ul>
+        </ul>*@
+        <footer>
+        <div class="footer">
+            <div class="inner_footer">
+                <div class="logo_container">
+                    <img src="images/LOGO.png"
+                </div>
+                <div class="footer-third">
+                    <h1>Need Help?</h1>
+                    <a href="/About">About Page</a>
+                    <a href="/FAQ">FAQ</a>
+                    <a href="/ContactUs">Contact Us</a>
+                </div>
+                <div class="footer-third">
+                    <h1>Learn More</h1>
+                    <a href="/">Terms and conditions</a>
+                    <a href="/Blog">Blog</a>
+                </div>
+                <div class="footer-third">
+                    <h1>Reach out to us</h1>
+                    <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Primary" aria-label="facebook"></MudIconButton>
+                        <p>@config.FaceBookHandle</p>
+                        <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Color="Color.Primary" aria-label="instagram"></MudIconButton>
+                        <p>@config.InstaHandle</p>
+                        <MudIconButton Icon="@Icons.Custom.Brands.Twitter" Color="Color.Primary" aria-label="teitter"></MudIconButton>
+                        <p>@config.TwitterHandle</p>
+                </div>
+            </div>
     </div>
+    </footer>
 </MudLayout>
 
 
 @code
 {
     public List<String> AllLocations = new List<String>();
+    public Config config = new Config();
 
     protected override async Task OnInitializedAsync()
     {
         AllLocations = await locationService.GetAllLocation();
+        config = await configService.GetConfigById(601);
+
     }
 
     private async void Signout()
