@@ -29,10 +29,15 @@
                     {
                         @if (business.TopBrands&&business.LocationId==location.LocationId)
                         {
-                            <BusinessCard business=business />
-                        }
+                                <BusinessCard business=business />
+                                ctr++;
+                            }
                     }
-                </div>
+                    @if(ctr==0)
+                        {
+                           <MudText>Sorry, We currently do not have any listings in the area. Kindly try again later</MudText>
+                        }
+                    </div>
             </MudCard>
             }
         }
@@ -44,8 +49,10 @@
 
     public List<BusinessDetail> businesses;
     public Location location;
+    private int ctr;
     protected override async Task OnInitializedAsync()
     {
+        ctr = 0;
         location = await sessionStorage.GetItemAsync<Location>("Location");
         //if(location==null)
         //{

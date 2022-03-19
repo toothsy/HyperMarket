@@ -44,10 +44,7 @@
                             <MudTextField Label="Address Line 3" Class="mt-3" @bind-Value="prod.AddressLine3" For="@(()=> prod.AddressLine3)" InputType="InputType.Text"/>
                             <MudTextField Label="Pin" Class="mt-3" @bind-Value="prod.Pin" For="@(()=> prod.Pin)" InputType="InputType.Number" />
                         </MudCardContent>
-                        <MudItem>
-
-                        <InputFile OnChange = "@OnInputFileChanged" />
-                        </MudItem>
+                        
                         @*<InputFile id="fileInput112" OnChange="UploadFiles" hidden multiple accept=".jpg, .jpeg, .png" />
                         <MudButton HtmlTag="label"
                             Variant="Variant.Filled"
@@ -56,6 +53,22 @@
                                 for="fileInput112">
                                 Upload your image
                         </MudButton>*@
+                        <label style="box-shadow: 0 2px 7px #4caf50;
+                                    display: inline-flex;
+                                    width: 150px;
+                                    justify-content: space-around;
+                                    border-radius: 2em;
+                                    color: white;
+                                    border: 2px solid;
+                                    cursor: pointer;
+                                    align-items: center;
+                                    padding: 16px;
+                                    float: right;
+                                    margin-top: 10px;
+                                    margin-left: 50px;
+                                    background-color: #4caf50;" 
+                    for="fileInput2"> Upload Image <MudIcon Icon="@Icons.Filled.CloudUpload"/></label>
+                        <InputFile id="fileInput2" OnChange="OnInputFileChanged" hidden multiple />
                         <MudCardActions>
                             <div class="btn">
                                 <MudButton ButtonType="ButtonType.Submit" Align="align.Right">Register</MudButton>

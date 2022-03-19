@@ -144,7 +144,7 @@
 
     private async void saveLocation(){
         await sessionStorage.SetItemAsync("Location",this.savedLocation);
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/",true);
     }
 
     private async void Signout()
