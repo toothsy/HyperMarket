@@ -17,7 +17,7 @@
         <MudAppBar Fixed="true" Dense="true">
             <div><a href="/"> <MudImage Src="images/LOGO.png" Width="48" Height="48" /></a></div>
             <div id="location-dropdown">  
-                <MudSelect T="Location" Class="wider" @bind-Value="savedLocation"
+                <MudSelect T="Location" Class="wider" @bind-Value="savedLocation" SelectedValuesChanged="@saveLocation"
                     Label="Location" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var item in AllLocations)
                     {
@@ -143,8 +143,8 @@
     }
 
     private async void saveLocation(){
-        await sessionStorage.SetItemAsync("Location",85);
-
+        await sessionStorage.SetItemAsync("Location",this.savedLocation);
+        NavigationManager.NavigateTo("/");
     }
 
     private async void Signout()

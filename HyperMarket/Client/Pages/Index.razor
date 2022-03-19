@@ -5,6 +5,7 @@
 @using HyperMarket.UIControls.LoadingIcon
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject HyperMarket.Data.Interfaces.ILocationService locationService
 <PageTitle>HyperMarket</PageTitle>
 
 <div class="backgroundclolor_height">
@@ -16,18 +17,24 @@
         }
         else
         {
-
+            if(location==null)
+            {
+                <MudText>Please Provide a location</MudText>
+            }
+            else
+            {
             <MudCard Class="d-flex flex-row flex-wrap">
                 <div class="row">
                     @foreach (var business in businesses)
                     {
-                        @if (business.TopBrands)
+                        @if (business.TopBrands&&business.LocationId==location.LocationId)
                         {
                             <BusinessCard business=business />
                         }
                     }
                 </div>
             </MudCard>
+            }
         }
     </div>
 </div>
@@ -36,12 +43,15 @@
 @code {
 
     public List<BusinessDetail> businesses;
-
+    public Location location;
     protected override async Task OnInitializedAsync()
     {
+        location = await sessionStorage.GetItemAsync<Location>("Location");
+        //if(location==null)
+        //{
+        //    location = await locationService.GetLocationById(1);
+        //}
         businesses = await businessService.GetBusinesses();
-
-
     }
 }
 
