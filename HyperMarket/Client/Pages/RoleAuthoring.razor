@@ -1,40 +1,53 @@
 ﻿@page "/RoleAuthoring"
 @inject HyperMarket.Data.Interfaces.IUserRole userservice
+@using HyperMarket.UIControls.LoadingIcon;
+@if(userrole==null){
+    <Loading/>
+}
 
-<center><h3>Role Authoring</h3></center>
-<MudGrid Class="justify-center d-flex align-center mud-width-full py-8">
-    <MudTable Items=@userrole HorizontalScrollbar="false" Bordered="true" Hover="true" Dense="true" Striped="true">
-        <ToolBarContent>
-            <MudText Typo="Typo.h6">Role Table</MudText>
-                <MudSpacer />
-            <MudTextField @bind-Value="searchstring" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
-        </ToolBarContent>
-        <HeaderContent>
-            <MudTh>User Id</MudTh>
-            <MudTh>Role</MudTh>
-            <MudTh>User Role Id</MudTh>
-            <MudTh>Action</MudTh>
-        </HeaderContent>
-        <RowTemplate>
-            @foreach(var persona in userrole)
-            {
-                <MudTd>@persona.UserId</MudTd>
-                <MudTd>@persona.Role</MudTd>
-                <MudTd>@persona.UserRoleId</MudTd>
-                <MudTd><MudIconButton Icon="@Icons.Material.Filled.Delete" aria-label="delete">Delete</MudIconButton></MudTd>
-            }
-        </RowTemplate>
-        <PagerContent>
-            <MudTablePager />
-        </PagerContent>
-    </MudTable>
-</MudGrid>
+else{
+    <center><h3>Role Authoring</h3></center>
+    <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">
+        <MudTable Items=@userrole HorizontalScrollbar="false" 
+            Bordered="true" Hover="true" Dense="true" Striped="true">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Role Table</MudText>
+                    <MudSpacer />
+                <MudTextField @bind-Value="searchstring" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>User Id</MudTh>
+                <MudTh>Role</MudTh>
+                <MudTh>User Role Id</MudTh>
+                <MudTh>Action</MudTh>
+            </HeaderContent>
+                <RowTemplate>
+                    <MudTd>@context.UserId</MudTd>
+                    <MudTd>@context.Role</MudTd>
+                    <MudTd>@context.UserRoleId</MudTd>
+                    <MudTd><MudIconButton Icon="@Icons.Material.Filled.Delete" 
+                                aria-label="delete">Delete</MudIconButton></MudTd>
+                </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+    </MudGrid>
+}
 @code {
-    public List<UserRole> userrole = new List<UserRole>();
+    public List<UserRole> userrole ;
     public string searchstring = "";
-    public UserRole user = new UserRole();
-    private UserRole selectedItem1 = null;
-    private HashSet<UserRole> selectedItems = new HashSet<UserRole>();
+    //private UserRole selectedItem1 = null;
+    //private HashSet<UserRole> selectedItems = new HashSet<UserRole>();
+
+
+    protected override async Task OnInitializedAsync(){
+
+        userrole = await userservice.GetAllUser();
+        
+
+    }
+
 
     //private IEnumerable<UserRole> Elements = new List<UserRole>();
     //private bool FilterFunc1(User element) => FilterFunc(element, searchstring);

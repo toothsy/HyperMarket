@@ -13,7 +13,6 @@
 
 @inject NavigationManager UriHelper
 
-<h3>List your business</h3>
 
 @*<AuthorizeView Roles="User">
     <Authorized>
@@ -30,7 +29,7 @@
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <MudGrid Class = "d-flex align-center justify-center mud-width-full py-8">
             <MudItem xs="12" sm="7">
-                <MudCard>
+                <MudCard Class="card-beautified">
                     <MudCardContent>
                         <h3>List your Business</h3>
                         <MudTextField Label="Email Id" @bind-Value="listBusiness.Email" For="@(()=> listBusiness.Email)" InputType="InputType.Email"></MudTextField>
@@ -45,21 +44,7 @@
                         @*<InputFile id="fileinput" OnChange ="@OnInputFileChanged" hidden multiple/>
                         <MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.CloudUpload" for="fileInput"> Upload Files
                         </MudButton>*@
-                        <label style="box-shadow: 0 2px 7px #4caf50;
-                                    display: inline-flex;
-                                    width: 150px;
-                                    justify-content: space-around;
-                                    border-radius: 2em;
-                                    color: white;
-                                    border: 2px solid;
-                                    cursor: pointer;
-                                    align-items: center;
-                                    padding: 16px;
-                                    float: right;
-                                    margin-top: 10px;
-                                    margin-left: 50px;
-                                    background-color: #4caf50;" 
-                    for="fileInput2"> Upload <MudIcon Icon="@Icons.Filled.CloudUpload"/></label>
+                        <label class="label-for-button" for="fileInput2"> Upload Image <MudIcon Icon="@Icons.Filled.CloudUpload"/></label>
                         <InputFile id="fileInput2" OnChange="OnInputFileChanged" hidden multiple />
                     </MudCardContent>
                     <MudCardActions>

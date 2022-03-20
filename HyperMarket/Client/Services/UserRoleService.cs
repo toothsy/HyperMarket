@@ -23,5 +23,11 @@ namespace HyperMarket.Data.Interfaces
 
             return await response.Content.ReadFromJsonAsync<UserRole>();
         }
+
+        public async Task<List<UserRole>> GetAllUser(){
+
+            var response = await _httpClient.GetAsync($"api/userrole/GetAllUserRoles");
+            return await response.Content.ReadFromJsonAsync<List<UserRole>>();
+        }
     }
 }

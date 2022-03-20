@@ -11,5 +11,7 @@ namespace HyperMarket.Data.Interfaces
     public interface IUserRole
     {
         Task<UserRole> UserRoleUpdate(UserRole userRole);
+        Task<List<UserRole>> GetAllUser();
+
     }
 }

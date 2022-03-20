@@ -26,10 +26,15 @@ namespace HyperMarket.Server.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserRole>> GetUserRoleByID(User u)
-        {
+        public async Task<ActionResult<UserRole>> UpdateUserRole(UserRole u){
             //wip
             var singleUser = _context.UserRoles.Where(x => x.UserId == u.UserId).ToList();
+
+            
+
+
+
+
             if (singleUser == null)
                 return BadRequest("user does not exist");
 
