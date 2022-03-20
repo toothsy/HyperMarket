@@ -14,6 +14,7 @@
     margin-left: 10em;
     position: relative;
     border-radius: .4em;
+
 }
 
 .paymentbtn a{
@@ -41,7 +42,7 @@
 .details {
     display: flex;
     flex-direction: column;
-    padding-top: 2em;
+    padding-top: 1.8em;
     border-radius: 2em;
     box-shadow: -1px 9px 40px -12px #808080;
     width: 75%;
@@ -62,17 +63,19 @@
     width:85%;
 }
 
-.d-flex{
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
+.d-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .product-details {
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     position: relative;
-    top: 10%;
-    width:30%;
+    top: 8%;
+    width: 30%;
 }
 .product-details p {
     font-size:4em;

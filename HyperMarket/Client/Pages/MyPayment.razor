@@ -45,7 +45,7 @@ else{
                                             <MudTextField @bind-Value="finalPrice" Label="" ReadOnly="true" Variant="Variant.Filled" Margin="Margin.Dense"></MudTextField>
                                             </div>
                                         <h6>My Credits :</h6>
-                                        @if(check==true)
+                                        @if(check)
                                                 {
                                                     OnUsingCredits();
                                                 <div class="text1">
@@ -140,11 +140,13 @@ else{
         {
             finalPrice = 0;
             creditsUsed = customer.MyCredits/10 - prod.Price;
+            
         }
         else
         {
             finalPrice = prod.Price - customer.MyCredits/10;
             creditsUsed = customer.MyCredits ;
+            
         }
         paymentModel.CreditsUsed = customer.MyCredits;
     }
