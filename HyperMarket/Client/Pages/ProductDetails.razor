@@ -21,7 +21,9 @@ else{
     <MudCardContent>
         <MudText Typo="Typo.h5">@prod.ProductName</MudText>
         <MudText Typo="Typo.h5">@prod.Price</MudText>
-        <MudText Typo="Typo.h5">@prod.ProductDescription</MudText>
+        <MudText Typo="Typo.h5">@proddescription</MudText>
+        <MudText Typo="Typo.h5">@prodinclusion</MudText>
+        <MudText Typo="Typo.h5">@prodcondition</MudText>
         <MudText Typo="Typo.body2">@prod.AddressLine1</MudText>
         <MudText Typo="Typo.body2">@prod.AddressLine2</MudText>
         <MudText Typo="Typo.body2">@prod.AddressLine3</MudText>
@@ -38,11 +40,48 @@ else{
 }
 @code {
     public Product prod;
+    private string proddescription = string.Empty;
+    private string prodinclusion = string.Empty;
+    private string prodcondition = string.Empty;
+    private string check = string.Empty;
     protected override async Task OnInitializedAsync()
     {
         prod = await sessionStorage.GetItemAsync<Product>("product");
+        check = prod.ProductDescription;
+        int l = check.Length;
+        int i;
+        int j = 0;
+        int c = 0;
+        for(i=0;i<l;i++)
+        {
+            if(check[i]=='&'&&check[i+1]=='b')
+            {
+                if(j==0)
+                {
+                    proddescription = check.Substring(0, i);
+                    j++;
+                    c = i;
+                }
+                if(j==1)
+                {
+                    prodinclusion = check.Substring(c,(i - c));
+                    j++;
+                    c = i;
+                }
+                if(j==2)
+                {
+                    prodcondition = check.Substring(i);
+                }
+            }
+        }
+        if(j==0)
+        {
+            proddescription = check;
+            prodinclusion="No Inclusion";
+            prodcondition = "No Condition Applied";
+        }
     }
-    }
+}
 
 
 
