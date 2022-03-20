@@ -1,6 +1,6 @@
 ﻿.backgroundclolor_height {
     background-color: #cbf0f561;
-    height: auto;
+    height: 98vh;
 }
 
 .card:hover {
@@ -14,7 +14,11 @@
     margin-bottom: 50px;
     height: auto;
 }
-
+.center-things {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
 
 .title {
     color: #f35555;
@@ -30,6 +34,16 @@
 .row {
     padding-bottom: 220px;
     background-color: #5fd5e54f;
+    width:95vw;
+    color:black;
+    display:flex;
+    flex-direction:row;
+}
+
+
+
+:deep .err{
+    width:50%;
 }
 
 @media only screen and (max-width: 420px) {

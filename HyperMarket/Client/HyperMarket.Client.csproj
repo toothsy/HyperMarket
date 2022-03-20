@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Remove="wwwroot\error.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Pages\MyOrder.razor.css" />
 	  <None Remove="Pages\Offers.razor.css" />
 	  <None Remove="Shared\ProductCard.razor.css" />
@@ -44,7 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="wwwroot\images\" />
+	  <None Include="wwwroot\images\error.svg" />
 	</ItemGroup>
 
 </Project>

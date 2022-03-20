@@ -4,6 +4,11 @@
 @using System.ComponentModel.DataAnnotations
 @inject HyperMarket.Data.Interfaces.IFAQsService faqsService
 
+@if (faqs == null)
+{
+    <HyperMarket.UIControls.LoadingIcon.Loading/>
+}
+
 <div class="backgroundcolor_height">
     <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
 
@@ -12,15 +17,14 @@
             <MudPaper Class="mx-auto pa-6">
                 <h3>Frequently Asked Questions</h3>
                 <MudExpansionPanels>
+                    @foreach (var f in faqs)
+                    {
                     <MudExpansionPanel Text="@f.FaqTitle" MaxHeight="150">
                         @f.FaqSolution
                     </MudExpansionPanel>
-                    <MudExpansionPanel Text="@f1.FaqTitle" MaxHeight="500">
-                        @f1.FaqSolution
-                    </MudExpansionPanel>
-                    <MudExpansionPanel Text="@f2.FaqTitle" MaxHeight="1000">
-                        @f2.FaqSolution
-                    </MudExpansionPanel>
+                        
+                    }
+                    
 
                 </MudExpansionPanels>
             </MudPaper>
@@ -29,14 +33,11 @@
 </div>
 
 @code {
-    public Faq f = new Faq();
-    public Faq f1 = new Faq();
-    public Faq f2 = new Faq();
+    public List<Faq> faqs { get; set; } = new List<Faq>();
 
     protected override async Task OnInitializedAsync()
     {
-        f = await faqsService.GetFaqs(701);
-        f1 = await faqsService.GetFaqs(702);
-        f2 = await faqsService.GetFaqs(703);
+        faqs = await faqsService.GetAllFaqs();
+
     }
 }

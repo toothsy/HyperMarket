@@ -16,27 +16,6 @@
 
 else{
     
-@*<MudCard>
-    <MudCardMedia Image=@prod.ImageUrl  />
-    <MudCardContent>
-        <MudText Typo="Typo.h5">@prod.ProductName</MudText>
-        <MudText Typo="Typo.h5">@prod.Price</MudText>
-        <MudText Typo="Typo.h5">@proddescription</MudText>
-        <MudText Typo="Typo.h5">@prodinclusion</MudText>
-        <MudText Typo="Typo.h5">@prodcondition</MudText>
-        <MudText Typo="Typo.body2">@prod.AddressLine1</MudText>
-        <MudText Typo="Typo.body2">@prod.AddressLine2</MudText>
-        <MudText Typo="Typo.body2">@prod.AddressLine3</MudText>
-        <MudText Typo="Typo.body2">@prod.Pin</MudText>
-    </MudCardContent>
-    <MudCardActions>
-        <MudButton Variant="Variant.Text" Color="Color.Primary" ButtonType="ButtonType.Submit"><a href="/">All Offers</a></MudButton>
-        <MudButton Variant="Variant.Text" Color="Color.Primary" ButtonType="ButtonType.Submit"><a href="/offers">More Offers</a></MudButton>
-        <div class="paymentbtn">
-            <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><a href="/MyPayment"><div class="btncolor">Buy Now</div></a></MudButton>
-        </div>
-    </MudCardActions>
-</MudCard>*@
 <div class="background">
     <div class="details">
         <div class="info">
@@ -44,6 +23,7 @@ else{
                <img src=@prod.ImageUrl />
            </div>
            <div class="product-details">
+
                <h1>@prod.ProductName</h1>
                <h2>@prod.ProductDescription</h2>
                <hr/>
@@ -52,12 +32,15 @@ else{
                <h6>@prod.AddressLine2</h6>
                <h6>@prod.AddressLine3</h6>
                <hr/>
+
                <div class="d-flex">
                <p>@prod.Price &#8377;</p>
                    <button class="paymentbtn" >
                             <a href="/MyPayment">Buy Now</a>
                    </button>    
                </div>
+
+
                <hr/>
                <h6>Pincode:@prod.Pin</h6>
                <h6>@prodcondition,@prodinclusion</h6>

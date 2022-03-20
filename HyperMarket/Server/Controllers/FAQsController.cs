@@ -7,7 +7,7 @@ using HyperMarket.DB.Models;
 
 namespace HyperMarket.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class FAQsController : ControllerBase
     {
@@ -16,10 +16,10 @@ namespace HyperMarket.Server.Controllers
         {
             _context = context;
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetFaqs(int id)
+        [HttpGet]
+        public async Task<IActionResult> GetAllFaqs()
         {
-            var user = await _context.Faq.FirstOrDefaultAsync(x => x.FaqId == id);
+            var user = await _context.Faq.ToListAsync();
 
             if (user == null)
             {

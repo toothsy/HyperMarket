@@ -11,7 +11,12 @@
         <NotFound>
             <PageTitle>Not found</PageTitle>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p role="alert">Sorry, there's nothing at this address.</p>
+                <div class="error-message">
+                    <Error />
+                    <div class="center-things">
+                    <p class="error-message-para" role="alert">Hmmm, perhaps you have the wrong address</p>
+                    </div>
+                </div>
             </LayoutView>
         </NotFound>
     </Router>

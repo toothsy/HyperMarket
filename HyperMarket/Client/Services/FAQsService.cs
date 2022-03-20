@@ -18,9 +18,9 @@ namespace HyperMarket.Data.Interfaces
             _httpClient = httpClient;
         }
 
-        public async Task<Faq> GetFaqs(int id)
+        public async Task<List<Faq>> GetAllFaqs()
         {
-            var user = await _httpClient.GetFromJsonAsync<Faq>($"/api/faqs/{id}");
+            var user = await _httpClient.GetFromJsonAsync<List<Faq>>($"/api/faqs/GetAllFaqs");
             return user;
         }
 
