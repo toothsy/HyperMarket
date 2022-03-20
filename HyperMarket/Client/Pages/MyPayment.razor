@@ -8,6 +8,7 @@
 @inject HyperMarket.Data.Interfaces.IOrderService orderService
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessdetailService
+@inject HyperMarket.DB.Interfaces.IUserService userService
 @inject AuthenticationStateProvider AuthStateProvider
 @using HyperMarket.ViewModels;
 @inject ISnackbar Snackbar
@@ -91,9 +92,8 @@ else{
     public Product prod;
     public int finalPrice;
     public Payment paymentDetails = new Payment();
-
+    public User user = new User();
     UpdateProfile pay = new UpdateProfile();
-    public User user;
     public OrderModel order = new OrderModel();
     public PaymentModel paymentModel = new PaymentModel();
     public int creditsdisp;
@@ -106,6 +106,8 @@ else{
             customer = await customerdetailService.GetCustomerDetailById(userId);
             business = await sessionStorage.GetItemAsync<BusinessDetail>("business");
             prod = await sessionStorage.GetItemAsync<Product>("product");
+            user = await userService.GetUserById(userId);
+
             paymentModel.PaymentType = "Net Banking";
             paymentModel.CreditsUsed = 0;
             finalPrice = prod.Price;
@@ -121,7 +123,7 @@ else{
         paymentModel.CreditsUsed = customer.MyCredits;
         paymentModel.Price = finalPrice;
         customer.MyCredits = customer.MyCredits + prod.Price;
-
+        customer.User = user;
         paymentService.SavePaymentDetails(paymentModel);
         await customerdetailService.UpdateUser(customer);
         paymentDetails = await paymentService.GetCurrentPayment();
