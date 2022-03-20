@@ -14,8 +14,8 @@
   
     else{
 
-    <h1>Offers Related to <br>@currBiz.BusinessName</h1>
-    <MudCard Class="d-flex flex-row flex-wrap">
+    <h1>Offers Related to @currBiz.BusinessName</h1>
+    <MudCard Class="card-holder" >
             @foreach(var item in ListOfProducts){
                 <ProductCard prod = "@item"/>
             }

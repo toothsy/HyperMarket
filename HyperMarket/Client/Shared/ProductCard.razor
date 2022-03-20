@@ -6,22 +6,20 @@
         <Loading/>
     }
 else{
-    <div class = "card" style = "">
-
+    <div class = "card" @onclick=@clickHandler>
+        <div class="img-container">
+            <img src=@prod.ImageUrl />
+        </div>
         <div class = "card-body">
 
-            <div class = "card-title">
+            <div class="card-title">
                 <h3>@prod.ProductName</h3> 
             </div>
-
-            <div class = "card-text">
-                <p>@prod.ProductDescription</p>
-            </div>
-            <div class = "card-text">
-                <p>@prod.Price &#8377; </p>
+            <div class="card-info">
+                <h3>@prod.Price &#8377; </h3>
+                <button class = "btn" @onclick=@clickHandler >More details</button> 
             </div>  
 
-            <button class = "btn" @onclick=@clickHandler >Buy Now!!</button> 
 
         </div>
     </div>
