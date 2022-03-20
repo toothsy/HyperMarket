@@ -4,18 +4,18 @@
 @using System.ComponentModel.DataAnnotations
 @attribute [Authorize(Roles="User")]
 
-<div class="first">
+<div class="background-alignment">
     <MudGrid Class="d-flex justify-center align-center;">
-        <div class="second">
+        <div class="MudItem-alignment">
             <MudItem xs="12" sm="7">
-                <div class="third">
+                <div class="MudCard-alignment">
                     <MudCard>
                         <MudCardContent>
-                            <img class="img" src="images\PaymentMessage.png">
+                            <img class="payment-image" src="images\PaymentMessage.png">
                         </MudCardContent>
                         <MudCardActions>
-                            <div class="paymentbtn">
-                                <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><a href="/"><div class="btncolor">ok</div></a></MudButton>
+                            <div class="paymentbutton">
+                                <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><a href="/"><div class="buttoncolor">ok</div></a></MudButton>
                             </div>
                         </MudCardActions>
                     </MudCard>

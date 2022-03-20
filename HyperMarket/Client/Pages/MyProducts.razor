@@ -7,52 +7,44 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @inject ISnackbar Snackbar
 
-<div class="bg">
+<div class="backgroundcolor_height">
     <MudGrid Class="d-flex align-center justify-center mud-width-full py-8">
-        <div class="first">
-            <MudItem class="second">
-                <MudPaper Class="mx-auto pa-6">
-                    <h4>My Products</h4>
-                    <table border="1">
-                        <th>ProductID</th>
-                        <th>ProductName</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Discount</th>
-                        <th>Delete</th>
-                        <tbody>
-
-                            @foreach (var item in products)
-                            {
-                                @if (item.UserId == userId)
-                                {
-                                    <tr>
-                                    @*<td> <MudCheckBox T="bool" Required="false" Class="ml-n2" Label="" /></td>*@
-                                    <td contenteditable='true'>@item.ProductId</td>
-                                    <td contenteditable='true'>@item.ProductName</td>
-                                    <td contenteditable='true'>@item.CategoryId</td>
-                                    <td contenteditable='true'>@item.Price</td>
-                                    <td contenteditable='true'>@item.Discount</td>
-                                    <td contenteditable='true'><div class="btn"><MudButton ButtonType="ButtonType.Submit" OnClick="@(e => RemoveProduct(item.ProductId))" Align="align.Center"><a href="/MyProduct"><div class="btncolor1">Delete</div></a></MudButton></div></td>
-                                    <br>
-                                    </tr>
-                                }
-                            }
-
-                        </tbody>
-                    </table>
-
-                    <div class="btn1">
-                        <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><a href="/AddProduct"><div class="btncolor2">Add Product</div></a></MudButton>
-                    </div>
-                </MudPaper>
-            </MudItem>
-        </div>
+        <MudSimpleTable Style="overflow-x: auto;padding: 20px;">
+            <div class = "table_length">
+            <thead>
+                <tr>
+                    @foreach (var h in headings)
+                    {
+                        <th>@h</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in products){
+                    @if (item.UserId == userId){
+                        <tr>
+                           <td contenteditable='true'>@item.ProductId</td>
+                           <td contenteditable='true'>@item.ProductName</td>
+                           <td contenteditable='true'>@item.CategoryId</td>
+                           <td contenteditable='true'>@item.Price</td>
+                           <td contenteditable='true'>@item.Discount</td>
+                           <td contenteditable='true'><div class="btn"><MudButton ButtonType="ButtonType.Submit" OnClick="@(e => RemoveProduct(item.ProductId))" Align="align.Center"><a href="/MyProduct"><div class="delete_buttonColor">Delete</div></a></MudButton></div></td>
+                          </tr>
+                     }
+                 }
+            </tbody>
+            <div class="add_button">
+                        <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><a href="/AddProduct"><div class="add_buttoncolor">Add Product</div></a></MudButton>
+            </div>
+            </div>
+        </MudSimpleTable>
     </MudGrid>
 </div>
 
 
+
 @code {
+    string[] headings = { "Product ID", "Product Name", "Category", "Price", "Discount","Delete" };
     public Product P1 = new Product();
 
     public List<Product> products = new List<Product>();

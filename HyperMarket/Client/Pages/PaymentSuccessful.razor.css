@@ -1,35 +1,36 @@
-﻿.img {
+﻿.payment-image {
     height: 450px;
     margin-left: 60px;
     padding-bottom: 50px;
     padding-top: 35px
 }
 
-.paymentbtn {
+.paymentbutton {
     margin-top: -165px;
     margin-left: 350px;
     width: 120px;
     background-color: #f35555;
 }
 
-.first {
+.background-alignment {
     margin-top: -90px;
     background-color: #cbf0f5;
     height: 120vh;
 }
 
-.second {
+s
+.MudItem-alignment {
     margin-top: -70px;
     padding: 125px;
 }
 
-.third {
+.MudCard-alignment {
     height: 500px;
     margin-top: 130px;
     width: 500px;
 }
 
-.btncolor {
+.buttoncolor {
     color: white;
     text-align: center;
     margin-left: 40px;

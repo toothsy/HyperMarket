@@ -1,15 +1,14 @@
 ﻿.main-height {
-    height: 98vh;
+    height: 120vh;
     background-color: #87E0ED;
 }
 
 ::deep form {
     position: relative;
-    top: 10%;
-
+    top: 4%;
 }
 
 ::deep div.card-beautified {
     width: 55%;
-    border-radius: 12px
+    border-radius: 12px;
 }

@@ -27,19 +27,6 @@
 </body>
 
 
-@*<MudTable Items="@queries.Take(2)" Hover="true">
-    <HeaderContent>
-    <MudTh>UserId</MudTh>
-    <MudTh>Query</MudTh>
-    <MudTh>Date/Time</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-    <MudTd DataLabel="UserId">@context.UserId</MudTd>
-    <MudTd DataLabel="Query">@context.QueryDescription</MudTd>
-    <MudTd DataLabel="Date/Time">@context.QueryTimestamp</MudTd>
-    </RowTemplate>
-    </MudTable>*@
-
 @code {
 
     public List<Blog> blogs = new List<Blog>();
