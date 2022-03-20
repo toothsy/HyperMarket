@@ -23,6 +23,7 @@ namespace HyperMarket.Server.Controllers
         public async Task<IActionResult> Signup(UserSignup request)
         {
             var isValidOtp = await ValidateOTP(request.OTPValidate);
+
             var isReferred = await _authRepo.ValidateReferral(request.ReferralCode);
 
             User userObject = new User()
