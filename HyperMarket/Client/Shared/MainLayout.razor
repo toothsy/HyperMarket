@@ -85,44 +85,53 @@
     </div>
    @* </MudGrid>*@
 
-    <MudMainContent>
+    <MudMainContent Class="body">
         @Body
     </MudMainContent>
-    @*<div class="container">
-        <ul class="flex-row">
-            <MudAppBar Color="Color.Dark" Fixed="true" Dense="true" Bottom="true">
-                <MudLink Href="/About" Underline="Underline.Always"><a class="link1" href="/about">About</a></MudLink>
-                <MudLink Href="/Blog" Underline="Underline.Always"><a class="link1" href="/blog">Blog</a></MudLink>
-                <MudLink Href="/SocialMedia" Style="color: white;" Underline="Underline.Always"><a class="link1" href="/SocialMedia">Social Media</a></MudLink>
-                <MudLink Href="/FAQ" Style="color: white;" Underline="Underline.Always"><a class="link1" href="/FAQ">FAQ's</a></MudLink>
-                <MudLink Href="/ContactUs" Style="color: white;" Underline="Underline.Always"><a class="link1" href="/ContactUs">Contact Us</a></MudLink>
-            </MudAppBar>
-        </ul>*@
+
         <footer>
         <div class="footer">
             <div class="inner_footer">
                 <div class="logo_container">
                     <img src="images/LOGO.png"
                 </div>
+
+
                 <div class="footer-third">
                     <h1>Need Help?</h1>
-                    <a href="/About">About Page</a>
+                    <a href="/About">About Us</a>
                     <a href="/FAQ">FAQ</a>
                     <a href="/ContactUs">Contact Us</a>
                 </div>
+
+
                 <div class="footer-third">
                     <h1>Learn More</h1>
                     <a href="/">Terms and conditions</a>
                     <a href="/Blog">Blog</a>
                 </div>
+
+
                 <div class="footer-third">
                     <h1>Reach out to us</h1>
-                    <MudIconButton Icon="@Icons.Custom.Brands.Facebook" Color="Color.Primary" aria-label="facebook"></MudIconButton>
-                        <p>@config.FaceBookHandle</p>
-                        <MudIconButton Icon="@Icons.Custom.Brands.Instagram" Color="Color.Primary" aria-label="instagram"></MudIconButton>
-                        <p>@config.InstaHandle</p>
-                        <MudIconButton Icon="@Icons.Custom.Brands.Twitter" Color="Color.Primary" aria-label="teitter"></MudIconButton>
-                        <p>@config.TwitterHandle</p>
+                    <div class="links">
+                        <a href="@config.FaceBookHandle" target="_blank">
+                                <MudIconButton Icon="@Icons.Custom.Brands.Facebook" 
+                                Color="Color.Primary" aria-label="facebook"/>
+                        </a>
+                        <a href="@config.InstaHandle" target="_blank">
+                                <MudIconButton Icon="@Icons.Custom.Brands.Instagram" 
+                                    Color="Color.Primary" aria-label="instagram" />
+                        </a>
+                        <a href="@config.TwitterHandle" target="_blank">
+                                <MudIconButton Icon="@Icons.Custom.Brands.Twitter" 
+                                        Color="Color.Primary" aria-label="twitter"/>
+                        </a>
+                        <a href="@config.YouTubeHandle" target="_blank">
+                                <MudIconButton Icon="@Icons.Custom.Brands.YouTube" 
+                                        Color="Color.Primary" aria-label="youtube"/>
+                        </a>
+                    </div>
                 </div>
             </div>
     </div>
