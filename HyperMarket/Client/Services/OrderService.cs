@@ -19,9 +19,9 @@ namespace HyperMarket.Data.Interfaces
             }
 
 
-            public async Task<Order> GetOrderById(int id)
+            public async Task<List<Order>> GetOrderById(int id)
             {
-                var order1 = await _httpClient.GetFromJsonAsync<Order>($"/api/order/{id}");
+                var order1 = await _httpClient.GetFromJsonAsync<List<Order>>($"/api/order/{id}");
                 return order1;
             }
 

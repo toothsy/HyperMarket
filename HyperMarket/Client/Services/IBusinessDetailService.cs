@@ -7,7 +7,9 @@ namespace HyperMarket.Data.Interfaces
     {
         Task<List<BusinessDetail>> GetBusinesses();
         Task<BusinessDetail> GetBusinessById(int id);
+        Task<BusinessDetail> GetBusinessByBid(int id);
         void SaveBusiness(ListBusinessModel business);
         Task<BusinessDetail> UpdateBusiness(BusinessDetail business);
+
     }
 }

@@ -11,7 +11,7 @@ namespace HyperMarket.Data.Interfaces
     public interface IOrderService
     {
         Task<List<Order>> GetOrders();
-        Task<Order> GetOrderById(int id);
+        Task<List<Order>> GetOrderById(int id);
         void CreateOrder(OrderModel order);
     }
 }

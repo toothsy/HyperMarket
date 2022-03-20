@@ -29,12 +29,13 @@ namespace HyperMarket.Server.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrdersById(int id)
         {
-            var order1 = await _context.Orders.FirstOrDefaultAsync(x => x.OrderId == id);
-            if (order1 == null)
+            var orders = await (from prods in _context.Orders where prods.UserId == id select prods).ToListAsync();
+
+            if (orders == null)
             {
-                return NotFound("Order not found!");
+                return NotFound("Product not found!");
             }
-            return Ok(order1);
+            return Ok(orders);
         }
 
         [HttpPost]
