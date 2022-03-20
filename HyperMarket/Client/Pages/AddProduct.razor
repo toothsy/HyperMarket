@@ -20,7 +20,9 @@
                         <h4>Add New Product</h4>
                         <MudCardContent>
                             <MudTextField Label="Product name" HelperText="Max. 30 characters" @bind-Value="prod.ProductName" For="@(()=>prod.ProductName)" InputType="InputType.Text"/>
-                            <MudTextField Label="Product Description" Class="mt-3" @bind-Value="prod.ProductDescription" For="@(()=> prod.ProductDescription)" InputType="InputType.Text"/>
+                            <MudTextField Label="Product Description" Class="mt-3" @bind-Value="proddescription" InputType="InputType.Text"/>
+                            <MudTextField Label="Inclusions" Class="mt-3" @bind-Value="prodinclusion" InputType="InputType.Text"/>
+                            <MudTextField Label="Conditions" Class="mt-3" @bind-Value="prodcondition" InputType="InputType.Text"/>
                             <MudTextField Label="Price" HelperText="List your price" Class="mt-3" @bind-Value="prod.Price" For="@(()=> prod.Price)" InputType="InputType.Number" />
                            <MudSelect @bind-Value="@prod.CategoryId" Label="Category"  AnchorOrigin="Origin.BottomCenter">
                                 @foreach (var item in category)
@@ -91,6 +93,9 @@
     List<Category> category = new List<Category>();
     List<SubCategory> subcategory = new List<SubCategory>();
     public string productImage = string.Empty;
+    public string proddescription = string.Empty;
+    public string prodinclusion = string.Empty;
+    public string prodcondition = string.Empty;
 
 
     protected override async Task OnInitializedAsync()
@@ -105,7 +110,7 @@
         prod.CategoryId = prod.CategoryId;
         prod.SubCategoryId = prod.SubCategoryId;
         prod.ImageUrl = productImage;
-
+        prod.ProductDescription = proddescription + "&b" + prodinclusion + "&b" + prodcondition;
         productService.SaveProduct(prod);
         Snackbar.Add("Product Added Sucessfully", Severity.Success);
         UriHelper.NavigateTo("/Myproduct");
