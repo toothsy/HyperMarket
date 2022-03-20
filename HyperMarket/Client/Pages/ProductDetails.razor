@@ -16,8 +16,8 @@
 
 else{
     
-<MudCard>
-    <MudCardMedia Image=@prod.ImageUrl  Height="200" />
+@*<MudCard>
+    <MudCardMedia Image=@prod.ImageUrl  />
     <MudCardContent>
         <MudText Typo="Typo.h5">@prod.ProductName</MudText>
         <MudText Typo="Typo.h5">@prod.Price</MudText>
@@ -36,7 +36,41 @@ else{
             <MudButton ButtonType="ButtonType.Submit" Align="align.Center"><a href="/MyPayment"><div class="btncolor">Buy Now</div></a></MudButton>
         </div>
     </MudCardActions>
-</MudCard>
+</MudCard>*@
+<div class="background">
+    <div class="details">
+        <div class="info">
+           <div class="image-container">
+               <img src=@prod.ImageUrl />
+           </div>
+           <div class="product-details">
+               <h1>@prod.ProductName</h1>
+               <h2>@prod.ProductDescription</h2>
+               <hr/>
+               <h2>Address</h2>
+               <h6>@prod.AddressLine1</h6>
+               <h6>@prod.AddressLine2</h6>
+               <h6>@prod.AddressLine3</h6>
+               <hr/>
+               <div class="d-flex">
+               <p>@prod.Price &#8377;</p>
+                   <button class="paymentbtn" >
+                            <a href="/MyPayment">Buy Now</a>
+                   </button>    
+               </div>
+               <hr/>
+               <h6>Pincode:@prod.Pin</h6>
+               <h6>@prodcondition,@prodinclusion</h6>
+
+           </div>
+        </div>
+        <div class="more-stuff">
+            <button class="paymentbtn" >
+                    <a href="/">More products</a>
+            </button>   
+        </div>
+    </div>
+</div>
 }
 @code {
     public Product prod;
