@@ -59,7 +59,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        
+
         try
         {
             AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
@@ -69,13 +69,14 @@ else
         }
         catch
         {
-             Snackbar.Add("User is not a Customer", Severity.Info);
+            Snackbar.Add("User is not a Customer", Severity.Info);
         }
     }
 
 
     private async Task OnValidSubmit(EditContext context)
     {
+        c1.User = await userService.GetUserById(userId);
         await customerDetailService.UpdateUser(c1);
         Snackbar.Add("Updated Sucessfully", Severity.Success);
     }

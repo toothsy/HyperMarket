@@ -1,42 +1,59 @@
-﻿@page "/MyOrderCustomer"
+﻿@page "/MyOrderCus"
 @*@using HyperMarket.DB.Models;*@
 @inject HyperMarket.Data.Interfaces.IOrderService orderservice
+@inject AuthenticationStateProvider AuthStateProvider
+@inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
+@inject HyperMarket.Data.Interfaces.IPaymentService paymentService
 @inject ISnackbar Snackbar
 @attribute [Authorize(Roles="User")]
 
 <h3 margin-bottom=10px><center>My Orders</center></h3>
 <div class="bg">
 <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">
-    <MudTable Items=@order Class="card">
+    <MudTable Items=@ordersInfo Class="card">
     <HeaderContent>
-        <MudTh>Order No.</MudTh>
-        <MudTh>Date</MudTh>
-        <MudTh>Description</MudTh>
-        <MudTh>Amount</MudTh>
+        <MudTh>Order Id</MudTh>
+        <MudTh>Business Name</MudTh>
+        <MudTh>Credits Used</MudTh>
+        <MudTh>Total Amount</MudTh>
     </HeaderContent>
     <RowTemplate>
-        @foreach(var bill in order)
-        {
-            @if (bill.UserId == 1001)
-            {
-                <MudTd >@bill.OrderId</MudTd>
-                <MudTd >@bill.PaymentId</MudTd>
-                @*<MudTd >@bill.BusinessName</MudTd>*@
-                <MudTd >@bill.MyOrderCredits</MudTd>
-            }
-        }
-    </RowTemplate>
+            <MudTd >@context.OrderId</MudTd>
+             <MudTd >@context.BusinessName</MudTd>
+              <MudTd >@context.OrderCredits</MudTd>
+             <MudTd >@context.TotalAmount</MudTd>
+      </RowTemplate>
+    
   </MudTable>
 </MudGrid>
 </div>
 @code {
     public List<Order> order = new List<Order>();
+    public List<MyOrdersModel> ordersInfo = new List<MyOrdersModel>();
+    public int userId;
     protected override async Task OnInitializedAsync()
     {
-       try
+        try
         {
-            order = await orderservice.GetOrders();
-            Snackbar.Add("Orders Placed Sucessfully", Severity.Info);
+            AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+            userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            order = await orderservice.GetOrderById(userId);
+
+            foreach (Order ord in order)
+            {
+                BusinessDetail currentBiz= await businessService.GetBusinessByBid(ord.BusinessDetailId);
+                Payment pay = await paymentService.GetPaymentById(ord.PaymentId);
+                MyOrdersModel info = new MyOrdersModel()
+                {
+                    OrderId = ord.OrderId,
+                    BusinessName = currentBiz.BusinessName,
+                    OrderCredits = ord.MyOrderCredits,
+                    TotalAmount = pay.Price,
+
+                };
+                ordersInfo.Add(info);
+            }
+            //Snackbar.Add("Orders Placed Sucessfully", Severity.Info);
         }
         catch
         {

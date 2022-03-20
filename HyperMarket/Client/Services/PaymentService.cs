@@ -34,5 +34,12 @@ namespace HyperMarket.Data.Interfaces
             var pay = await _httpClient.GetFromJsonAsync<Payment>($"/api/payment");
             return pay;
         }
+
+        public async Task<Payment> GetPaymentById(int id)
+        {
+            var pay = await _httpClient.GetFromJsonAsync<Payment>($"/api/payment/{id}");
+            return pay;
+        }
+
     }
 }

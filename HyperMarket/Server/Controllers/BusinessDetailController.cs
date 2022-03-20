@@ -80,6 +80,18 @@ namespace HyperMarket.Server.Controllers
             return Ok(business);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBusinessByBid(int id)
+        {
+            var business = await _context.BusinessDetails.FirstOrDefaultAsync(x => x.BusinessId == id);
+
+            if (business == null)
+            {
+                return NotFound("User not found!");
+            }
+            return Ok(business);
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<User>> UpdateBusiness(BusinessDetail business)

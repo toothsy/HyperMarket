@@ -12,6 +12,6 @@ namespace HyperMarket.Data.Interfaces
     {
         Task<Payment> GetCurrentPayment();
         void SavePaymentDetails(PaymentModel business);
-
+        Task<Payment> GetPaymentById(int id);
     }
 }

@@ -48,5 +48,17 @@ namespace HyperMarket.Server.Controllers
             return Ok(pay.PaymentId);
 
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPaymentById(int id)
+        {
+            var pay = await _context.payments.FirstOrDefaultAsync(x => x.PaymentId == id);
+
+            if (pay == null)
+            {
+                return NotFound("Payment not found!");
+            }
+            return Ok(pay);
+        }
     }
 }
