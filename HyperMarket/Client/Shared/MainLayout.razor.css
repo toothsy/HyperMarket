@@ -147,6 +147,8 @@ main {
     border-top-right-radius: 40px 40px;
     border-top-left-radius: 40px 40px;
     user-select: none;
+    position:relative;
+    z-index:5;
 }
 
 .inner_footer {
