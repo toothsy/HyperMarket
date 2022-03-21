@@ -86,6 +86,7 @@
             });
         if (result.Success)
         {
+            Snackbar.Add("Referral Code successfully updated credits", Severity.Success);
             await LocalStorage.SetItemAsync<string>("OTP", result.Data);
             Snackbar.Add("OTP Sent", Severity.Success);
         }

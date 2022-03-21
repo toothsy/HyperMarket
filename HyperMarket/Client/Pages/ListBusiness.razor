@@ -4,6 +4,7 @@
 @using System.ComponentModel.DataAnnotations
 @using System.Text.RegularExpressions
 @using HyperMarket.UIControls.LoadingIcon
+@inject ISnackbar Snackbar
 @inject HyperMarket.Data.Interfaces.IBusinessDetailService businessService
 @inject HyperMarket.Data.Interfaces.IUserRole userRoleServices
 @inject AuthenticationStateProvider AuthStateProvider
@@ -79,6 +80,7 @@
 
         //byte array to base 64 string
         businessImage= $"data:image/jpg;base64,{Convert.ToBase64String(buffer)}";
+        Snackbar.Add("Image Uploaded", Severity.Success);
     }
 
     protected override async Task OnInitializedAsync()
