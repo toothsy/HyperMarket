@@ -13,4 +13,8 @@
     height: 300vh;
     overflow:hidden;
 }
-
+@media (min-width: 641px) {
+    .bg {
+        height: 1000vh;
+    }
+}

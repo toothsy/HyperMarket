@@ -18,25 +18,6 @@ namespace HyperMarket.Server.Controllers
             _context = context;
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetUsers()
-        //{
-        //    return Ok(await _context.Users.ToListAsync());
-        //}
-
-
-
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetUserById(int id)
-        //{
-        //    var user = await _context.Users.FirstOrDefaultAsync(x => x.UserId == id)
-        //                     ;
-        //    if (user == null)
-        //    {
-        //        return NotFound("User not found!");
-        //    }
-        //    return Ok(user);
-        //}
 
         [HttpGet]
         public async Task<IActionResult> GetCustomerDetail()

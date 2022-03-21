@@ -54,10 +54,7 @@
     {
         ctr = 0;
         location = await sessionStorage.GetItemAsync<Location>("Location");
-        //if(location==null)
-        //{
-        //    location = await locationService.GetLocationById(1);
-        //}
+
         businesses = await businessService.GetBusinesses();
     }
 }

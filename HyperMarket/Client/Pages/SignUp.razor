@@ -62,6 +62,8 @@
 
         if (result.Success){
             Snackbar.Add("Successful SignUp", Severity.Success);
+            Snackbar.Add("Yay referral code sucessfully applied🎉🎉, here have 110 credits", Severity.Success);
+
             NavigationManager.NavigateTo("/signin");
 
 
@@ -86,9 +88,8 @@
             });
         if (result.Success)
         {
-            Snackbar.Add("Referral Code successfully updated credits", Severity.Success);
-            await LocalStorage.SetItemAsync<string>("OTP", result.Data);
             Snackbar.Add("OTP Sent", Severity.Success);
+            await LocalStorage.SetItemAsync<string>("OTP", result.Data);
         }
         else
         {

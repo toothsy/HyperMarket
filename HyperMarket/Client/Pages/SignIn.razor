@@ -54,8 +54,6 @@
     UserSignin userSignin = new UserSignin();
     UserOTP userOTP = new UserOTP();
     private bool hideForm = true;
-    private bool disabled = false;
-    private string messageForButton = "Get OTP";
     async void HandleSignin()
     {
         var result = await AuthService.Signin(userSignin, userOTP);

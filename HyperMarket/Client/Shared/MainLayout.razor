@@ -5,6 +5,7 @@
 @inject HyperMarket.Data.Interfaces.IConfigService configService
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
 @inject AuthenticationStateProvider AuthStateProvider
+@inject ISnackbar Snackbar
 
 
 <MudThemeProvider />
@@ -13,16 +14,15 @@
 
 
 <MudLayout>
-   @* <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">*@
     <div class="flex-container">
-        <MudAppBar Fixed="true" Dense="true">
+        <MudAppBar Fixed="true" Dense="true" Color="Color.Error">
             <div><a href="/"> <MudImage Src="images/LOGO.png" Width="48" Height="48" /></a></div>
             <div id="location-dropdown">  
-                <MudSelect T="Location" Class="wider" @bind-Value="savedLocation" SelectedValuesChanged="@saveLocation"
-                    Label="Location" AnchorOrigin="Origin.BottomCenter">
+                <MudSelect T="Location" Class="wider" @bind-Value="savedLocation" 
+                SelectedValuesChanged="@saveLocation" Label="Location" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var item in AllLocations)
                     {
-                        <MudSelectItem Class="wider" Value=@item >@item.LocationName</MudSelectItem>
+                        <MudSelectItem Class="wider" Value="@(@item)" >@item.LocationName</MudSelectItem>
                         <MudDivider />
                     }
 
@@ -34,19 +34,18 @@
                     <div class="navbar-padding">
                         <span>Hi, @context.User.Identity.Name </span>
                     </div>
-                    @if(userId == 1018)
+                    @if(userId == 1022)
                     {
-                        <div class="navbar-padding">
+                    <div class="navbar-padding">
                         <MudLink href="RoleAuthoring"><div class="appcolor">Manage Roles</div></MudLink>
                         </div>
                         <div class="navbar-padding">
                             <MudSelect T="string" Label="My Account"  AnchorOrigin="Origin.BottomCenter">
-                                <a href="/MyProfile"><MudSelectItem Value="@("My Profile")" /></a>
+                               <a href="/MyProfile"><MudSelectItem Value="@("My Profile")" /></a>
                                <a href="/MyOrderCus"><MudSelectItem Value="@("My Orders")" /></a>
-                               
 
                             </MudSelect>
-                        </div>
+                    </div>
                     }
                     else
                     {
@@ -66,44 +65,31 @@
                     
 
                     }
-                    <div class="navbar-padding"> <MudLink @onclick="Signout"><div class="appcolor">Sign Out</div></MudLink></div>
+                    <div class="navbar-padding"> 
+                        <MudLink @onclick="Signout">
+                            <div class="appcolor">Sign Out</div>
+                        </MudLink>
+                    </div>
                 </Authorized>
                 <NotAuthorized>
-
-                    <div><MudLink href="signin"><div class="appcolor app-margin">Sign In</div></MudLink></div>
-                    <div><MudLink href="signup"><div class="appcolor app-margin">Sign Up</div></MudLink></div>
+                    <div class="non-authorised">
+                        <div>
+                            <a href="signin">
+                                <div class="appcolor app">Sign In</div>
+                            </a>
+                        </div>
+                        <div>
+                            <a href="signup">
+                                <div class="appcolor app">Sign Up</div>
+                            </a>
+                       </div>
+                   </div>
 
                 </NotAuthorized>
             </AuthorizeView>
 
-            @* <AuthorizeView Roles="Business">
-                <Authorized>
-                <div class="space1">
-                <span>Hi, @context.User.Identity.Name </span>
-                </div>
-
-                <div>
-                <div class="first">
-                <MudSelect T="string" Label="My Account" AnchorOrigin="Origin.BottomCenter">
-                <a href="/MyBusiness"><MudSelectItem Value="@("My Business")" /></a>
-                <a href="/MyProduct"><MudSelectItem Value="@("My Products")" /></a>
-
-                </MudSelect>
-                </div>
-                </div>
-                <div class="space3"> <MudLink @onclick="Signout"><div class = "appcolor">Sign Out</div></MudLink></div>
-
-                </Authorized>
-
-                <NotAuthorized>
-                You do not have access to view this page
-                </NotAuthorized>
-                </AuthorizeView>*@
-
-            @*<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" />*@
         </MudAppBar>
     </div>
-   @* </MudGrid>*@
 
     <MudMainContent Class="body">
         @Body
@@ -165,18 +151,29 @@
     public Config config = new Config();
     public Location savedLocation;
     public int userId;
-    protected override async Task OnInitializedAsync()
-    {
+    protected override async Task OnInitializedAsync(){
         AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
-        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+        try
+        {
+            string testForTokenPresence = await LocalStorage.GetItemAsync<string>("authToken");
+            userId = Int32.Parse(ac.User.Claims.FirstOrDefault(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+        }
+        catch
+        {
+            Snackbar.Add("Heyy, you might wanna sign in/ up,✌", Severity.Info);
+
+            
+        }
         AllLocations = await locationService.GetAllLocation();
         config = await configService.GetConfigById(601);
 
     }
 
     private async void saveLocation(){
+
         await sessionStorage.SetItemAsync("Location",this.savedLocation);
         NavigationManager.NavigateTo("/",true);
+
     }
 
     private async void Signout()

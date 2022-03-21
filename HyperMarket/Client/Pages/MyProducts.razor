@@ -55,7 +55,6 @@
         {
             AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
             userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
-            //P1 = await productService.GetProductById(101);
 
             products = await productService.GetProducts();
         }

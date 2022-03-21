@@ -17,3 +17,9 @@
     height: 98vh;
     background-color: #cbf0f561;
 }
+
+@media (max-width: 641px) {
+    .main-height {
+        height: 150vh;
+    }
+}

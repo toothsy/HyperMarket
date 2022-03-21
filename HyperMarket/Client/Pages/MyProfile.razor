@@ -47,10 +47,6 @@ else
 }
 
 @code {
-    //public string searchString = "";
-    //public List<User> users = new List<User>();
-    //public CustomerDetail customer1 = new CustomerDetail();
-
     public int userId;
     public User users1;
     public CustomerDetail c1 = new CustomerDetail();
@@ -69,7 +65,7 @@ else
         }
         catch
         {
-            Snackbar.Add("User is not a Customer", Severity.Info);
+            Snackbar.Add("Perhaps Sign In as a customer", Severity.Info);
         }
     }
 

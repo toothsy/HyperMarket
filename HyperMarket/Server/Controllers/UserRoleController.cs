@@ -28,11 +28,7 @@ namespace HyperMarket.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<UserRole>> UpdateUserRole(UserRole u){
             //wip
-            var singleUser = _context.UserRoles.Where(x => x.UserId == u.UserId).ToList();
-
-            
-
-
+            var singleUser = _context.UserRoles.Where(x => x.UserId == u.UserId).ToList();     
 
 
             if (singleUser == null)

@@ -13,13 +13,6 @@ namespace HyperMarket.Server.Controllers
     public class BusinessDetailController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        //public readonly LocationService locationService;
-        //private readonly HttpClient _httpClient;
-
-        //public BusinessDetailController(HttpClient httpClient)
-        //{
-        //    _httpClient = httpClient;
-        //}
 
         public BusinessDetailController(ApplicationDbContext context)
         {

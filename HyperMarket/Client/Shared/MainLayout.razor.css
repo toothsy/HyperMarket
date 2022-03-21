@@ -8,17 +8,11 @@ main {
     flex: 1;
 }
 
-::deep div.body{
-    height:150vh;
-}
-
-.sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
-}
 
 .flex-container {
     display: flex;
     flex-direction: row;
+
 }
 .space3 {
     margin-top: 20px;
@@ -39,13 +33,6 @@ main {
     padding-left: 165px;
 }
 
-.appcolor {
-    color: white;
-}
-
-.appbarcolor {
-    background-color: #f35555;
-}
 
 .container {
     display: flex;
@@ -220,11 +207,37 @@ div.links{
     margin-left: 10px;
     margin-right: 10px;
 }
-
-.app-margin {
-    margin: 0px 20px;
+.appcolor{
+    color:white;
 }
 
+.non-authorised{
+    display:flex;
+    width:9%;
+    justify-content:space-between;
+    align-content:center;
+    color:black;
+    font-size:1.2em;
+    font-weight:500;
+    user-select:none;
+    height:100%;
+}
+.non-authorised div{
+    background-color:#ff705a;
+    height:100%;
+    padding:.1em;
+    border-radius:.5em;
+
+}
+    .non-authorised div a div {
+        line-height:40px;
+        text-align:center;
+    }
+
+.non-authorised a{
+    text-decoration:none;
+    color:black;
+}
 @media (max-width: 640px) {
     .top-row:not(.auth) {
         display: none;
@@ -255,6 +268,7 @@ div.links{
         margin-left: calc(5.66667%);
         height:20vh
     }
+
 }
 
 @media (min-width: 641px) {

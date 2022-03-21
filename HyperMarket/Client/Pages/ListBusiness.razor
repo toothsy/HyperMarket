@@ -15,16 +15,6 @@
 @inject NavigationManager UriHelper
 
 
-@*<AuthorizeView Roles="User">
-    <Authorized>
-        <h1>Hi user</h1>
-
-    </Authorized>
-    <NotAuthorized>
-        You do not have access to view this page
-    </NotAuthorized>
-</AuthorizeView>
-*@
 <div class = "bg">
     <EditForm Model="listBusiness" OnValidSubmit="ListYourBusiness">
         <DataAnnotationsValidator></DataAnnotationsValidator>
@@ -42,9 +32,6 @@
                                 <MudSelectItem Value=@item.LocationId>@item.LocationName</MudSelectItem>
                             }
                         </MudSelect>
-                        @*<InputFile id="fileinput" OnChange ="@OnInputFileChanged" hidden multiple/>
-                        <MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Filled.CloudUpload" for="fileInput"> Upload Files
-                        </MudButton>*@
                         <label class="label-for-button" for="fileInput2"> Upload Image <MudIcon Icon="@Icons.Filled.CloudUpload"/></label>
                         <InputFile id="fileInput2" OnChange="OnInputFileChanged" hidden multiple />
                     </MudCardContent>
@@ -61,7 +48,6 @@
 </div>
 
 @code {
-    bool success;
     ListBusinessModel listBusiness = new ListBusinessModel();
     public List<Location> AllLocations = new List<Location>();
     public Location loc = new Location();
@@ -71,16 +57,11 @@
 
     public async Task OnInputFileChanged(InputFileChangeEventArgs inputFileChangeEvent)
     {
-        //getting the file
         var file = inputFileChangeEvent.File;
-
-        //byte array
         var buffer = new byte[file.Size];
         await file.OpenReadStream().ReadAsync(buffer);
-
-        //byte array to base 64 string
         businessImage= $"data:image/jpg;base64,{Convert.ToBase64String(buffer)}";
-        Snackbar.Add("Image Uploaded", Severity.Success);
+        Snackbar.Add("Image Uploaded sucessfully", Severity.Success);
     }
 
     protected override async Task OnInitializedAsync()

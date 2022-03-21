@@ -7,8 +7,10 @@
 @inject ISnackbar Snackbar
 @attribute [Authorize(Roles="User")]
 
-<h3 margin-bottom=10px><center>My Orders</center></h3>
 <div class="bg">
+<h3 >
+    <center>My Orders</center>
+</h3>
 <MudGrid Class="justify-center d-flex align-center mud-width-full py-8">
     <MudTable Items=@ordersInfo Class="card">
     <HeaderContent>
@@ -57,7 +59,7 @@
         }
         catch
         {
-            Snackbar.Add("No Orders", Severity.Success);
+            Snackbar.Add("How about we order some stuff?", Severity.Success);
         }
     }
 }

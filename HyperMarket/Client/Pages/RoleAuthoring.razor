@@ -20,17 +20,17 @@ else{
                 <MudTextField @bind-Value="searchstring" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <HeaderContent>
+                <MudTh>User Role Id</MudTh>
                 <MudTh>User Id</MudTh>
                 <MudTh>Role</MudTh>
                 <MudTh>Role Name</MudTh>
-                <MudTh>User Role Id</MudTh>
                 <MudTh>Action</MudTh>
             </HeaderContent>
                 <RowTemplate>
+                    <MudTd>@context.UserRoleId</MudTd>
                     <MudTd>@context.UserId</MudTd>
                     <MudTd>@context.RoleId</MudTd>
                     <MudTd>@getRole(context.RoleId)</MudTd>
-                    <MudTd>@context.UserRoleId</MudTd>
                     <MudTd><MudIconButton Icon="@Icons.Material.Filled.Delete" 
                                 aria-label="delete" OnClick="@(e => DeleteRole(context))">Delete</MudIconButton></MudTd>
                 </RowTemplate>

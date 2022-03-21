@@ -129,7 +129,7 @@ namespace HyperMarket.Server
                 }
                 
             }
-            catch (Exception ex)
+            catch
             {
                 response.Message = "Invalid referral code";
                 response.Success = false;
