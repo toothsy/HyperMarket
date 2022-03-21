@@ -4,6 +4,7 @@
 @inject NavigationManager NavigationManager
 @inject HyperMarket.Data.Interfaces.IConfigService configService
 @inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+@inject AuthenticationStateProvider AuthStateProvider
 
 
 <MudThemeProvider />
@@ -33,9 +34,25 @@
                     <div class="navbar-padding">
                         <span>Hi, @context.User.Identity.Name </span>
                     </div>
-                    <div class="navbar-padding">
+                    @if(userId == 1018)
+                    {
+                        <div class="navbar-padding">
+                        <MudLink href="RoleAuthoring"><div class="appcolor">Manage Roles</div></MudLink>
+                        </div>
+                        <div class="navbar-padding">
+                            <MudSelect T="string" Label="My Account"  AnchorOrigin="Origin.BottomCenter">
+                                <a href="/MyProfile"><MudSelectItem Value="@("My Profile")" /></a>
+                               <a href="/MyOrderCus"><MudSelectItem Value="@("My Orders")" /></a>
+                               
+
+                            </MudSelect>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="navbar-padding">
                         <MudLink href="listBusiness"><div class="appcolor">List Your Business</div></MudLink>
-                    </div>
+                        </div>
                         <div class="navbar-padding">
                             <MudSelect T="string" Label="My Account"  AnchorOrigin="Origin.BottomCenter">
                                 <a href="/MyProfile"><MudSelectItem Value="@("My Profile")" /></a>
@@ -46,8 +63,10 @@
 
                             </MudSelect>
                         </div>
-                    <div class="navbar-padding"> <MudLink @onclick="Signout"><div class="appcolor">Sign Out</div></MudLink></div>
+                    
 
+                    }
+                    <div class="navbar-padding"> <MudLink @onclick="Signout"><div class="appcolor">Sign Out</div></MudLink></div>
                 </Authorized>
                 <NotAuthorized>
 
@@ -145,8 +164,11 @@
     public List<Location> AllLocations = new List<Location>();
     public Config config = new Config();
     public Location savedLocation;
+    public int userId;
     protected override async Task OnInitializedAsync()
     {
+        AuthenticationState ac = await AuthStateProvider.GetAuthenticationStateAsync();
+        userId = Int32.Parse(ac.User.Claims.First(i => i.Type == System.Security.Claims.ClaimTypes.NameIdentifier).Value);
         AllLocations = await locationService.GetAllLocation();
         config = await configService.GetConfigById(601);
 

@@ -130,7 +130,7 @@ else{
         order.MyOrderCredits = prod.Price;
         order.PaymentId = paymentDetails.PaymentId;
         orderService.CreateOrder(order);
-        Snackbar.Add(" credits used: " + creditsUsed + "Final price: " + finalPrice, Severity.Success);
+        Snackbar.Add(" credits used: " + paymentModel.CreditsUsed + "Final price: " + finalPrice, Severity.Success);
         UriHelper.NavigateTo("/PaymentSuccessful");
     }
 
