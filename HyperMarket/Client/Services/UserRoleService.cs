@@ -29,5 +29,11 @@ namespace HyperMarket.Data.Interfaces
             var response = await _httpClient.GetAsync($"api/userrole/GetAllUserRoles");
             return await response.Content.ReadFromJsonAsync<List<UserRole>>();
         }
+
+        public async Task DeleteUserRole(int id)
+        {
+            await _httpClient.DeleteAsync($"/api/UserRole/DeleteUserRole/{id}");
+        }
     }
+
 }

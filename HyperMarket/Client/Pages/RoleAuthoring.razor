@@ -1,6 +1,10 @@
 ﻿@page "/RoleAuthoring"
-@inject HyperMarket.Data.Interfaces.IUserRole userservice
+@inject HyperMarket.Data.Interfaces.IUserRole userroleservice
+@using HyperMarket.DB.Interfaces
 @using HyperMarket.UIControls.LoadingIcon;
+@inject IUserService userservice
+@inject NavigationManager NavigationManager;
+@inject ISnackbar Snackbar
 @if(userrole==null){
     <Loading/>
 }
@@ -18,15 +22,17 @@ else{
             <HeaderContent>
                 <MudTh>User Id</MudTh>
                 <MudTh>Role</MudTh>
+                <MudTh>Role Name</MudTh>
                 <MudTh>User Role Id</MudTh>
                 <MudTh>Action</MudTh>
             </HeaderContent>
                 <RowTemplate>
                     <MudTd>@context.UserId</MudTd>
-                    <MudTd>@context.Role</MudTd>
+                    <MudTd>@context.RoleId</MudTd>
+                    <MudTd>@getRole(context.RoleId)</MudTd>
                     <MudTd>@context.UserRoleId</MudTd>
                     <MudTd><MudIconButton Icon="@Icons.Material.Filled.Delete" 
-                                aria-label="delete">Delete</MudIconButton></MudTd>
+                                aria-label="delete" OnClick="@(e => DeleteRole(context))">Delete</MudIconButton></MudTd>
                 </RowTemplate>
             <PagerContent>
                 <MudTablePager />
@@ -37,18 +43,41 @@ else{
 @code {
     public List<UserRole> userrole ;
     public string searchstring = "";
+    public UserRole obj = new UserRole();
     //private UserRole selectedItem1 = null;
     //private HashSet<UserRole> selectedItems = new HashSet<UserRole>();
 
 
     protected override async Task OnInitializedAsync(){
 
-        userrole = await userservice.GetAllUser();
-        
+        userrole = await userroleservice.GetAllUser();
+
 
     }
+    public async Task DeleteRole(UserRole user)
+    {
 
+        int id = user.UserRoleId;
+        //if(user.RoleId==1)
+        //{
+        //    await userservice.DeleteUser(id);
+        //}
+        await userroleservice.DeleteUserRole(id);
+        NavigationManager.NavigateTo("RoleAuthoring", true);
+        Snackbar.Add("Deleted Sucessfully", Severity.Success);
+    }
 
+    public string getRole(int i)
+    {
+        if (i == 1)
+            return "User";
+        else if (i == 2)
+            return "Customer";
+        else if (i == 3)
+            return "Admin";
+        else
+            return "Business";
+    }
     //private IEnumerable<UserRole> Elements = new List<UserRole>();
     //private bool FilterFunc1(User element) => FilterFunc(element, searchstring);
 

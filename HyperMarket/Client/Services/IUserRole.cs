@@ -12,6 +12,7 @@ namespace HyperMarket.Data.Interfaces
     {
         Task<UserRole> UserRoleUpdate(UserRole userRole);
         Task<List<UserRole>> GetAllUser();
+        Task DeleteUserRole(int id);
 
     }
 }

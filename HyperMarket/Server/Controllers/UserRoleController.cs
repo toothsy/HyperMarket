@@ -41,5 +41,24 @@ namespace HyperMarket.Server.Controllers
             return Ok(singleUser);
         }
 
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteUserRole(int id)
+        {
+            try
+            {
+                var user = await _context.UserRoles.FindAsync(id);
+                _context.UserRoles.Remove(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                "Error while deleting record\n" + exception.StackTrace);
+            }
+
+        }
+
     }
 }
